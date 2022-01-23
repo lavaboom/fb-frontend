@@ -6,7 +6,7 @@ import './Footer.scss'
 export default function Footer() {
     return (
         <div className='footer'>
-            © InStock Inc. All Rights Reserved.           
+            © Food Bunnies. All Rights Reserved.           
         </div>
     )
 }
