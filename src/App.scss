@@ -1,0 +1,22 @@
+@use './styles/partials/fonts' as *;
+@use './styles/partials/mixins' as *;
+@use './styles/partials/variables' as *;
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: $color-background-2;
+}
+
+// .app-wrapper {
+//     margin-top: -4.25rem;
+
+//     @include tablet {
+//         margin-top: -6.0625rem;
+//     }
+// }

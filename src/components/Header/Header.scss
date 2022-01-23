@@ -1,0 +1,74 @@
+@use '../../styles/partials/variables' as *;
+@use '../../styles/partials/mixins' as *;
+
+.header {
+    background-color: $color-background-1;
+    padding: 1.5rem 1rem 5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    @include tablet {
+        padding: 2rem 2rem;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 8rem;
+    }
+
+    @include desktop {
+        padding-left: calc((100vw - 80rem) / 2 + 2rem);
+        padding-right: calc((100vw - 80rem) / 2 + 2rem);
+    }
+
+    &__logo {
+        height: 2rem;
+        margin-bottom: 1.5rem;
+        text-align: center;
+
+        @include tablet {
+            margin: 0;
+        }
+    }
+
+    &__links {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    &__link {
+        color: $color-secondary-2;
+        background-color: $color-background-1;
+        text-decoration: none;
+        text-align: center;
+        border: none;
+        font-family: 'Titillium Web';
+        display: flex;
+        align-items: center;
+        padding: 0.25rem 1rem;
+        height: 2.25rem;
+
+        &--active {
+            color: white;
+            border-radius: 20px;
+            background-color: $color-primary-1;
+        }
+
+        @include tablet {
+            height: 2.375rem;
+            width: auto;
+            margin-left: 1.5rem;
+        }
+
+        &:active {
+            background-color: $color-primary-1;
+            border-radius: 1.25rem;
+            color: $color-primary-3;
+        }
+
+        &:hover {
+            text-decoration: underline;
+            color: $color-primary-3;
+        }
+    }
+}

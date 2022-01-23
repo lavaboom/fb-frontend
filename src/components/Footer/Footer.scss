@@ -1,0 +1,8 @@
+@use '../../styles/partials/variables';
+
+.footer {
+    text-align: center;
+    font-size: 0.75rem;
+    color: variables.$color-secondary-1;
+    margin: 4rem 0;
+}
