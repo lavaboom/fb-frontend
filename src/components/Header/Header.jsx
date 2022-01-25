@@ -32,6 +32,9 @@ export default class Header extends Component {
                         <li class='navbar__item'>
                             <a href='#' class='navbar__link' onClick={ this.toggleMobileMenu }>Contact</a>
                         </li>
+                        <li class='navbar__item'>
+                            <p>Hi, Huy</p>
+                        </li>
                     </ul>
                     <div class={`hamburger ${ this.state.mobileMenu ? 'hamburger--active' : '' }`} onClick={ this.toggleMobileMenu }> 
                         <span class='hamburger__bar'></span>
