@@ -8,6 +8,7 @@ import iconChevron from '../../assets/Icons/chevron_right-24px.svg'
 import iconSort from '../../assets/Icons/sort-24px.svg'
 // other sub components
 import Modal from '../Modal/Modal'
+
 // 3rd party libraries
 import axios from 'axios'
 
@@ -19,6 +20,7 @@ export default class KitchenDashboard extends Component {
     render() {
         return (
             <div>
+                <p>kitchen dashboard</p>
             </div>
         )
     }

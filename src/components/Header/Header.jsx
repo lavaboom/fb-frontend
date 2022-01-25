@@ -33,7 +33,12 @@ export default class Header extends Component {
                             <a href='#' class='navbar__link' onClick={ this.toggleMobileMenu }>Contact</a>
                         </li>
                         <li class='navbar__item'>
-                            <p>Hi, Huy</p>
+                            <p>Hi, { this.props.user.name }</p>
+                        </li>
+                        <li class='navbar__item'>
+                        <button className='' onClick={ this.props.handleLogout }>
+                            Log out
+                        </button>
                         </li>
                     </ul>
                     <div class={`hamburger ${ this.state.mobileMenu ? 'hamburger--active' : '' }`} onClick={ this.toggleMobileMenu }> 

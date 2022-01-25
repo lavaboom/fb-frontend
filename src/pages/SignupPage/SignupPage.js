@@ -21,10 +21,7 @@ export default class SignupPage extends Component {
             .post('http://localhost:8080/api/users/register', {
                 email: event.target.email.value,
                 password: event.target.password.value,
-                first_name: event.target.first_name.value,
-                last_name: event.target.last_name.value,
-                phone: event.target.phone.value,
-                address: event.target.address.value,
+                name: event.target.name.value,
             })
             .then(() => {
                 this.setState({ success: true, error: '' });
@@ -41,17 +38,14 @@ export default class SignupPage extends Component {
                 <form className='signup' onSubmit={this.handleSubmit}>
                     <h1 className='signup__title'>Sign up</h1>
 
-                    <Input type='text' name='first_name' label='First name' />
-                    <Input type='text' name='last_name' label='Last name' />
-                    <Input type='text' name='phone' label='Phone' />
-                    <Input type='text' name='address' label='Address' />
+                    <Input type='text' name='name' label='Name' />
                     <Input type='text' name='email' label='Email' />
                     <Input type='password' name='password' label='Password' />
 
                     <button className='signup__button'>Sign up</button>
 
                     {this.state.success && <div className='signup__message'>Signed up!</div>}
-                    {this.state.error && <div className='signup__message'>{this.state.error}</div>}
+                    {this.state.error && <div className='signup__message'>{ this.state.error }</div>}
                 </form>
                 <p>
                     Have an account? <Link to='/login'>Log in</Link>
