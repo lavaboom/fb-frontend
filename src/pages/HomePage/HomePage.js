@@ -7,6 +7,7 @@ import './HomePage.scss'
 import axios from 'axios';
 
 export default class HomePage extends Component {
+
     state = {
         user: null,
         failedAuth: false
@@ -20,23 +21,22 @@ export default class HomePage extends Component {
             return;
         }
 
-        // Get the data from the API
-        axios
-            .get('http://localhost:8080/api/users/current', {
-                headers: {
-                    Authorization: 'Bearer ' + token
-                }
-            })
-            .then((response) => {
-                this.setState({
-                    user: response.data
-                });
-            })
-            .catch(() => {
-                this.setState({
-                    failedAuth: true
-                })
+        // Get user data from the API
+        axios.get('http://localhost:8080/api/users/current', {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        })
+        .then((response) => {
+            this.setState({
+                user: response.data
             });
+        })
+        .catch(() => {
+            this.setState({
+                failedAuth: true
+            })
+        });
     }
 
     handleLogout = () => {
@@ -46,7 +46,6 @@ export default class HomePage extends Component {
             failedAuth: true
         })
     };
-
 
     render() {
         if (this.state.failedAuth) {

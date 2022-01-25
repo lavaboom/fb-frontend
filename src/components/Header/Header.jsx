@@ -16,35 +16,29 @@ export default class Header extends Component {
 
     render() {
         return (
-            <header class='header'>
-                <nav class='navbar'>
-                    <a href='#' class='navbar__logo'>Food Bunnies</a>
-                    <ul class={`navbar__menu ${ this.state.mobileMenu ? 'navbar__menu--active' : '' }`}> 
-                        <li class='navbar__item'>
-                        <a href='#' class='navbar__link' onClick={ this.toggleMobileMenu }>Services</a>
+            <header className='header'>
+                <nav className='navbar'>
+                    <a href='#' className='navbar__logo'>Food Bunnies</a>
+                    <ul className={`navbar__menu ${ this.state.mobileMenu ? 'navbar__menu--active' : '' }`}> 
+                        <li className='navbar__item'>
+                            <a href='#' className='navbar__link' onClick={ this.toggleMobileMenu }>Services</a>
                         </li>
-                        <li class='navbar__item'>
-                            <a href='#' class='navbar__link' onClick={ this.toggleMobileMenu }>Blog</a>
+                        <li className='navbar__item'>
+                            <a href='#' className='navbar__link' onClick={ this.toggleMobileMenu }>Switch to { this.props.user.user_type === 'Kitchen' ? 'Driver' : 'Kitchen'} view</a>
                         </li>
-                        <li class='navbar__item'>
-                            <a href='#' class='navbar__link' onClick={ this.toggleMobileMenu }>About</a>
-                        </li>
-                        <li class='navbar__item'>
-                            <a href='#' class='navbar__link' onClick={ this.toggleMobileMenu }>Contact</a>
-                        </li>
-                        <li class='navbar__item'>
+                        <li className='navbar__item'>
                             <p>Hi, { this.props.user.name }</p>
                         </li>
-                        <li class='navbar__item'>
+                        <li className='navbar__item'>
                         <button className='' onClick={ this.props.handleLogout }>
                             Log out
                         </button>
                         </li>
                     </ul>
-                    <div class={`hamburger ${ this.state.mobileMenu ? 'hamburger--active' : '' }`} onClick={ this.toggleMobileMenu }> 
-                        <span class='hamburger__bar'></span>
-                        <span class='hamburger__bar'></span>
-                        <span class='hamburger__bar'></span>
+                    <div className={`hamburger ${ this.state.mobileMenu ? 'hamburger--active' : '' }`} onClick={ this.toggleMobileMenu }> 
+                        <span className='hamburger__bar'></span>
+                        <span className='hamburger__bar'></span>
+                        <span className='hamburger__bar'></span>
                     </div>
                 </nav>
             </header>
