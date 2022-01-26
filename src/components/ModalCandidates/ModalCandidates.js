@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 // app styles & assets
 import './ModalCandidates.scss'
 import iconArrowBack from '../../assets/Icons/arrow_back-24px.svg'
+import iconArrowNext from '../../assets/Icons/arrow_next.svg'
 import iconStar from '../../assets/Icons/star.svg'
 import profilePic from '../../assets/images/profile_pic.jpeg'
 
@@ -52,6 +53,25 @@ export default class ModalCandidates extends Component {
         //  and set in the state.
     }
 
+    removeCandidate = (id) => {
+        let newList = this.state.candidates.filter(candidate => {
+            return candidate.id !== id
+        })
+        this.setState({candidates: newList})
+    }
+
+    cycleCandidate = (action) => {
+        let curCandidateIndex = this.state.curCandidateIndex;
+        if (action === 'back') {
+            curCandidateIndex -= 1;
+        } else if (action === 'next') {
+            curCandidateIndex += 1;
+        };
+        this.setState({
+            curCandidateIndex: curCandidateIndex
+        })
+    }
+
     render() {
         let showHideClassName = this.props.show ? 'modal modal--display-block' : 'modal modal--display-none';
         return (
@@ -59,14 +79,14 @@ export default class ModalCandidates extends Component {
             <section className='modal__main'>
                 <div>
                     <div className='modal__header'>
-                        <div className='modal__back-icon'>
+                        <div className={this.state.curCandidateIndex === 0 ? 'modal__icon modal__icon--inactive' : 'modal__icon'} onClick={ () => this.cycleCandidate('back')}>
                             <img src={ iconArrowBack } alt='next' />
                         </div>
                         <p>
                             {this.state.curCandidateIndex + 1}/{this.state.candidates.length}
                         </p>
-                        <div className='modal__next-icon'>
-                            <img src={ iconArrowBack } alt='next' />
+                        <div className={this.state.curCandidateIndex === this.state.candidates.length - 1 ? 'modal__icon modal__icon--inactive' : 'modal__icon'} onClick={ () => this.cycleCandidate('next')} >
+                            <img src={ iconArrowNext } alt='next' />
                         </div>
                     </div>
                     <h1 className='modal__title'>Vincent Kompany</h1>

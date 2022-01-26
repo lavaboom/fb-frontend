@@ -86,8 +86,12 @@
         text-align: center;
     }    
 
-    // &__next-icon {
-    // }
+    &__icon {
+        &--inactive {
+            visibility: hidden;
+            pointer-events: none;
+        };
+    }
 
     
     // decision buttons
