@@ -12,46 +12,27 @@ import axios from 'axios';
 
 export default class KitchenPage extends Component {
 
+    api_url = 'http://localhost:8080/api'
+
     state = {
         user: null,
         failedAuth: false,
-        trips: [
-            {
-              id: 1,
-              sender_id: 1,
-              driver_id: 3,
-              origin: 'Toronto',
-              destination: 'Vaughan',
-              date_posted: new Date(),
-              job_date: 'December 17, 2022 03:24:00',
-              status: 'IN PROGRESS',
-              payment_type: 'Paid by Sender',
-              payment_amount: 10,
-            },
-            {
-              id: 2,
-              sender_id: 1,
-              origin: 'Toronto',
-              destination: 'Hamilton',
-              date_posted: new Date(),
-              job_date: 'December 17, 2022 03:24:00',
-              status: 'NEW',
-              payment_type: 'Paid by Recipient',
-              payment_amount: 20,
-            },
-            {
-              id: 3,
-              sender_id: 4,
-              driver_id: 2,
-              origin: 'Mississauga',
-              destination: 'Barrie',
-              date_posted: new Date(),
-              job_date: 'December 17, 2022 03:24:00',
-              status: 'COMPLETED',
-              payment_type: 'Paid by Sender',
-              payment_amount: 30,
-            },
-        ]
+        trips: null,
+    }
+
+    fetchTrips = () => {
+        const token = sessionStorage.getItem('token');
+        axios.get(`${this.api_url}/users/${this.state.user.id}/trips`, {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        }).then((response) => {
+            this.setState({
+                trips: response.data
+            });
+        }).catch(() => {
+            console.log('Unable to fetch trips for this user')
+        });
     }
 
     componentDidMount() {
@@ -62,8 +43,8 @@ export default class KitchenPage extends Component {
             return;
         }
 
-        // Get the data from the API
-        axios.get('http://localhost:8080/api/users/current', {
+        // Get user data from the API
+        axios.get(`${this.api_url}/users/current`, {
             headers: {
                 Authorization: 'Bearer ' + token
             }
@@ -71,6 +52,8 @@ export default class KitchenPage extends Component {
             this.setState({
                 user: response.data
             });
+            // fetch trip data
+            this.fetchTrips();
         }).catch(() => {
             this.setState({
                 failedAuth: true

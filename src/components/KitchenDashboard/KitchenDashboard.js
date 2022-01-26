@@ -15,14 +15,16 @@ import axios from 'axios'
 export default class KitchenDashboard extends Component {
 
     // static variables 
-    apiURL = process.env.REACT_APP_API_URL
-    
+    // apiURL = process.env.REACT_APP_API_URL
+    api_url = 'http://localhost:8080/api'
+
     state = {
         showModal: false,
         modalTrip: '',
         filtered: [],
         originalTrips: [],
-        trips: null
+        trips: null,
+        tripsWithCandidates: null
     }
 
     // funtions to control modal
@@ -33,6 +35,22 @@ export default class KitchenDashboard extends Component {
     hideModal = () => {
         this.setState({ showModal: false });
     };
+
+    componentDidMount = () => {
+        // fetch trips with active candidates
+        const token = sessionStorage.getItem('token');
+        axios.get(`${this.api_url}/users/${this.props.user.id}/trips-with-candidates`, {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        }).then((response) => {
+            this.setState({
+                tripsWithCandidates: response.data
+            });
+        }).catch(() => {
+            console.log('Unable to fetch candidates for this user')
+        });
+    }
 
     // function to GET all trips
     // getAllTrips = () => {
@@ -132,7 +150,8 @@ export default class KitchenDashboard extends Component {
                                 {/* driver */}
                                 <div className='table__cell table__cell--driver'>
                                     <div className='table__label'>DRIVER</div>
-                                    <div>Pending</div>
+                                    {!this.state.tripsWithCandidates ? <p>CHECKING...</p> : 
+                                    this.state.tripsWithCandidates.indexOf(trip.id) > -1 ? <button>CLICK TO ACCEPT</button> : <div>PENDING</div>}
                                 </div>
                                 {/* action */}
                                 <div className='table__action-wrapper'>

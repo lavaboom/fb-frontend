@@ -5,7 +5,8 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import './App.scss';
 // pages
 import LandingPage from './pages/LandingPage/LandingPage';
-import KitchenPage from './pages/KitchenPage/KitchenPage'
+import KitchenPage from './pages/KitchenPage/KitchenPage';
+import CandidatesPage from './pages/CandidatesPage/CandidatesPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import SignupPage from './pages/SignupPage/SignupPage';
 // import DriverPage from './pages/DriverPage/DriverPage'
@@ -26,6 +27,7 @@ export default class App extends Component {
               <Route path='/login' component={ LoginPage } />
               <Route path='/signup' component={ SignupPage } />
               <Route path='/kitchen' component={ KitchenPage } />
+              <Route path='/trips/:id/candidates' component={ CandidatesPage } />
               {/* <Route path='/login'><LoginPage /></Route>
               <Route path='/signup'><SignupPage /></Route> */}
 
