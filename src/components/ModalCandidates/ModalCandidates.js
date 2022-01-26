@@ -75,11 +75,9 @@ export default class ModalCandidates extends Component {
     }
 
     removeCandidate = (index) => {
-        console.log('removing elem at index ' + index)
         // if theres on one else left to remove, set candidate to null and close
         if (this.state.candidates.length === 1) {
             let tripID = this.state.candidates[0].id;
-            console.log('removing last candidate')
             this.setState({
                 curCandidateIndex: null,
                 candidates: null
@@ -144,7 +142,7 @@ export default class ModalCandidates extends Component {
                         <button className='modal__button modal__button--delete' type='button' onClick={ () => this.removeCandidate(this.state.curCandidateIndex) }>Decline</button>
                     </div>
                     <div className='modal__cancel' onClick={ this.props.handleClose }>
-                        <p>DECIDE LATER</p>
+                        <p>CANCEL - DECIDE LATER</p>
                     </div>
                 </section>
             </div>)
