@@ -1,7 +1,7 @@
 // React modules
 import React from 'react'
 // app styles & assets
-import './Modal.scss'
+import './ModalDelete.scss'
 import iconClose from '../../assets/Icons/close-24px.svg'
 
 export default function Modal({ handleClose, show, modalItem, deleteFunction }) {
@@ -14,8 +14,8 @@ export default function Modal({ handleClose, show, modalItem, deleteFunction }) 
                 <div className='modal__close-icon'>
                     <img src={ iconClose } alt='close' onClick={ handleClose } />
                 </div>
-                <h1 className='modal__title'>Delete { modalItem.name } {(modalItem.status) ? " inventory item" : "warehouse"}?</h1>
-                <p>Please confirm that you’d like to delete {(modalItem.status) ? `${modalItem.name} from the inventory list`: `the ${modalItem.name} from the list of warehouses`}. You won’t be able to undo this action.</p>
+                <h1 className='modal__title'>Delete { modalItem.job_date }?</h1>
+                <p>Please confirm that you would like to delete {modalItem.job_date}. You will not be able to undo this action.</p>
             </div>
             <div className='modal__buttons-group'>
                 <button className='modal__button modal__button--cancel' type='button' onClick={ handleClose }>Cancel</button>

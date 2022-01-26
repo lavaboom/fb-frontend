@@ -7,7 +7,8 @@ import iconEdit from '../../assets/Icons/edit-24px.svg'
 import iconChevron from '../../assets/Icons/chevron_right-24px.svg'
 import iconSort from '../../assets/Icons/sort-24px.svg'
 // other sub components
-import Modal from '../Modal/Modal'
+import ModalDelete from '../ModalDelete/ModalDelete'
+import ModalCandidates from '../ModalCandidates/ModalCandidates'
 
 // 3rd party libraries
 import axios from 'axios'
@@ -19,7 +20,8 @@ export default class KitchenDashboard extends Component {
     api_url = 'http://localhost:8080/api'
 
     state = {
-        showModal: false,
+        showModalDelete: false,
+        showModalCandidates: false,
         modalTrip: '',
         filtered: [],
         originalTrips: [],
@@ -28,12 +30,20 @@ export default class KitchenDashboard extends Component {
     }
 
     // funtions to control modal
-    showModal = (trip) => {
-        this.setState({ showModal: true, modalTrip: trip });
+    showModalDelete = (trip) => {
+        this.setState({ showModalDelete: true, modalTrip: trip });
     };
     
-    hideModal = () => {
-        this.setState({ showModal: false });
+    showModalCandidates = () => {
+        this.setState({ showModalCandidates: true });
+    };
+
+    hideModal = (modal) => {
+        if (modal === 'delete') {
+            this.setState({ showModalDelete: false });
+        } else if (modal === 'candidates') {
+            this.setState({ showModalCandidates: false });
+        }
     };
 
     componentDidMount = () => {
@@ -80,15 +90,16 @@ export default class KitchenDashboard extends Component {
     //     .catch(error => { console.log(error) });
         
     //     // close the modal
-    //     this.setState({ showModal: false });
+    //     this.setState({ showModalDelete: false });
     // }
 
     render() {
         return (
             !this.props.trips ? <p>No trips yet</p> : 
             (<div>
-                {/* Modal */}
-                <Modal show={ this.state.showModal } handleClose={ this.hideModal } modalItem={ this.state.modalTrip } deleteFunction={ this.deleteTrip } />
+                {/* Modals */}
+                <ModalCandidates show={ this.state.showModalCandidates } handleClose={ () => this.hideModal('candidates') } />
+                <ModalDelete show={ this.state.showModalDelete } handleClose={ () => this.hideModal('delete') } modalItem={ this.state.modalTrip } deleteFunction={ this.deleteTrip } />
                 {/* header area */}
                 <div className='table-functionalities'>
                     <h1 className='table-functionalities__title'>Trips</h1>
@@ -151,11 +162,11 @@ export default class KitchenDashboard extends Component {
                                 <div className='table__cell table__cell--driver'>
                                     <div className='table__label'>DRIVER</div>
                                     {!this.state.tripsWithCandidates ? <p>CHECKING...</p> : 
-                                    this.state.tripsWithCandidates.indexOf(trip.id) > -1 ? <button>CLICK TO ACCEPT</button> : <div>PENDING</div>}
+                                    this.state.tripsWithCandidates.indexOf(trip.id) > -1 ? <button onClick={ () => this.showModalCandidates() }>CLICK TO ACCEPT</button> : <div>PENDING</div>}
                                 </div>
                                 {/* action */}
                                 <div className='table__action-wrapper'>
-                                    <img src={ iconDelete } alt='delete' onClick={ () => this.showModal(trip) } />
+                                    <img src={ iconDelete } alt='delete' onClick={ () => this.showModalDelete(trip) } />
                                     <a href={`/Trip/${trip.id}/edit`}><img src={ iconEdit } alt='edit' /></a>
                                 </div>
                             </div>

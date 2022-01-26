@@ -6,7 +6,7 @@ import './KitchenPage.scss';
 // other sub components
 import Header from '../../components/Header/Header'
 import KitchenDashboard from '../../components/KitchenDashboard/KitchenDashboard';
-import Modal from '../../components/Modal/Modal';
+import Modal from '../../components/ModalDelete/ModalDelete';
 // 3rd parties libraries
 import axios from 'axios';
 
