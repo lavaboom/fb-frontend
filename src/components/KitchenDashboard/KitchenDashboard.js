@@ -88,6 +88,7 @@ export default class KitchenDashboard extends Component {
                         <h4 className='table__header-item table__header-item--payment-type'>PAYMENT TYPE</h4>
                         <h4 className='table__header-item table__header-item--pay'>PAY</h4>
                         <h4 className='table__header-item table__header-item--status'>STATUS</h4>
+                        <h4 className='table__header-item table__header-item--driver'>DRIVER</h4>
                         <h4 className='table__header-item table__header-item--actions'>ACTIONS</h4>
                     </div>
                     { this.props.trips.map(trip => (
@@ -128,6 +129,12 @@ export default class KitchenDashboard extends Component {
                                     <div className='table__label'>STATUS</div>
                                     <div>{ trip.status }</div>
                                 </div>
+                                {/* driver */}
+                                <div className='table__cell table__cell--driver'>
+                                    <div className='table__label'>DRIVER</div>
+                                    <div>Pending</div>
+                                </div>
+                                {/* action */}
                                 <div className='table__action-wrapper'>
                                     <img src={ iconDelete } alt='delete' onClick={ () => this.showModal(trip) } />
                                     <a href={`/Trip/${trip.id}/edit`}><img src={ iconEdit } alt='edit' /></a>

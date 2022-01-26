@@ -8,8 +8,9 @@ $col-2: 15%;
 $col-3: 15%;
 $col-4: 15%;
 $col-5: 10%;
-$col-6: 15%;
+$col-6: 10%;
 $col-7: 10%;
+$col-8: 10%;
 $gutter-mobile: 3%;
 $gutter-tablet: 5%;
 $gutter-desktop: 8%;
@@ -141,8 +142,11 @@ $gutter-desktop: 8%;
             &--status {
                 width: $col-6;
             }
-            &--actions {
+            &--driver {
                 width: $col-7;
+            }
+            &--actions {
+                width: $col-8;
                 justify-content: flex-end;
             }
         }
@@ -238,6 +242,12 @@ $gutter-desktop: 8%;
                 width: $col-6;
             }
         }
+
+        &--driver {
+            @include tablet {
+                width: $col-7;
+            }
+        }
     }
 
     &__action-wrapper {
@@ -247,7 +257,7 @@ $gutter-desktop: 8%;
         width: 100%;
 
         @include tablet {
-            width: $col-7;
+            width: $col-8;
             justify-content: flex-end;
             align-items: baseline;
             gap: 1rem;
