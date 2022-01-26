@@ -30,20 +30,19 @@ export default class KitchenDashboard extends Component {
     }
 
     // funtions to control modal
-    showModalDelete = (trip) => {
-        this.setState({ showModalDelete: true, modalTrip: trip });
-    };
-    
-    showModalCandidates = () => {
-        this.setState({ showModalCandidates: true });
-    };
+    showModal = (trip, modal) => {
+        this.setState({
+            modalTrip: trip,
+            showModalDelete: modal === 'delete' ? true : false,
+            showModalCandidates: modal === 'candidates' ? true : false,
+        })
+    }
 
-    hideModal = (modal) => {
-        if (modal === 'delete') {
-            this.setState({ showModalDelete: false });
-        } else if (modal === 'candidates') {
-            this.setState({ showModalCandidates: false });
-        }
+    hideModal = () => {
+        this.setState({
+            showModalDelete: false,
+            showModalCandidates: false,
+        })
     };
 
     componentDidMount = () => {
@@ -98,8 +97,8 @@ export default class KitchenDashboard extends Component {
             !this.props.trips ? <p>No trips yet</p> : 
             (<div>
                 {/* Modals */}
-                <ModalCandidates show={ this.state.showModalCandidates } handleClose={ () => this.hideModal('candidates') } />
-                <ModalDelete show={ this.state.showModalDelete } handleClose={ () => this.hideModal('delete') } modalItem={ this.state.modalTrip } deleteFunction={ this.deleteTrip } />
+                <ModalCandidates show={ this.state.showModalCandidates } handleClose={ () => this.hideModal() } modalItem={ this.state.modalTrip } />
+                <ModalDelete show={ this.state.showModalDelete } handleClose={ () => this.hideModal() } modalItem={ this.state.modalTrip } deleteFunction={ this.deleteTrip } />
                 {/* header area */}
                 <div className='table-functionalities'>
                     <h1 className='table-functionalities__title'>Trips</h1>
@@ -162,11 +161,11 @@ export default class KitchenDashboard extends Component {
                                 <div className='table__cell table__cell--driver'>
                                     <div className='table__label'>DRIVER</div>
                                     {!this.state.tripsWithCandidates ? <p>CHECKING...</p> : 
-                                    this.state.tripsWithCandidates.indexOf(trip.id) > -1 ? <button onClick={ () => this.showModalCandidates() }>CLICK TO ACCEPT</button> : <div>PENDING</div>}
+                                    this.state.tripsWithCandidates.indexOf(trip.id) > -1 ? <button onClick={ () => this.showModal(trip, 'candidates') }>CLICK TO ACCEPT</button> : <div>PENDING</div>}
                                 </div>
                                 {/* action */}
                                 <div className='table__action-wrapper'>
-                                    <img src={ iconDelete } alt='delete' onClick={ () => this.showModalDelete(trip) } />
+                                    <img src={ iconDelete } alt='delete' onClick={ () => this.showModal(trip, 'delete') } />
                                     <a href={`/Trip/${trip.id}/edit`}><img src={ iconEdit } alt='edit' /></a>
                                 </div>
                             </div>

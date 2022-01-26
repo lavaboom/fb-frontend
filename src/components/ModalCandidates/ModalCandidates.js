@@ -13,11 +13,10 @@ export default class ModalCandidates extends Component {
 
     }
 
-    showHideClassName = this.props.show ? 'modal modal--display-block' : 'modal modal--display-none';
-    
     render() {
+        let showHideClassName = this.props.show ? 'modal modal--display-block' : 'modal modal--display-none';
         return (
-            <div className={ this.showHideClassName }>
+            <div className={ showHideClassName }>
             <section className='modal__main'>
                 <div>
                     <div>
