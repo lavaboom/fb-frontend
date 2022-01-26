@@ -26,7 +26,15 @@ export default class KitchenDashboard extends Component {
         filtered: [],
         originalTrips: [],
         trips: null,
-        tripsWithCandidates: null
+        tripsWithCandidates: []
+    }
+
+    // reset trips with driver
+    removeTripWithCandidates = (tripID) => {
+        let newList = this.state.tripsWithCandidates.filter(elem => {
+            return elem !== tripID
+        })
+        this.setState({tripsWithCandidates: newList});
     }
 
     // funtions to control modal
@@ -97,7 +105,7 @@ export default class KitchenDashboard extends Component {
             !this.props.trips ? <p>No trips yet</p> : 
             (<div>
                 {/* Modals */}
-                <ModalCandidates show={ this.state.showModalCandidates } handleClose={ () => this.hideModal() } modalItem={ this.state.modalTrip } />
+                <ModalCandidates show={ this.state.showModalCandidates } handleClose={ () => this.hideModal() } modalItem={ this.state.modalTrip } removeTripWithCandidates = { this.removeTripWithCandidates } />
                 <ModalDelete show={ this.state.showModalDelete } handleClose={ () => this.hideModal() } modalItem={ this.state.modalTrip } deleteFunction={ this.deleteTrip } />
                 {/* header area */}
                 <div className='table-functionalities'>
