@@ -3,6 +3,7 @@
 @use '../../styles/partials/variables';
 
 .modal {
+    // styling for the modal's background
     position: fixed;
     top: 0;
     left: 0;
@@ -10,11 +11,16 @@
     height: 100%;
     background: rgba(19, 24, 44, 0.7);
     z-index: 1;
-
-    &__profile-pic {
-        width: 2rem;
+    
+    &--display-block {
+        display: block;
     }
 
+    &--display-none {
+        display: none;
+    }
+
+    // styling for the main container
     &__main {
         position: fixed;
         background: white;
@@ -26,7 +32,8 @@
         left: 5%;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        // justify-content: flex-start;
+
 
         @include tablet {
             width: 80%;
@@ -41,17 +48,53 @@
         }
     }
 
-    &__next-icon {
-        text-align: right;
+    // top header (e.g. back and next arrows)
+    &__header {
+        display: flex;
+        justify-content: space-between;
     }
 
+    // title (.e.g name of candidate)
     &__title {
-        margin: 0;
+        margin: 0.5rem 0;
+        text-align: center;
     }
 
+    // profile pic
+    &__profile-pic-container {
+        text-align: center;
+        margin: 1rem 0;
+    }
+    &__profile-pic {
+        width: 2.5rem;
+    }
+    
+    // ratings
+    &__rating-container {
+        text-align: center;
+        margin-bottom: 0.5rem;
+    }
+    &__rating-star {
+
+        &--filled {
+            filter: invert(60%) sepia(73%) saturate(4429%) hue-rotate(161deg) brightness(94%) contrast(101%);
+        }
+    }
+
+    // candidate's offer
+    &__offer {
+        text-align: center;
+    }    
+
+    // &__next-icon {
+    // }
+
+    
+    // decision buttons
     &__buttons-group {
         display: flex;
         justify-content: space-between;
+        margin-bottom: 4rem;
 
         @include tablet {
             justify-content: flex-end;
@@ -68,8 +111,9 @@
             width: 20%;
         }
 
-        &--cancel {
-            color: variables.$color-secondary-1;
+        &--accept {
+            color: white;
+            background-color: green;
             margin-right: 1rem;
 
             &:hover {
@@ -77,8 +121,9 @@
             }
         }
         &--delete {
-            color: white;
-            background-color: #c94515;
+            color: #c94515;
+            background-color: white;
+            // border: none;
 
             &:hover {
                 background-color: variables.$color-background-1;
@@ -86,11 +131,15 @@
         }
     }
 
-    &--display-block {
-        display: block;
-    }
-
-    &--display-none {
-        display: none;
-    }
+    // cancel button
+    &__cancel {
+        height: 5%;
+        color: white;
+        background-color: orange;
+        padding: 1.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        // justify-self: end;
+    }    
 }
