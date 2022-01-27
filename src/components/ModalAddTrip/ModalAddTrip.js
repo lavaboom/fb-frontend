@@ -3,9 +3,27 @@ import React from 'react'
 // app styles & assets
 import './ModalAddTrip.scss'
 import iconClose from '../../assets/Icons/close-24px.svg'
+// 3rd party libraries
+import axios from 'axios'
 
 export default function ModalAddTrip({ handleClose, show }) {
     const showHideClassName = show ? 'modal modal--display-block' : 'modal modal--display-none';
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        axios
+            .post('http://localhost:8080/api/trips/', {
+                // email: event.target.email.value,
+                // password: event.target.password.value
+            })
+            .then((response) => {
+                
+            })
+            .catch((error) => {
+                
+            });
+    };
 
     return (
         <div className={ showHideClassName }>
@@ -16,7 +34,7 @@ export default function ModalAddTrip({ handleClose, show }) {
             </div>
             <h1 className='modal__title'>Add a trip</h1>
             {/* form */}
-            <form className='modal__input-form' action=''>
+            <form className='modal__input-form' onSubmit={ handleSubmit }>
                 <div className='modal__input-group'>
                     <label htmlFor='origin'>Origin</label>
                     <input className='modal__input-field' type='text' name='origin' id='origin' />
