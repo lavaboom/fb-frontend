@@ -6,6 +6,7 @@ import iconDelete from '../../assets/Icons/delete_outline-24px.svg'
 import iconEdit from '../../assets/Icons/edit-24px.svg'
 // other sub components
 import ModalDelete from '../ModalDelete/ModalDelete'
+import ModalAddTrip from '../ModalAddTrip/ModalAddTrip'
 import ModalCandidates from '../ModalCandidates/ModalCandidates'
 
 // 3rd party libraries
@@ -18,6 +19,7 @@ export default class KitchenDashboard extends Component {
     api_url = 'http://localhost:8080/api'
 
     state = {
+        showModalAddTrip: false,
         showModalDelete: false,
         showModalCandidates: false,
         modalTrip: '',
@@ -39,9 +41,12 @@ export default class KitchenDashboard extends Component {
     // funtions to control modal
     showModal = (trip, modal) => {
         this.setState({
-            modalTrip: trip,
+            // update modalTrip if available
+            modalTrip: trip ? trip : this.state.modalTrip,
+            // toggle the appropriate modal
             showModalDelete: modal === 'delete' ? true : false,
             showModalCandidates: modal === 'candidates' ? true : false,
+            showModalAddTrip: modal === 'addtrip' ? true : false,
         })
     }
 
@@ -49,6 +54,7 @@ export default class KitchenDashboard extends Component {
         this.setState({
             showModalDelete: false,
             showModalCandidates: false,
+            showModalAddTrip: false,
         })
     };
 
@@ -77,19 +83,41 @@ export default class KitchenDashboard extends Component {
 
     render() {
         return (
-            this.props.trips.length === 0 ? <p>No trips yet</p> : 
+            this.props.trips.length === 0 ? 
+                // UI for when there's no trip to display
+                <div>
+                    <p>No trips yet</p>
+                </div>
+                 : 
             (<div>
                 {/* Modals */}
-                <ModalCandidates show={ this.state.showModalCandidates } handleClose={ () => this.hideModal() } modalItem={ this.state.modalTrip } removeTripWithCandidates = { this.removeTripWithCandidates } />
-                <ModalDelete show={ this.state.showModalDelete } handleClose={ () => this.hideModal() } modalItem={ this.state.modalTrip } deleteFunction={ this.deleteTrip } />
+                <ModalCandidates 
+                    show={ this.state.showModalCandidates } 
+                    handleClose={ () => this.hideModal() } 
+                    modalItem={ this.state.modalTrip } 
+                    removeTripWithCandidates = { this.removeTripWithCandidates } />
+                <ModalDelete 
+                    show={ this.state.showModalDelete } 
+                    handleClose={ () => this.hideModal() } 
+                    modalItem={ this.state.modalTrip } 
+                    deleteFunction={ this.deleteTrip } />
+                <ModalAddTrip 
+                    show={ this.state.showModalAddTrip } 
+                    handleClose={ () => this.hideModal() } />
+                
                 {/* header area */}
                 <div className='table-functionalities'>
                     <h1 className='table-functionalities__title'>Trips</h1>
                     <div className="table-functionalities__wrapper">
-                        <a href='/api/trips/add' className='table-functionalities__add'>+ Add New Trip</a>                    
+                        <a 
+                            className='table-functionalities__add' 
+                            onClick={ () => this.showModal(null, 'addtrip')}>
+                                + Add New Trip
+                        </a>
                     </div>
                 </div>
-                {/* table area */}
+
+                {/* table area - header */}
                 <div className='table'>
                     <div className='table__header'>
                         <h4 className='table__header-item table__header-item--origin'>ORIGIN</h4>
@@ -101,60 +129,59 @@ export default class KitchenDashboard extends Component {
                         <h4 className='table__header-item table__header-item--driver'>DRIVER</h4>
                         <h4 className='table__header-item table__header-item--actions'>ACTIONS</h4>
                     </div>
+
+                    {/* table area -  each row of the table */}
                     { this.props.trips.map(trip => (
-                            // each row of the table
-                            <div key={ trip.id } className='table__row'>
-                                {/* origin */}
-                                <div className='table__cell table__cell--origin'>
-                                    <div className='table__label'>ORIGIN</div>
-                                    <div>
-                                        <a href={`/trip/${trip.id}`} className='table__link'>
-                                            { trip.origin } 
-                                        </a>
-                                    </div>
-                                </div>
-                                {/* destination */}
-                                <div className='table__cell table__cell--destination'>
-                                    <div className='table__label'>DESTINATION</div>
-                                    <div>{ trip.destination }</div>
-                                </div>
-                                {/* job date */}
-                                <div className='table__cell table__cell--job-date'>
-                                    <div className='table__label'>JOB DATE</div>
-                                    <div>{ trip.job_date.toString() }</div>
-                                </div>
-                                {/* payment type */}
-                                <div className='table__cell table__cell--payment-type'>
-                                    <div className='table__label'>PAYMENT TYPE</div>
-                                    <div>{ trip.payment_type }</div>
-                                </div>
-                                {/* pay */}
-                                <div className='table__cell table__cell--pay'>
-                                    <div className='table__label'>PAY</div>
-                                    <div>${ trip.payment_amount }</div>
-                                </div>
-                                {/* status */}
-                                <div className='table__cell table__cell--status'>
-                                    <div className='table__label'>STATUS</div>
-                                    <div>{ trip.status }</div>
-                                </div>
-                                {/* driver */}
-                                <div className='table__cell table__cell--driver'>
-                                    <div className='table__label'>DRIVER</div>
-                                    {!this.state.tripsWithCandidates ? <p>CHECKING...</p> : 
-                                    this.state.tripsWithCandidates.indexOf(trip.id) > -1 ? <button onClick={ () => this.showModal(trip, 'candidates') }>CLICK TO ACCEPT</button> : <div>PENDING</div>}
-                                </div>
-                                {/* action */}
-                                <div className='table__action-wrapper'>
-                                    <img src={ iconDelete } alt='delete' onClick={ () => this.showModal(trip, 'delete') } />
-                                    <a href={`/Trip/${trip.id}/edit`}><img src={ iconEdit } alt='edit' /></a>
+                        <div key={ trip.id } className='table__row'>
+                            {/* origin */}
+                            <div className='table__cell table__cell--origin'>
+                                <div className='table__label'>ORIGIN</div>
+                                <div>
+                                    <a href={`/trip/${trip.id}`} className='table__link'>
+                                        { trip.origin } 
+                                    </a>
                                 </div>
                             </div>
-                        )
-                    )}
-                </div>
+                            {/* destination */}
+                            <div className='table__cell table__cell--destination'>
+                                <div className='table__label'>DESTINATION</div>
+                                <div>{ trip.destination }</div>
+                            </div>
+                            {/* job date */}
+                            <div className='table__cell table__cell--job-date'>
+                                <div className='table__label'>JOB DATE</div>
+                                <div>{ trip.job_date.toString() }</div>
+                            </div>
+                            {/* payment type */}
+                            <div className='table__cell table__cell--payment-type'>
+                                <div className='table__label'>PAYMENT TYPE</div>
+                                <div>{ trip.payment_type }</div>
+                            </div>
+                            {/* pay */}
+                            <div className='table__cell table__cell--pay'>
+                                <div className='table__label'>PAY</div>
+                                <div>${ trip.payment_amount }</div>
+                            </div>
+                            {/* status */}
+                            <div className='table__cell table__cell--status'>
+                                <div className='table__label'>STATUS</div>
+                                <div>{ trip.status }</div>
+                            </div>
+                            {/* driver */}
+                            <div className='table__cell table__cell--driver'>
+                                <div className='table__label'>DRIVER</div>
+                                {!this.state.tripsWithCandidates ? <p>CHECKING...</p> : 
+                                this.state.tripsWithCandidates.indexOf(trip.id) > -1 ? <button onClick={ () => this.showModal(trip, 'candidates') }>CLICK TO ACCEPT</button> : <div>PENDING</div>}
+                            </div>
+                            {/* action */}
+                            <div className='table__action-wrapper'>
+                                <img src={ iconDelete } alt='delete' onClick={ () => this.showModal(trip, 'delete') } />
+                                <a href={`/Trip/${trip.id}/edit`}><img src={ iconEdit } alt='edit' /></a>
+                            </div>
+                        </div> // <div className='table__row'>
+                    ))}
+                </div> {/* <div className='table'> */}
             </div>)
         )
     }
 }
-
