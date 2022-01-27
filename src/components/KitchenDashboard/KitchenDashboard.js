@@ -94,7 +94,7 @@ export default class KitchenDashboard extends Component {
                 <ModalCandidates 
                     show={ this.state.showModalCandidates } 
                     handleClose={ () => this.hideModal() } 
-                    modalItem={ this.state.modalTrip } 
+                    data={ this.state.modalTrip } 
                     removeTripWithCandidates = { this.removeTripWithCandidates } />
                 <ModalDelete 
                     show={ this.state.showModalDelete } 

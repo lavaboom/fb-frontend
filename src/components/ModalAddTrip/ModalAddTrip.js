@@ -7,7 +7,7 @@ import iconClose from '../../assets/Icons/close-24px.svg'
 import axios from 'axios'
 
 export default function ModalAddTrip({ handleClose, show }) {
-    const showHideClassName = show ? 'modal modal--display-block' : 'modal modal--display-none';
+    const showHideClassName = show ? 'modal-add modal-add--display-block' : 'modal-add modal-add--display-none';
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -27,32 +27,32 @@ export default function ModalAddTrip({ handleClose, show }) {
 
     return (
         <div className={ showHideClassName }>
-        <section className='modal__main'>
+        <section className='modal-add__main'>
             
-            <div className='modal__close-icon'>
+            <div className='modal-add__close-icon'>
                 <img src={ iconClose } alt='close' onClick={ handleClose } />
             </div>
-            <h1 className='modal__title'>Add a trip</h1>
+            <h1 className='modal-add__title'>Add a trip</h1>
             {/* form */}
-            <form className='modal__input-form' onSubmit={ handleSubmit }>
-                <div className='modal__input-group'>
+            <form className='modal-add__input-form' onSubmit={ handleSubmit }>
+                <div className='modal-add__input-group'>
                     <label htmlFor='origin'>Origin</label>
-                    <input className='modal__input-field' type='text' name='origin' id='origin' />
+                    <input className='modal-add__input-field' type='text' name='origin' id='origin' />
                 </div>
-                <div className='modal__input-group'>
+                <div className='modal-add__input-group'>
                     <label htmlFor='destination'>Destination</label>
-                    <input className='modal__input-field' type='text' name='destination' id='destination' />
+                    <input className='modal-add__input-field' type='text' name='destination' id='destination' />
                 </div>
-                <div className='modal__input-group'>
+                <div className='modal-add__input-group'>
                     <label htmlFor='note'>Note for driver</label>
-                    <input className='modal__input-field' type='text' name='note' id='note' placeholder='Leave at door' />
+                    <input className='modal-add__input-field' type='text' name='note' id='note' placeholder='Leave at door' />
                 </div>
-                <div className='modal__input-group'>
+                <div className='modal-add__input-group'>
                     <label htmlFor='jobDate'>Job Date</label>
-                    <input className='modal__input-field' type='date' name='jobDate' id='jobDate' />
+                    <input className='modal-add__input-field' type='date' name='jobDate' id='jobDate' />
                 </div>
 
-                <div className='modal__input-group'>
+                <div className='modal-add__input-group'>
                 <p>Paid by</p>
                 <div className="wrapper">
                     <input type="radio" name="select" id="option-1" defaultChecked/>
@@ -69,14 +69,14 @@ export default function ModalAddTrip({ handleClose, show }) {
 
                 </div>
                 
-                <div className='modal__input-group'>
+                <div className='modal-add__input-group'>
                     <label htmlFor='pay'>Pay</label>
-                    <input className='modal__input-field' type='number' name='pay' id='pay' />
+                    <input className='modal-add__input-field' type='number' name='pay' id='pay' />
                 </div>
             </form>
-            <div className='modal__buttons-group'>
-                <button className='modal__button modal__button--cancel' type='button' onClick={ handleClose }>Cancel</button>
-                <button className='modal__button modal__button--add' type='button' onClick={ () => {} }>Delete</button>
+            <div className='modal-add__buttons-group'>
+                <button className='modal-add__button modal-add__button--cancel' type='button' onClick={ handleClose }>Cancel</button>
+                <button className='modal-add__button modal-add__button--add' type='button' onClick={ () => {} }>Delete</button>
             </div>
         </section>
         </div>
