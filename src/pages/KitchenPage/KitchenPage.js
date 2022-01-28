@@ -107,6 +107,7 @@ export default class KitchenPage extends Component {
                 <KitchenDashboard 
                     user={ this.state.user } 
                     trips={ this.state.trips }
+                    fetchTrips={ this.fetchTrips }
                     deleteTripFromDB = { this.deleteTripFromDB } />
             </div>
         );

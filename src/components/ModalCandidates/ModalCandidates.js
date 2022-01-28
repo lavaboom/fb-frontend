@@ -125,7 +125,7 @@ export default class ModalCandidates extends Component {
                         </div>
                         <h1 className='modal-candidates__title'>Vincent Kompany</h1>
                         <div className='modal-candidates__profile-pic-container'>
-                            <img className='modal-candidates__profile-pic' src={ profilePic } alt='profile picture' />
+                            <img className='modal-candidates__profile-pic' src={ profilePic } alt='candidate' />
                         </div>
                         <div className='modal-candidates__rating-container'>
                             <img className='modal-candidates__rating-star modal-candidates__rating-star--filled' src={ iconStar } alt='rating' />

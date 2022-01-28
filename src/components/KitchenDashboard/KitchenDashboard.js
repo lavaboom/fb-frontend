@@ -102,18 +102,20 @@ export default class KitchenDashboard extends Component {
                     data={ this.state.modalTrip } 
                     deleteFunction={ this.deleteTrip } />
                 <ModalAddTrip 
+                    user={ this.props.user }
                     show={ this.state.showModalAddTrip } 
-                    handleClose={ () => this.hideModal() } />
+                    handleClose={ () => this.hideModal() }
+                    fetchTrips={ this.props.fetchTrips } />
                 
                 {/* header area */}
                 <div className='table-functionalities'>
                     <h1 className='table-functionalities__title'>Trips</h1>
                     <div className="table-functionalities__wrapper">
-                        <a 
+                        <button 
                             className='table-functionalities__add' 
                             onClick={ () => this.showModal(null, 'addtrip')}>
                                 + Add New Trip
-                        </a>
+                        </button>
                     </div>
                 </div>
 
