@@ -41,8 +41,7 @@ export default class KitchenDashboard extends Component {
     // funtions to control modal
     showModal = (trip, modal) => {
         this.setState({
-            // update modalTrip if available
-            modalTrip: trip ? trip : this.state.modalTrip,
+            modalTrip: trip,
             // toggle the appropriate modal
             showModalDelete: modal === 'delete' ? true : false,
             showModalCandidates: modal === 'candidates' ? true : false,
@@ -51,10 +50,18 @@ export default class KitchenDashboard extends Component {
     }
 
     hideModal = () => {
+        let emptyTrip = {
+            origin: null,
+            destination: null,
+            job_date: null,
+            payment_type: null,
+            payment_amount: null
+        };
         this.setState({
             showModalDelete: false,
             showModalCandidates: false,
             showModalAddTrip: false,
+            modalTrip: emptyTrip
         })
     };
 
@@ -82,6 +89,15 @@ export default class KitchenDashboard extends Component {
     }
 
     render() {
+
+        let emptyTrip = {
+            origin: null,
+            destination: null,
+            job_date: null,
+            payment_type: null,
+            payment_amount: null
+        }
+
         return (
             this.props.trips.length === 0 ? 
                 // UI for when there's no trip to display
@@ -105,7 +121,8 @@ export default class KitchenDashboard extends Component {
                     user={ this.props.user }
                     show={ this.state.showModalAddTrip } 
                     handleClose={ () => this.hideModal() }
-                    fetchTrips={ this.props.fetchTrips } />
+                    fetchTrips={ this.props.fetchTrips }
+                    modalTrip={ this.state.modalTrip } />
                 
                 {/* header area */}
                 <div className='table-functionalities'>
@@ -113,7 +130,7 @@ export default class KitchenDashboard extends Component {
                     <div className="table-functionalities__wrapper">
                         <button 
                             className='table-functionalities__add' 
-                            onClick={ () => this.showModal(null, 'addtrip')}>
+                            onClick={ () => this.showModal(emptyTrip, 'addtrip')}>
                                 + Add New Trip
                         </button>
                     </div>
@@ -178,7 +195,7 @@ export default class KitchenDashboard extends Component {
                             {/* action */}
                             <div className='table__action-wrapper'>
                                 <img src={ iconDelete } alt='delete' onClick={ () => this.showModal(trip, 'delete') } />
-                                <a href={`/Trip/${trip.id}/edit`}><img src={ iconEdit } alt='edit' /></a>
+                                <img src={ iconEdit } alt='edit' onClick={ () => this.showModal(trip, 'addtrip')} />
                             </div>
                         </div> // <div className='table__row'>
                     ))}
