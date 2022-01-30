@@ -6,10 +6,9 @@ import './App.scss';
 // pages
 import LandingPage from './pages/LandingPage/LandingPage';
 import KitchenPage from './pages/KitchenPage/KitchenPage';
-import CandidatesPage from './pages/CandidatesPage/CandidatesPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import SignupPage from './pages/SignupPage/SignupPage';
-// import DriverPage from './pages/DriverPage/DriverPage'
+import DriverPage from './pages/DriverPage/DriverPage'
 // other sub components
 import Header from './components/Header/Header'
 import Footer from './components/Footer/Footer'
@@ -27,7 +26,7 @@ export default class App extends Component {
               <Route path='/login' component={ LoginPage } />
               <Route path='/signup' component={ SignupPage } />
               <Route path='/kitchen' component={ KitchenPage } />
-              <Route path='/trips/:id/candidates' component={ CandidatesPage } />
+              <Route path='/driver' component={ DriverPage } />
               {/* <Route path='/login'><LoginPage /></Route>
               <Route path='/signup'><SignupPage /></Route> */}
 
