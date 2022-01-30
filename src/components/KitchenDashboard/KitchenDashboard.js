@@ -23,6 +23,7 @@ export default class KitchenDashboard extends Component {
         showModalDelete: false,
         showModalCandidates: false,
         modalTrip: '',
+        modalCandidates: null,
         tripsWithCandidates: []
     }
 
@@ -36,6 +37,24 @@ export default class KitchenDashboard extends Component {
             return elem !== tripID
         })
         this.setState({tripsWithCandidates: newList});
+    }
+
+    loadCandidates = (trip) => {
+        const token = sessionStorage.getItem('token');
+        if (!token) {
+            this.props.handleExpiredLogin();
+        };
+        axios.get(`${this.api_url}/trips/${trip.id}/candidates`, {
+            headers: { Authorization: 'Bearer ' + token }
+        }).then((response) => {
+            this.setState({ 
+                modalCandidates: response.data,
+                showModalCandidates: true,
+                modalTrip: trip,                
+            });
+        }).catch(() => {
+            console.log(`unable to fetch candidates for trip ${trip.id}`)
+        });
     }
 
     // funtions to control modal
@@ -110,7 +129,7 @@ export default class KitchenDashboard extends Component {
                 <ModalCandidates 
                     show={ this.state.showModalCandidates } 
                     handleClose={ () => this.hideModal() } 
-                    data={ this.state.modalTrip } 
+                    candidates= {this.state.modalCandidates } 
                     removeTripWithCandidates = { this.removeTripWithCandidates } />
                 <ModalDelete 
                     show={ this.state.showModalDelete } 
@@ -190,7 +209,7 @@ export default class KitchenDashboard extends Component {
                             <div className='table__cell table__cell--driver'>
                                 <div className='table__label'>DRIVER</div>
                                 {!this.state.tripsWithCandidates ? <p>CHECKING...</p> : 
-                                this.state.tripsWithCandidates.indexOf(trip.id) > -1 ? <button onClick={ () => this.showModal(trip, 'candidates') }>CLICK TO ACCEPT</button> : <div>PENDING</div>}
+                                this.state.tripsWithCandidates.indexOf(trip.id) > -1 ? <button onClick={ () => this.loadCandidates(trip) }>CLICK TO ACCEPT</button> : <div>PENDING</div>}
                             </div>
                             {/* action */}
                             <div className='table__action-wrapper'>
