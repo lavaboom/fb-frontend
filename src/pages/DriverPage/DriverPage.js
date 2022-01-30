@@ -126,7 +126,9 @@ export default class DriverPage extends Component {
                 <Header 
                     user={ this.state.user } 
                     handleLogout={ this.handleLogout } />
-                <DriverDashboard retrieveToken={ this.retrieveToken} />
+                <DriverDashboard 
+                    user={ this.state.user } 
+                    retrieveToken={ this.retrieveToken} />
             </div>
         );
     }
