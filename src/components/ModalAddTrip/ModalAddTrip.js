@@ -10,8 +10,7 @@ export default class ModalAddTrip extends Component {
 
     handleEdit = (event) => {
         event.preventDefault();
-        const token = sessionStorage.getItem('token');
-        // console.log(token)
+        const token = this.props.retrieveToken();
         let datetime = event.target.jobDate.value + ' ' + event.target.jobTime.value;
         axios.put(`http://localhost:8080/api/trips/${this.props.modalTrip.id}`, {
             origin: event.target.origin.value,
@@ -39,7 +38,7 @@ export default class ModalAddTrip extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        const token = sessionStorage.getItem('token');
+        const token = this.props.retrieveToken();
         let datetime = event.target.jobDate.value + ' ' + event.target.jobTime.value;
         axios.post('http://localhost:8080/api/trips/add', {
             sender_id: this.props.user.id,
@@ -70,10 +69,6 @@ export default class ModalAddTrip extends Component {
     render() {
         // console.log(this.props.modalTrip)
         let showHideClassName = this.props.show ? 'modal-add modal-add--display-block' : 'modal-add modal-add--display-none';
-        // let paymentTypeRecipient = this.props.modalTrip.payment_type === 'Recipient';
-        // let paymentTypeSender = !(this.props.modalTrip.payment_type === 'Recipient');
-
-        // console.log(`recipient pays: ${paymentTypeRecipient}. sender pays: ${paymentTypeSender}`)
 
         let jobDate = null;
         let jobTime = null;
@@ -98,7 +93,7 @@ export default class ModalAddTrip extends Component {
             <h1 className='modal-add__title'>Add a trip</h1>
             
             {/* form */}
-            <form className='modal-add__input-form' onSubmit={ this.props.modalTrip ? this.handleEdit : this.handleSubmit }>
+            <form className='modal-add__input-form' onSubmit={ this.props.modalTrip.origin ? this.handleEdit : this.handleSubmit }>
                 <div className='modal-add__input-group'>
                     <label htmlFor='origin'>Origin</label>
                     <input className='modal-add__input-field' type='text' name='origin' id='origin' 
@@ -151,7 +146,7 @@ export default class ModalAddTrip extends Component {
                 <div className='modal-add__buttons-group'>
                     <button className='modal-add__button modal-add__button--cancel' type='button' onClick={ this.props.handleClose }>Cancel</button>
                     <button className='modal-add__button modal-add__button--add'  type='submit'>
-                        { this.props.modalTrip ? 'EDIT' : 'ADD' }
+                        { this.props.modalTrip.origin ? 'EDIT' : 'ADD' }
                     </button>
                 </div>
             </form>

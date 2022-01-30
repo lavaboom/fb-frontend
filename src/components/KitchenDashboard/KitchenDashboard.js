@@ -27,6 +27,10 @@ export default class KitchenDashboard extends Component {
         tripsWithCandidates: []
     }
 
+    /* -------------------------------------------------------------------------
+    application logic
+    ------------------------------------------------------------------------- */
+
     completeTrip = (tripID) => {
         const token = this.props.retrieveToken();
         axios.put(`${this.api_url}/trips/${tripID}`, {
@@ -48,7 +52,7 @@ export default class KitchenDashboard extends Component {
 
     updateAcceptedDriver = (driverID) => {
         // update trip with this driver ID
-        const token = sessionStorage.getItem('token');
+        const token = this.props.retrieveToken();
         axios.put(`http://localhost:8080/api/trips/${this.state.modalTrip.id}`, {
             driver_id: driverID,
         }, {
@@ -57,13 +61,11 @@ export default class KitchenDashboard extends Component {
             }
         })
         .then((response) => {
-            console.log(`editted ${response.data} row`);
+            console.log(`editted ${response.data} row when updating accepted driver`);
         })
         .catch((error) => {
             console.log(error)
         });
-        // hit candidate DB and change status of those not accepted to rejected
-
         // hit candidate DB and change status of accepted driver
         axios.put(`http://localhost:8080/api/trips/${this.state.modalTrip.id}/candidates`, {
             candidate_id: driverID,
@@ -73,7 +75,7 @@ export default class KitchenDashboard extends Component {
             }
         })
         .then((response) => {
-            console.log(`editted ${response.data} row`);
+            console.log(`editted ${response.data} row when updating candidates`);
         })
         .catch((error) => {
             console.log(error)
@@ -84,11 +86,9 @@ export default class KitchenDashboard extends Component {
         this.hideModal();
     };
 
+
     loadCandidates = (trip) => {
-        const token = sessionStorage.getItem('token');
-        if (!token) {
-            this.props.handleExpiredLogin();
-        };
+        const token = this.props.retrieveToken();
         axios.get(`${this.api_url}/trips/${trip.id}/candidates`, {
             headers: { Authorization: 'Bearer ' + token }
         }).then((response) => {
@@ -145,16 +145,23 @@ export default class KitchenDashboard extends Component {
         });
     }
 
-    componentDidMount = () => {
-        this.fetchTripsWithCandidates();
-    }
-
     deleteTrip = () => {
         // request server to delete this trip
         this.props.deleteTripFromDB(this.state.modalTrip.id);
         // close the modal
         this.setState({ showModalDelete: false });
     }
+
+    /* -------------------------------------------------------------------------
+    lifecycle methods
+    ------------------------------------------------------------------------- */
+    componentDidMount = () => {
+        this.fetchTripsWithCandidates();
+    }    
+
+    /* -------------------------------------------------------------------------
+    render
+    ------------------------------------------------------------------------- */
 
     render() {
 
@@ -187,6 +194,7 @@ export default class KitchenDashboard extends Component {
                     deleteFunction={ this.deleteTrip } />
                 <ModalAddTrip 
                     user={ this.props.user }
+                    retrieveToken={ this.props.retrieveToken }
                     show={ this.state.showModalAddTrip } 
                     handleClose={ () => this.hideModal() }
                     fetchTrips={ this.props.fetchTrips }
@@ -223,11 +231,7 @@ export default class KitchenDashboard extends Component {
                             {/* origin */}
                             <div className='table__cell table__cell--origin'>
                                 <div className='table__label'>ORIGIN</div>
-                                <div>
-                                    <a href={`/trip/${trip.id}`} className='table__link'>
-                                        { trip.origin } 
-                                    </a>
-                                </div>
+                                <div>{ trip.origin }</div>
                             </div>
                             {/* destination */}
                             <div className='table__cell table__cell--destination'>
@@ -260,7 +264,7 @@ export default class KitchenDashboard extends Component {
                                 {!this.state.tripsWithCandidates ? <p>CHECKING...</p> : 
                                 this.state.tripsWithCandidates.indexOf(trip.id) > -1 ? <button onClick={ () => this.loadCandidates(trip) }>CLICK TO ACCEPT</button> : 
                                 <div>
-                                    <div>{ trip.driver_id ? trip.driver_id: 'PENDING'}</div>
+                                    <div>{ trip.driver_id ? trip.driver_id : 'PENDING'}</div>
                                     <div><button onClick={ () => { this.completeTrip(trip.id)}}>Mark as complete</button></div>
                                 </div>}
                             </div>

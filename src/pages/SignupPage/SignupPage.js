@@ -22,6 +22,7 @@ export default class SignupPage extends Component {
                 email: event.target.email.value,
                 password: event.target.password.value,
                 name: event.target.name.value,
+                user_type: event.target.user_type.value,
             })
             .then(() => {
                 this.setState({ success: true, error: '' });
@@ -41,7 +42,17 @@ export default class SignupPage extends Component {
                     <Input type='text' name='name' label='Name' />
                     <Input type='text' name='email' label='Email' />
                     <Input type='password' name='password' label='Password' />
-
+                    <div className=''>
+                        <input type='radio' name='user_type' id='option-1' value={ 'Kitchen' } 
+                            defaultChecked />
+                        <label htmlFor='option-1' className=''>
+                            <span>Kitchen</span>
+                        </label>
+                        <input type='radio' name='user_type' id='option-2' value={ 'Driver' } />
+                        <label htmlFor='option-2' className=''>
+                            <span>Driver</span>
+                        </label>
+                    </div>
                     <button className='signup__button'>Sign up</button>
 
                     {this.state.success && <div className='signup__message'>Signed up!</div>}

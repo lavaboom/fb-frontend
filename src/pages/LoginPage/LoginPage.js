@@ -11,20 +11,23 @@ import axios from 'axios';
 export default class LoginPage extends Component {
     state = {
         error: '',
-        success: false
+        success: false,
+        userType: null
     }
 
     handleSubmit = (event) => {
         event.preventDefault();
 
-        axios
-            .post('http://localhost:8080/api/users/login', {
+        axios.post('http://localhost:8080/api/users/login', {
                 email: event.target.email.value,
                 password: event.target.password.value
             })
             .then((response) => {
                 sessionStorage.setItem('token', response.data.token);
-                this.setState({ success: true });
+                this.setState({ 
+                    success: true,
+                    userType: response.data.user_type
+                });
             })
             .catch((error) => {
                 this.setState({ error: error.response.data });
@@ -43,7 +46,7 @@ export default class LoginPage extends Component {
                     <button className='login__button'>Log in</button>
 
                     {this.state.error && <div className='login__message'>{this.state.error}</div>}
-                    {this.state.success && <Redirect to='/kitchen' />}
+                    {this.state.userType === 'Kitchen' ? <Redirect to='/kitchen' /> : <Redirect to='/driver' />}
                 </form>
                 <p>
                     Need an account? <Link to='/signup'>Sign up</Link>

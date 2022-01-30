@@ -1,6 +1,6 @@
 // React modules
 import React, { Component } from 'react';
-import { Redirect, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 // app styles & assets
 import './KitchenPage.scss';
 // other sub components
@@ -19,25 +19,54 @@ export default class KitchenPage extends Component {
         trips: [],
     }
 
-    // delete a particular trip
-    deleteTripFromDB = (tripID) => {
+    /* -------------------------------------------------------------------------
+    authentication related
+    ------------------------------------------------------------------------- */ 
+    
+    // retrieve token from the browser's session
+    retrieveToken = () => {
         const token = sessionStorage.getItem('token');
+        if (!token) {
+            this.setState({ failedAuth: true });
+            return;
+        }
+        return token;
+    }
+
+    // log user out
+    handleLogout = () => {
+        sessionStorage.removeItem('token');
+        this.setState({
+            user: null,
+            failedAuth: true
+        })
+    };
+
+    /* -------------------------------------------------------------------------
+    API related
+    ------------------------------------------------------------------------- */ 
+    
+    /**
+     * delete a trip using its id
+     * @param {int} tripID 
+     */
+    deleteTripFromDB = (tripID) => {
+        const token = this.retrieveToken();
         // request server to delete this trip
         axios.delete(this.api_url + '/trips/' + tripID, {
-            headers: {
-                Authorization: 'Bearer ' + token
+            headers: { 
+                Authorization: 'Bearer ' + token 
             }
         })
-        .then(response => {
-            // fetch new trip list
+        .then(_response => {
             this.fetchTrips();
         })
-        .catch(error => { console.log(error) });    
+        .catch(error => { console.log(error) });
     }
 
     // fetch all trips of this user from DB
     fetchTrips = () => {
-        const token = sessionStorage.getItem('token');
+        const token = this.retrieveToken();
         axios.get(`${this.api_url}/users/${this.state.user.id}/trips`, {
             headers: {
                 Authorization: 'Bearer ' + token
@@ -51,14 +80,9 @@ export default class KitchenPage extends Component {
         });
     }
 
-    retrieveToken = () => {
-        const token = sessionStorage.getItem('token');
-        if (!token) {
-            this.setState({ failedAuth: true });
-            return;
-        }
-        return token;
-    }
+    /* -------------------------------------------------------------------------
+    lifecycle methods
+    ------------------------------------------------------------------------- */
 
     componentDidMount() {
         const token = this.retrieveToken();
@@ -67,29 +91,22 @@ export default class KitchenPage extends Component {
             headers: { Authorization: 'Bearer ' + token }
         }).then((response) => {
             this.setState({ user: response.data });
-            // fetch trip data
             this.fetchTrips();
         }).catch(() => {
             this.setState({ failedAuth: true })
         });
-    }
+    }    
 
-    // log user out
-    handleLogout = () => {
-        sessionStorage.removeItem('token');
-        this.setState({
-            user: null,
-            failedAuth: true
-        })
-    };
-
+    /* -------------------------------------------------------------------------
+    render
+    ------------------------------------------------------------------------- */
     render() {
 
         // if user not logged in
         if (this.state.failedAuth) {
             return (
             <main className='dashboard'>
-            <p>You must be logged in to see this page. <Link to='/login'>Log in</Link></p>
+            <p>Please log in to continue. <Link to='/login'>Log in</Link></p>
             </main>
             )
         }
