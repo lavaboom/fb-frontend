@@ -28,7 +28,7 @@ export default class KitchenDashboard extends Component {
     }
 
     completeTrip = (tripID) => {
-        const token = sessionStorage.getItem('token');
+        const token = this.props.retrieveToken();
         axios.put(`${this.api_url}/trips/${tripID}`, {
             status: 'COMPLETED',
         }, {
@@ -36,14 +36,14 @@ export default class KitchenDashboard extends Component {
                 Authorization: 'Bearer ' + token
             }
         }).then((response) => {
-            this.setState({
-                trips: response.data
-            });
+            console.log('response from completeTrip: ' + response)
         }).catch(() => {
             console.log('Unable to update trips for this user')
         });
         // fetch trip again
         this.props.fetchTrips();
+        // close all modal
+        this.hideModal();
     }
 
     updateAcceptedDriver = (driverID) => {

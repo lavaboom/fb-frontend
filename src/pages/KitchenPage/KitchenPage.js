@@ -51,18 +51,17 @@ export default class KitchenPage extends Component {
         });
     }
 
-    handleExpiredLogin = () => {
-        this.setState({ failedAuth: true });
-        return;
+    retrieveToken = () => {
+        const token = sessionStorage.getItem('token');
+        if (!token) {
+            this.setState({ failedAuth: true });
+            return;
+        }
+        return token;
     }
 
     componentDidMount() {
-        const token = sessionStorage.getItem('token');
-        if (!token) {
-            this.handleExpiredLogin();
-            // this.setState({ failedAuth: true });
-            // return;
-        }
+        const token = this.retrieveToken();
         // Get user data from the API
         axios.get(`${this.api_url}/users/current`, {
             headers: { Authorization: 'Bearer ' + token }
@@ -115,7 +114,7 @@ export default class KitchenPage extends Component {
                     trips={ this.state.trips }
                     fetchTrips={ this.fetchTrips }
                     deleteTripFromDB = { this.deleteTripFromDB }
-                    handleExpiredLogin={ this.handleExpiredLogin } />
+                    retrieveToken={ this.retrieveToken } />
             </div>
         );
     }
