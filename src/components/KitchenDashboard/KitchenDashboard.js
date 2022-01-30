@@ -27,6 +27,25 @@ export default class KitchenDashboard extends Component {
         tripsWithCandidates: []
     }
 
+    completeTrip = (tripID) => {
+        const token = sessionStorage.getItem('token');
+        axios.put(`${this.api_url}/trips/${tripID}`, {
+            status: 'COMPLETED',
+        }, {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        }).then((response) => {
+            this.setState({
+                trips: response.data
+            });
+        }).catch(() => {
+            console.log('Unable to update trips for this user')
+        });
+        // fetch trip again
+        this.props.fetchTrips();
+    }
+
     updateAcceptedDriver = (driverID) => {
         // update trip with this driver ID
         const token = sessionStorage.getItem('token');
@@ -239,7 +258,11 @@ export default class KitchenDashboard extends Component {
                             <div className='table__cell table__cell--driver'>
                                 <div className='table__label'>DRIVER</div>
                                 {!this.state.tripsWithCandidates ? <p>CHECKING...</p> : 
-                                this.state.tripsWithCandidates.indexOf(trip.id) > -1 ? <button onClick={ () => this.loadCandidates(trip) }>CLICK TO ACCEPT</button> : <div>{ trip.driver_id ? trip.driver_id: 'PENDING'}</div>}
+                                this.state.tripsWithCandidates.indexOf(trip.id) > -1 ? <button onClick={ () => this.loadCandidates(trip) }>CLICK TO ACCEPT</button> : 
+                                <div>
+                                    <div>{ trip.driver_id ? trip.driver_id: 'PENDING'}</div>
+                                    <div><button onClick={ () => { this.completeTrip(trip.id)}}>Mark as complete</button></div>
+                                </div>}
                             </div>
                             {/* action */}
                             <div className='table__action-wrapper'>
