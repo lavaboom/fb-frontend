@@ -28,16 +28,42 @@ export default class KitchenDashboard extends Component {
     }
 
     updateAcceptedDriver = (driverID) => {
-
-    }
-
-    // reset trips with driver
-    removeTripWithCandidates = (tripID) => {
-        let newList = this.state.tripsWithCandidates.filter(elem => {
-            return elem !== tripID
+        // update trip with this driver ID
+        const token = sessionStorage.getItem('token');
+        axios.put(`http://localhost:8080/api/trips/${this.state.modalTrip.id}`, {
+            driver_id: driverID,
+        }, {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
         })
-        this.setState({tripsWithCandidates: newList});
-    }
+        .then((response) => {
+            console.log(`editted ${response.data} row`);
+        })
+        .catch((error) => {
+            console.log(error)
+        });
+        // hit candidate DB and change status of those not accepted to rejected
+
+        // hit candidate DB and change status of accepted driver
+        axios.put(`http://localhost:8080/api/trips/${this.state.modalTrip.id}/candidates`, {
+            candidate_id: driverID,
+        }, {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        })
+        .then((response) => {
+            console.log(`editted ${response.data} row`);
+        })
+        .catch((error) => {
+            console.log(error)
+        });
+        // re-fetch trips with candidates
+        this.fetchTripsWithCandidates();
+        // close the modal
+        this.hideModal();
+    };
 
     loadCandidates = (trip) => {
         const token = sessionStorage.getItem('token');
@@ -84,7 +110,7 @@ export default class KitchenDashboard extends Component {
         })
     };
 
-    componentDidMount = () => {
+    fetchTripsWithCandidates = () => {
         // fetch trips with active candidates
         const token = sessionStorage.getItem('token');
         axios.get(`${this.api_url}/users/${this.props.user.id}/trips-with-candidates`, {
@@ -98,6 +124,10 @@ export default class KitchenDashboard extends Component {
         }).catch(() => {
             console.log('Unable to fetch candidates for this user')
         });
+    }
+
+    componentDidMount = () => {
+        this.fetchTripsWithCandidates();
     }
 
     deleteTrip = () => {
@@ -130,7 +160,7 @@ export default class KitchenDashboard extends Component {
                     show={ this.state.showModalCandidates } 
                     handleClose={ () => this.hideModal() } 
                     candidates= {this.state.modalCandidates } 
-                    removeTripWithCandidates = { this.removeTripWithCandidates } />
+                    updateAcceptedDriver = { this.updateAcceptedDriver } />
                 <ModalDelete 
                     show={ this.state.showModalDelete } 
                     handleClose={ () => this.hideModal() } 
@@ -209,7 +239,7 @@ export default class KitchenDashboard extends Component {
                             <div className='table__cell table__cell--driver'>
                                 <div className='table__label'>DRIVER</div>
                                 {!this.state.tripsWithCandidates ? <p>CHECKING...</p> : 
-                                this.state.tripsWithCandidates.indexOf(trip.id) > -1 ? <button onClick={ () => this.loadCandidates(trip) }>CLICK TO ACCEPT</button> : <div>PENDING</div>}
+                                this.state.tripsWithCandidates.indexOf(trip.id) > -1 ? <button onClick={ () => this.loadCandidates(trip) }>CLICK TO ACCEPT</button> : <div>{ trip.driver_id ? trip.driver_id: 'PENDING'}</div>}
                             </div>
                             {/* action */}
                             <div className='table__action-wrapper'>

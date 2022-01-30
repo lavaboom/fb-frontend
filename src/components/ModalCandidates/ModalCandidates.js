@@ -14,6 +14,8 @@ export default class ModalCandidates extends Component {
         curCandidateIndex: 0,
     }
 
+    
+
     cycleCandidate = (action) => {
         let curCandidateIndex = this.state.curCandidateIndex;
         if (action === 'back') {
@@ -67,8 +69,7 @@ export default class ModalCandidates extends Component {
                         this.props.candidates[this.state.curCandidateIndex].offer }</p>
                     </div>
                     <div className='modal-candidates__buttons-group'>
-                        <button className='modal-candidates__button modal-candidates__button--accept' type='button'>Accept</button>
-                        <button className='modal-candidates__button modal-candidates__button--delete' type='button' onClick={ () => this.removeCandidate(this.state.curCandidateIndex) }>Decline</button>
+                        <button className='modal-candidates__button modal-candidates__button--accept' type='button' onClick={ () => this.props.updateAcceptedDriver(this.props.candidates[this.state.curCandidateIndex].id) }>Accept</button>
                     </div>
                     <div className='modal-candidates__cancel' onClick={ this.props.handleClose }>
                         <p>CANCEL - DECIDE LATER</p>
