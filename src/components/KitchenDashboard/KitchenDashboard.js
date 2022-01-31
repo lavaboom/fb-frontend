@@ -51,6 +51,7 @@ export default class KitchenDashboard extends Component {
     }
 
     updateAcceptedDriver = (driverID) => {
+        console.log('driver ' + driverID + ' was accepted')
         // update trip with this driver ID
         const token = this.props.retrieveToken();
         axios.put(`http://localhost:8080/api/trips/${this.state.modalTrip.id}`, {

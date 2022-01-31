@@ -46,7 +46,8 @@ export default class LoginPage extends Component {
                     <button className='login__button'>Log in</button>
 
                     {this.state.error && <div className='login__message'>{this.state.error}</div>}
-                    {this.state.userType === 'Kitchen' ? <Redirect to='/kitchen' /> : <Redirect to='/driver' />}
+                    {this.state.success && <Redirect to='/kitchen' />}
+                    {/* {this.state.userType === 'Kitchen' ? <Redirect to='/kitchen' /> : <Redirect to='/driver' />} */}
                 </form>
                 <p>
                     Need an account? <Link to='/signup'>Sign up</Link>

@@ -43,15 +43,12 @@ export default class SignupPage extends Component {
                     <Input type='text' name='email' label='Email' />
                     <Input type='password' name='password' label='Password' />
                     <div className=''>
+                        <p>Profile type</p>
                         <input type='radio' name='user_type' id='option-1' value={ 'Kitchen' } 
-                            defaultChecked />
-                        <label htmlFor='option-1' className=''>
-                            <span>Kitchen</span>
-                        </label>
-                        <input type='radio' name='user_type' id='option-2' value={ 'Driver' } />
-                        <label htmlFor='option-2' className=''>
-                            <span>Driver</span>
-                        </label>
+                             />
+                        <label htmlFor='option-1' className=''>Kitchen</label>
+                        <input type='radio' name='user_type' id='option-2' value={ 'Driver' } defaultChecked />
+                        <label htmlFor='option-2' className=''>Driver</label>
                     </div>
                     <button className='signup__button'>Sign up</button>
 
