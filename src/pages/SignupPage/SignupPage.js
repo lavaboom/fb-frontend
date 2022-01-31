@@ -25,7 +25,17 @@ export default class SignupPage extends Component {
                 user_type: 'Driver',
             })
             .then(() => {
-                this.setState({ success: true, error: '' });
+                // log user in after login
+                axios.post('http://localhost:8080/api/users/login', {
+                email: event.target.email.value,
+                password: event.target.password.value
+                })
+                .then((response) => {
+                    sessionStorage.setItem('token', response.data.token);
+                    this.setState({ 
+                        success: true,
+                    });
+                })
                 event.target.reset();
             })
             .catch((error) => {
@@ -52,7 +62,7 @@ export default class SignupPage extends Component {
                     </div> */}
                     <button className='signup__button'>Sign up</button>
 
-                    {this.state.success && <div className='signup__message'>Signed up!</div>}
+                    {this.state.success && <Redirect to='/driver' />}
                     {this.state.error && <div className='signup__message'>{ this.state.error }</div>}
                 </form>
                 <p>

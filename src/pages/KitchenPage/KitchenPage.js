@@ -1,6 +1,6 @@
 // React modules
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 // app styles & assets
 import './KitchenPage.scss';
 // other sub components
@@ -104,11 +104,7 @@ export default class KitchenPage extends Component {
 
         // if user not logged in
         if (this.state.failedAuth) {
-            return (
-            <main className='dashboard'>
-            <p>Please log in to continue. <Link to='/login'>Log in</Link></p>
-            </main>
-            )
+            return <Redirect to='/login' />
         }
 
         // if user not yet loaded

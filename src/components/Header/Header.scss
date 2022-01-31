@@ -17,11 +17,13 @@ navigation bar block
     justify-content: space-between;
     align-items: center;
     padding: 1rem 1.5rem;
+    background-color: variables.$color-background-1;
 
     &__logo {
-        font-size: 2.1rem;
+        font-size: 1.8rem;
         font-weight: 500;
-        color: #482ff7;
+        font-family: American Typewriter, serif;
+        color: variables.$color-primary-1;
         text-decoration: none;
     }
 
@@ -55,14 +57,31 @@ navigation bar block
     }
 
     &__link {
-        font-size: 1.6rem;
-        font-weight: 400;
-        color: #475569;
+        font-size: 1.2rem;
+        color: variables.$color-secondary-1;
         text-decoration: none;
+        padding-right: 1rem;
+
+        @include tablet {
+            border-right: 1px solid variables.$color-secondary-1;
+        }
     }
     
     &__link:hover {
-        color: #482ff7;
+        color: variables.$color-primary-1;
+    }
+
+    &__button {
+        cursor:pointer;
+        color: white;
+        background-color: variables.$color-primary-1;
+        font-weight: bold;
+        padding: 0.5rem;
+        border-radius: 5px;
+        border: 1px solid variables.$color-primary-1;
+        &:hover {
+            color: variables.$color-secondary-1;
+        }
     }
 }
 

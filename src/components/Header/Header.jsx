@@ -21,16 +21,13 @@ export default class Header extends Component {
                     <a href='#' className='navbar__logo'>Food Bunnies</a>
                     <ul className={`navbar__menu ${ this.state.mobileMenu ? 'navbar__menu--active' : '' }`}> 
                         <li className='navbar__item'>
-                            <a href='#' className='navbar__link' onClick={ this.toggleMobileMenu }>Services</a>
-                        </li>
-                        <li className='navbar__item'>
                             <a href='#' className='navbar__link' onClick={ this.toggleMobileMenu }>Switch to { this.props.user.user_type === 'Kitchen' ? 'Driver' : 'Kitchen'} view</a>
                         </li>
                         <li className='navbar__item'>
-                            <p>Hi, { this.props.user.name }</p>
+                            <p>Welcome, { this.props.user.name }</p>
                         </li>
                         <li className='navbar__item'>
-                        <button className='' onClick={ this.props.handleLogout }>
+                        <button className='navbar__button' onClick={ this.props.handleLogout }>
                             Log out
                         </button>
                         </li>
