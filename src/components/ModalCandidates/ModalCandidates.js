@@ -5,7 +5,7 @@ import './ModalCandidates.scss'
 import iconArrowBack from '../../assets/Icons/arrow_back-24px.svg'
 import iconArrowNext from '../../assets/Icons/arrow_next.svg'
 import iconStar from '../../assets/Icons/star.svg'
-import profilePic from '../../assets/images/profile_pic.jpeg'
+import profilePic from '../../assets/images/rabbids.png'
 
 
 export default class ModalCandidates extends Component {
