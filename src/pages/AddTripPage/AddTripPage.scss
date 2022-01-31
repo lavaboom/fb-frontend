@@ -97,12 +97,13 @@ form style
 
     &__button {
         border: 1px solid #bdc5d5;
-        border-radius: 20px;
+        border-radius: 10px;
+        font-weight: bold;
         padding: 0.5rem 1rem;
         width: 100%;
 
         @include tablet {
-            max-width: 30rem;
+            max-width: 20rem;
             margin: auto;
         }
 
@@ -111,6 +112,8 @@ form style
             background-color: variables.$color-primary-2;
             border: 1px solid variables.$color-primary-2;
             cursor: pointer;
+            padding: 0.8rem;
+            font-size: 1.2rem;
 
             &:hover {
                 background-color: variables.$color-secondary-1;
