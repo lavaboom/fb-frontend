@@ -1,0 +1,170 @@
+@use '../../styles/partials/fonts' as *;
+@use '../../styles/partials/mixins' as *;
+@use '../../styles/partials/variables';
+
+
+/* -----------------------------------------------------------------------------
+container
+----------------------------------------------------------------------------- */ 
+.container {
+    margin: 1rem 4%;
+    padding: 1rem;
+    width: 92%;
+    box-shadow: 0px 2px 5px rgba(19, 24, 44, 0.1);
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+
+    @include tablet {
+        max-width: 50rem;
+        margin: 1rem auto;
+    }
+
+    &-header {
+        font-size: 1.2rem;
+        margin-bottom: 0.2rem;
+        color: variables.$color-secondary-1;
+    }
+
+    &-menu {
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid variables.$color-secondary-2;
+        padding-bottom: 1rem;
+        margin-bottom: 1rem;
+    
+        &__icon {
+            margin-right: 1rem;
+        }
+    
+        &__text {
+            color: variables.$color-primary-1;;
+        }
+    }
+    
+}
+
+/* -----------------------------------------------------------------------------
+form style
+----------------------------------------------------------------------------- */ 
+.form {
+
+    &__subheader {
+        margin-bottom: 0.3rem;
+        color: variables.$color-secondary-1;
+    }
+
+    // form
+    &__input-form {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1rem;
+    }
+    &__invisible-label {
+        display: none;
+    }
+    &__visible-label {
+        font-size: 1rem;
+        color: variables.$color-secondary-1;
+    }
+    &__input-group {
+        display: flex;
+        flex-direction: column;
+        margin: 0.5rem 0;
+    }
+    &__input-field {
+        width: 100%;
+        margin: 0.2rem 0;
+        font-size: 1.1rem;
+        border-bottom: 1px solid variables.$color-secondary-2;
+    }
+    &__input-field--no-border {
+        border-top: none;
+        border-left: none;
+        border-right: none;
+    }
+    &__radio-group {
+        width: 100%;
+    }
+    &__datetime {
+        display: flex;
+        justify-content: space-between;
+        &-item {
+            width: 49%;
+        }
+    }
+
+    &__button {
+        border: 1px solid #bdc5d5;
+        border-radius: 20px;
+        padding: 0.5rem 1rem;
+        width: 100%;
+
+        @include tablet {
+            max-width: 30rem;
+            margin: auto;
+        }
+
+        &--add {
+            color: white;
+            background-color: variables.$color-primary-2;
+            border: 1px solid variables.$color-primary-2;
+            cursor: pointer;
+
+            &:hover {
+                background-color: variables.$color-secondary-1;
+                border: 1px solid variables.$color-secondary-1;
+            }
+        }
+    }    
+}
+
+/* -----------------------------------------------------------------------------
+radio button style
+----------------------------------------------------------------------------- */ 
+.wrapper {
+    display: inline-flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-evenly;
+    border-radius: 5px;
+ }
+ .wrapper .option {
+    background: #fff;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    // margin: 0 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 0.4rem;
+    border: 1px solid variables.$color-secondary-1;
+    transition: all 0.3s ease;
+ }
+ 
+ input[type="radio"] {
+    display: none;
+ }
+ #option-1:checked:checked ~ .option-1,
+ #option-2:checked:checked ~ .option-2 {
+    border-color: variables.$color-primary-2;
+    background: variables.$color-primary-2;
+ }
+ .wrapper .option span {
+    // font-size: 20px;
+    color: variables.$color-secondary-1;
+    
+ }
+ #option-1:checked:checked ~ .option-1 span,
+ #option-2:checked:checked ~ .option-2 span {
+    color: #fff;
+ }
+ 
+.checked {
+    border-color: variables.$color-primary-2;
+    background: variables.$color-primary-2;
+    color: #fff;
+}

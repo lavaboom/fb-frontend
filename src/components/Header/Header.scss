@@ -103,7 +103,8 @@ the hamburger button (activated on mobile)
         margin: 5px auto;
         -webkit-transition: all 0.3s ease-in-out;
         transition: all 0.3s ease-in-out;
-        background-color: #101010;
+        background-color: variables.$color-primary-1;
+
     }
 }
 

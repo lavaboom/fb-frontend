@@ -59,7 +59,7 @@ export default class ModalAddTrip extends Component {
             // close the modal
             this.props.handleClose();
             // fetch trips again
-            this.props.fetchTrips();                
+            this.props.fetchTrips();
         })
         .catch((error) => {
             console.log(error)
