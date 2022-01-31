@@ -1,12 +1,12 @@
 // React modules
 import React, { Component } from 'react';
 // app styles & assets
-import './ModalAddTrip.scss'
+import './ModalEditTrip.scss'
 import iconClose from '../../assets/Icons/close-24px.svg'
 // 3rd party libraries
 import axios from 'axios'
 
-export default class ModalAddTrip extends Component {
+export default class ModalEditTrip extends Component {
 
     handleEdit = (event) => {
         event.preventDefault();
@@ -90,42 +90,42 @@ export default class ModalAddTrip extends Component {
             <div className='modal-add__close-icon'>
                 <img src={ iconClose } alt='close' onClick={ this.props.handleClose } />
             </div>
-            <h1 className='modal-add__title'>Add a trip</h1>
+            <h1 className='modal-add__title'>Edit trip</h1>
             
             {/* form */}
             <form className='modal-add__input-form' onSubmit={ this.props.modalTrip.origin ? this.handleEdit : this.handleSubmit }>
                 <div className='modal-add__input-group'>
-                    <label htmlFor='origin'>Origin</label>
-                    <input className='modal-add__input-field' type='text' name='origin' id='origin' 
+                    <label className='modal-add__visible-label' htmlFor='origin'>Origin</label>
+                    <input className='modal-add__input-field modal-add__input-field--no-border' type='text' name='origin' id='origin' 
                         defaultValue={ this.props.modalTrip.origin || '' } />
                 </div>
                 <div className='modal-add__input-group'>
-                    <label htmlFor='destination'>Destination</label>
-                    <input className='modal-add__input-field' type='text' name='destination' id='destination' 
+                    <label className='modal-add__visible-label' htmlFor='destination'>Destination</label>
+                    <input className='modal-add__input-field modal-add__input-field--no-border' type='text' name='destination' id='destination' 
                         defaultValue={ this.props.modalTrip.destination || '' } />
                 </div>
                 <div className='modal-add__input-group'>
-                    <label htmlFor='note'>Note for driver</label>
-                    <input className='modal-add__input-field' type='text' name='note' id='note' placeholder='Leave at door' 
+                    <label className='modal-add__visible-label' htmlFor='note'>Note for driver</label>
+                    <input className='modal-add__input-field modal-add__input-field--no-border' type='text' name='note' id='note' placeholder='Leave at door' 
                         defaultValue={ this.props.modalTrip.note || '' } />
                 </div>
                 
                 {/* date & time group */}
                 <div className='modal-add__datetime'>
                     <div className='modal-add__input-group modal-add__datetime-item'>
-                        <label htmlFor='jobDate'>Job Date</label>
-                        <input className='modal-add__input-field' type='date' name='jobDate' id='jobDate' 
+                        <label className='modal-add__visible-label' htmlFor='jobDate'>Job Date</label>
+                        <input className='modal-add__input-field modal-add__input-field--no-border' type='date' name='jobDate' id='jobDate' 
                         defaultValue={ jobDate || '' } />
                     </div>
                     <div className='modal-add__input-group modal-add__datetime-item'>
-                        <label htmlFor='jobTime'>Time</label>
-                        <input className='modal-add__input-field' type='time' name='jobTime' id='jobTime' 
+                        <label className='modal-add__visible-label' htmlFor='jobTime'>Time</label>
+                        <input className='modal-add__input-field modal-add__input-field--no-border' type='time' name='jobTime' id='jobTime' 
                         defaultValue={ jobTime || '' } />
                     </div>
                 </div>
                 
                 <div className='modal-add__input-group'>
-                    <p>Paid by</p>
+                    <p className='modal-add__subheader'>Paid by</p>
                     <div className='wrapper'>
                         <input type='radio' name='paymentType' id='option-1' value={ 'Sender' } 
                             defaultChecked />
@@ -139,8 +139,8 @@ export default class ModalAddTrip extends Component {
                     </div>
                 </div>
                 <div className='modal-add__input-group'>
-                    <label htmlFor='pay'>Pay</label>
-                    <input className='modal-add__input-field' type='number' name='pay' id='pay' 
+                    <label className='modal-add__visible-label' htmlFor='pay'>How much will you pay delivery driver?</label>
+                    <input className='modal-add__input-field modal-add__input-field--no-border' type='number' name='pay' id='pay' 
                         defaultValue={ this.props.modalTrip.payment_amount || '' } />
                 </div>
                 <div className='modal-add__buttons-group'>

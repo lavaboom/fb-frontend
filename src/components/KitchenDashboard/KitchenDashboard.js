@@ -6,7 +6,7 @@ import iconDelete from '../../assets/Icons/delete_outline-24px.svg'
 import iconEdit from '../../assets/Icons/edit-24px.svg'
 // other sub components
 import ModalDelete from '../ModalDelete/ModalDelete'
-import ModalAddTrip from '../ModalAddTrip/ModalAddTrip'
+import ModalEditTrip from '../ModalEditTrip/ModalEditTrip'
 import ModalCandidates from '../ModalCandidates/ModalCandidates'
 
 // 3rd party libraries
@@ -19,7 +19,7 @@ export default class KitchenDashboard extends Component {
     api_url = 'http://localhost:8080/api'
 
     state = {
-        showModalAddTrip: false,
+        showModalEditTrip: false,
         showModalDelete: false,
         showModalCandidates: false,
         modalTrip: '',
@@ -110,23 +110,16 @@ export default class KitchenDashboard extends Component {
             // toggle the appropriate modal
             showModalDelete: modal === 'delete' ? true : false,
             showModalCandidates: modal === 'candidates' ? true : false,
-            showModalAddTrip: modal === 'addtrip' ? true : false,
+            showModalEditTrip: modal === 'addtrip' ? true : false,
         })
     }
 
     hideModal = () => {
-        let emptyTrip = {
-            origin: null,
-            destination: null,
-            job_date: null,
-            payment_type: null,
-            payment_amount: null
-        };
+        
         this.setState({
             showModalDelete: false,
             showModalCandidates: false,
-            showModalAddTrip: false,
-            modalTrip: emptyTrip
+            showModalEditTrip: false,
         })
     };
 
@@ -166,14 +159,6 @@ export default class KitchenDashboard extends Component {
 
     render() {
 
-        let emptyTrip = {
-            origin: null,
-            destination: null,
-            job_date: null,
-            payment_type: null,
-            payment_amount: null
-        }
-
         return (
             this.props.trips.length === 0 ? 
                 // UI for when there's no trip to display
@@ -193,26 +178,14 @@ export default class KitchenDashboard extends Component {
                     handleClose={ () => this.hideModal() } 
                     data={ this.state.modalTrip } 
                     deleteFunction={ this.deleteTrip } />
-                <ModalAddTrip 
+                <ModalEditTrip 
                     user={ this.props.user }
                     retrieveToken={ this.props.retrieveToken }
-                    show={ this.state.showModalAddTrip } 
+                    show={ this.state.showModalEditTrip } 
                     handleClose={ () => this.hideModal() }
                     fetchTrips={ this.props.fetchTrips }
                     modalTrip={ this.state.modalTrip } />
                 
-                {/* header area */}
-                <div className='table-functionalities'>
-                    <h1 className='table-functionalities__title'>Trips</h1>
-                    <div className="table-functionalities__wrapper">
-                        <button 
-                            className='table-functionalities__add' 
-                            onClick={ () => this.showModal(emptyTrip, 'addtrip')}>
-                                + Add New Trip
-                        </button>
-                    </div>
-                </div>
-
                 {/* table area - header */}
                 <div className='table'>
                     <div className='table__header'>
