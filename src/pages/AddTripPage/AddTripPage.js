@@ -1,21 +1,21 @@
 // React modules
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+// app styles & assets
+import './AddTripPage.scss'
 // other sub components
 import Header from '../../components/Header/Header'
-import KitchenDashboard from '../../components/KitchenDashboard/KitchenDashboard';
-import AddTripButton from '../../components/AddTripButton/AddTripButton';
 // 3rd parties libraries
 import axios from 'axios';
 
-export default class KitchenPage extends Component {
+
+export default class AddTripPage extends Component {
 
     api_url = 'http://localhost:8080/api'
 
     state = {
         user: null,
         failedAuth: false,
-        trips: [],
     }
 
     /* -------------------------------------------------------------------------
@@ -42,44 +42,6 @@ export default class KitchenPage extends Component {
     };
 
     /* -------------------------------------------------------------------------
-    API related
-    ------------------------------------------------------------------------- */ 
-    
-    /**
-     * delete a trip using its id
-     * @param {int} tripID 
-     */
-    deleteTripFromDB = (tripID) => {
-        const token = this.retrieveToken();
-        // request server to delete this trip
-        axios.delete(this.api_url + '/trips/' + tripID, {
-            headers: { 
-                Authorization: 'Bearer ' + token 
-            }
-        })
-        .then(_response => {
-            this.fetchTrips();
-        })
-        .catch(error => { console.log(error) });
-    }
-
-    // fetch all trips of this user from DB
-    fetchTrips = () => {
-        const token = this.retrieveToken();
-        axios.get(`${this.api_url}/users/${this.state.user.id}/trips`, {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        }).then((response) => {
-            this.setState({
-                trips: response.data
-            });
-        }).catch(() => {
-            console.log('Unable to fetch trips for this user')
-        });
-    }
-
-    /* -------------------------------------------------------------------------
     lifecycle methods
     ------------------------------------------------------------------------- */
 
@@ -102,12 +64,13 @@ export default class KitchenPage extends Component {
     /* -------------------------------------------------------------------------
     render
     ------------------------------------------------------------------------- */
+
     render() {
 
         // if user not logged in
-        if (this.state.failedAuth) {
-            return <Redirect to='/login' />
-        }
+        // if (this.state.failedAuth) {
+        //     return <Redirect to='/login' />
+        // }
 
         // if user not yet loaded
         if (!this.state.user) {
@@ -123,14 +86,9 @@ export default class KitchenPage extends Component {
             <div>
                 <Header 
                     user={ this.state.user } handleLogout={ this.handleLogout } />
-                <AddTripButton user={ this.state.user } />
-                <KitchenDashboard 
-                    user={ this.state.user } 
-                    trips={ this.state.trips }
-                    fetchTrips={ this.fetchTrips }
-                    deleteTripFromDB = { this.deleteTripFromDB }
-                    retrieveToken={ this.retrieveToken } />
+                <div>blah</div>
             </div>
         );
     }
 }
+
