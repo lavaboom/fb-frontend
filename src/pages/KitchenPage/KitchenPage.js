@@ -1,11 +1,10 @@
 // React modules
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
-// app styles & assets
-import './KitchenPage.scss';
+import { Redirect } from 'react-router-dom';
 // other sub components
 import Header from '../../components/Header/Header'
 import KitchenDashboard from '../../components/KitchenDashboard/KitchenDashboard';
+import AddTripButton from '../../components/AddTripButton/AddTripButton';
 // 3rd parties libraries
 import axios from 'axios';
 
@@ -120,8 +119,8 @@ export default class KitchenPage extends Component {
         return (
             <div>
                 <Header 
-                    user={ this.state.user } 
-                    handleLogout={ this.handleLogout } />
+                    user={ this.state.user } handleLogout={ this.handleLogout } />
+                <AddTripButton user={ this.state.user } />
                 <KitchenDashboard 
                     user={ this.state.user } 
                     trips={ this.state.trips }

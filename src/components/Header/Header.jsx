@@ -15,13 +15,15 @@ export default class Header extends Component {
     }
 
     render() {
+        const currentURL = window.location.href;
+        const isKitchenView = currentURL.indexOf('kitchen') > -1 ? true : false;
         return (
             <header className='header'>
                 <nav className='navbar'>
                     <a href='#' className='navbar__logo'>Food Bunnies</a>
                     <ul className={`navbar__menu ${ this.state.mobileMenu ? 'navbar__menu--active' : '' }`}> 
                         <li className='navbar__item'>
-                            <a href='#' className='navbar__link' onClick={ this.toggleMobileMenu }>Switch to { this.props.user.user_type === 'Kitchen' ? 'Driver' : 'Kitchen'} view</a>
+                            <Link className='navbar__link' to={`${ isKitchenView ? '/driver' : '/kitchen'}`}>Switch to {`${ isKitchenView ? 'Driver' : 'Kitchen'}`} view</Link>
                         </li>
                         <li className='navbar__item'>
                             <p>Welcome, { this.props.user.name }</p>
