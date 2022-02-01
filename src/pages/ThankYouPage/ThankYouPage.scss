@@ -33,6 +33,11 @@ container
 
     &__message {
         margin: 2rem;
+        font-size: 0.85rem;
+
+        @include tablet {
+            font-size: 1rem;
+        }
     }
 
     &__button {

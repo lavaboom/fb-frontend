@@ -12,6 +12,7 @@ import DriverPage from './pages/DriverPage/DriverPage'
 import AddTripPage from './pages/AddTripPage/AddTripPage';
 import ReviewPage from './pages/ReviewPage/ReviewPage';
 import ThankYouPage from './pages/ThankYouPage/ThankYouPage';
+import LogoutPage from './pages/LogoutPage/LogoutPage';
 
 export default class App extends Component {
 
@@ -24,6 +25,7 @@ export default class App extends Component {
               {/* general pages */}
               <Route path='/' exact component={ LandingPage } />
               <Route path='/thank-you' exact component={ ThankYouPage } />
+              <Route path='/logout' exact component={ LogoutPage } />
               {/* authentication */}
               <Route path='/login' component={ LoginPage } />
               <Route path='/signup' component={ SignupPage } />
