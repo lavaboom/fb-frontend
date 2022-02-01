@@ -60,7 +60,7 @@ export default class ModalCandidates extends Component {
                         </div>
                         <div className='modal-candidates__rating-container'>
                             <div>Registration number: { this.props.candidates[this.state.curCandidateIndex].candidate_id }</div>
-                            <div>Rating: { this.props.candidates[this.state.curCandidateIndex].rating } / 5 ★</div>
+                            <div>Ratings: { this.props.candidates[this.state.curCandidateIndex].rating } / 5 ★</div>
                         </div>
                         <p className='modal-candidates__offer'>I can do this for ${ 
                         this.props.candidates[this.state.curCandidateIndex].offer }</p>

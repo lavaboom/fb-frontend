@@ -60,7 +60,6 @@ export default class ThankYouPage extends Component {
                 user: response.data,
                 failedAuth: false
             });
-            this.fetchTrips();
         }).catch(() => {
             console.log('Error retrieving user')
         });

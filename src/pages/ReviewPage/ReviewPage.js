@@ -19,8 +19,10 @@ export default class ReviewPage extends Component {
 
     state = {
         user: null,
+        driver: null,
         failedAuth: false,
         backHome: false,
+        thankYouPage: false,
         logout: false,
         rating: 0,
         ratingDesc: '',
@@ -65,29 +67,37 @@ export default class ReviewPage extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
         const token = this.retrieveToken();
-        // let datetime = event.target.jobDate.value + ' ' + event.target.jobTime.value;
-        // axios.post('http://localhost:8080/api/trips/add', {
-        //     sender_id: this.state.user.id,
-        //     reviewText: event.target.reviewText.value,
-        //     destination: event.target.destination.value,
-        //     date_posted: new Date(),
-        //     job_date: datetime,
-        //     note: event.target.note.value,
-        //     payment_type: event.target.paymentType.value,
-        //     payment_amount: event.target.pay.value
-        // }, {
-        //     headers: {
-        //         Authorization: 'Bearer ' + token
-        //     }
-        // })
-        // .then((response) => {
-        //     this.setState({ backHome: true })
-            
-        // })
-        // .catch((error) => {
-        //     console.log(error)
-        // });
+        axios.post(`${this.api_url}/reviews/${this.props.match.params.tripID}/${this.props.match.params.driverID}`, {
+            authorID: this.state.user.id,
+            score: this.state.rating,
+            text: event.target.reviewText.value,
+        }, {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        })
+        .then((response) => {
+            this.setState({thankYouPage: true})
+        })
+        .catch((error) => {
+            console.log(error)
+        });
     };
+
+    fetchDriver = () => {
+        console.log('fetching driver ' + this.props.match.params.driverID);
+        const token = this.retrieveToken();
+        // Get user data from the API
+        axios.get(`${this.api_url}/users/${this.props.match.params.driverID}/details`, {
+            headers: { Authorization: 'Bearer ' + token }
+        }).then((response) => {
+            this.setState({ 
+                driver: response.data,
+            });
+        }).catch(() => {
+            console.log('Cannot fetch driver info')
+        });
+    }
 
     /* -------------------------------------------------------------------------
     lifecycle methods
@@ -103,8 +113,9 @@ export default class ReviewPage extends Component {
                 user: response.data,
                 failedAuth: false
             });
-            this.fetchTrips();
+            this.fetchDriver();
         }).catch(() => {
+            // this.setState({ failedAuth: true })
             console.log('Error retrieving user')
         });
     }    
@@ -115,10 +126,17 @@ export default class ReviewPage extends Component {
 
     render() {
 
-        // go back home after logout
+        // go to logout page
         if (this.state.logout) {
             return (
                 <Redirect to='/logout' />
+            )
+        }
+
+        // go to thank you page
+        if (this.state.thankYouPage) {
+            return (
+                <Redirect to='/thank-you' />
             )
         }
         
@@ -135,7 +153,7 @@ export default class ReviewPage extends Component {
         }
 
         // if user not yet loaded
-        if (!this.state.user) {
+        if (!this.state.user || !this.state.driver) {
             return (
             <main>
                 <p>Loading...</p>
@@ -157,7 +175,7 @@ export default class ReviewPage extends Component {
                         <div className='container-menu__text'>Cancel</div>
                     </div>
                     <h1 className='container-header'>Trip Completed!</h1>
-                    <h2 className='container-subheader'>Please rate your driver</h2>
+                    <h2 className='container-subheader'>Please rate {this.state.driver.name}'s service</h2>
                     <form className='review' onSubmit={ this.handleSubmit }>
                         <div className='review__driver-photo-containers'>
                             <img className='review__driver-photo' src={ profilePic } alt='driver' />
@@ -173,7 +191,7 @@ export default class ReviewPage extends Component {
                             <div className='review__stars-description'>{ this.state.rating === 0 ? 'How was the delivery?' : this.state.ratingDesc }</div>
                         </div>
                         <div className='review__input-group'>
-                            <label className='review__invisible-label' htmlFor='reviewText'>Origin</label>
+                            <label className='review__invisible-label' htmlFor='reviewText'>Details</label>
                             <textarea 
                                 className='review__input-field' 
                                 rows='3' name='reviewText' id='reviewText' placeholder='Optional detailed review...' />

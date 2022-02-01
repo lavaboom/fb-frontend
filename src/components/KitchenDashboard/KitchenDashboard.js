@@ -1,6 +1,6 @@
 // React modules
 import React, { Component } from 'react'
-import equal from 'fast-deep-equal'
+import { Redirect } from 'react-router-dom';
 // app styles & assets
 import './KitchenDashboard.scss'
 import addRecord from '../../assets/Icons/add_item.svg'
@@ -24,6 +24,8 @@ export default class KitchenDashboard extends Component {
         showModalEditTrip: false,
         showModalDelete: false,
         showModalCandidates: false,
+        directToReviewPage: false,
+        driverToReview: null,
         modalTrip: '',
         modalCandidates: null,
         tripsWithCandidates: []
@@ -33,9 +35,10 @@ export default class KitchenDashboard extends Component {
     application logic
     ------------------------------------------------------------------------- */
 
-    completeTrip = (tripID) => {
+    completeTrip = (trip) => {
+        this.setState({driverToReview: trip.driver_id});
         const token = this.props.retrieveToken();
-        axios.put(`${this.api_url}/trips/${tripID}`, {
+        axios.put(`${this.api_url}/trips/${trip.id}`, {
             status: 'COMPLETED',
         }, {
             headers: {
@@ -44,7 +47,8 @@ export default class KitchenDashboard extends Component {
         }).then(() => {
             console.log('trip completed successfully');
             // fetch trip again
-            this.props.fetchTrips();
+            // this.props.fetchTrips();
+            this.setState({directToReviewPage: true})
         }).catch(() => {
             console.log('Unable to update trips for this user')
         });        
@@ -161,6 +165,13 @@ export default class KitchenDashboard extends Component {
 
     render() {
 
+        // go to review page
+        if (this.state.directToReviewPage && this.state.driverToReview) {
+            return (
+                <Redirect to={`/${this.state.modalTrip.id}/${this.state.driverToReview}/review`} />
+            )
+        }
+
         return (
             this.props.trips.length === 0 ? 
                 // UI for when there's no trip to display
@@ -231,7 +242,7 @@ export default class KitchenDashboard extends Component {
                                             <div>
                                                 <div className='trip-details__status-text'>Being delivered by driver <span className='trip-details__bold'
                                                 >No. {trip.driver_id}</span></div>
-                                                <div><button className='trip-details__status trip-details__status--mark-complete' onClick={ () => { this.completeTrip(trip.id)}}>Mark completed</button></div>
+                                                <div><button className='trip-details__status trip-details__status--mark-complete' onClick={ () => { this.completeTrip(trip)}}>Mark completed</button></div>
                                             </div> : 
                                             <div><button className='trip-details__status trip-details__status--pending'>Driver Pending</button></div>
                                             }
