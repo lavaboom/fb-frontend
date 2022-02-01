@@ -8,9 +8,11 @@ import iconEdit from '../../assets/Icons/edit-24px.svg'
 import ModalDelete from '../ModalDelete/ModalDelete'
 import ModalEditTrip from '../ModalEditTrip/ModalEditTrip'
 import ModalCandidates from '../ModalCandidates/ModalCandidates'
-
 // 3rd party libraries
 import axios from 'axios'
+import Icon from '@mdi/react'
+import { mdiMapMarkerRadius, mdiHomeAccount, 
+    mdiCalendarClock, mdiCurrencyUsd, mdiCarHatchback } from '@mdi/js'
 
 export default class KitchenDashboard extends Component {
 
@@ -110,7 +112,7 @@ export default class KitchenDashboard extends Component {
             // toggle the appropriate modal
             showModalDelete: modal === 'delete' ? true : false,
             showModalCandidates: modal === 'candidates' ? true : false,
-            showModalEditTrip: modal === 'addtrip' ? true : false,
+            showModalEditTrip: modal === 'edit' ? true : false,
         })
     }
 
@@ -187,69 +189,61 @@ export default class KitchenDashboard extends Component {
                     modalTrip={ this.state.modalTrip } />
                 
                 {/* table area - header */}
-                <div className='table'>
-                    <div className='table__header'>
-                        <h4 className='table__header-item table__header-item--origin'>ORIGIN</h4>
-                        <h4 className='table__header-item table__header-item--destination'>DESTINATION</h4>
-                        <h4 className='table__header-item table__header-item--job-date'>JOB DATE</h4>
-                        <h4 className='table__header-item table__header-item--payment-type'>PAYMENT TYPE</h4>
-                        <h4 className='table__header-item table__header-item--pay'>PAY</h4>
-                        <h4 className='table__header-item table__header-item--status'>STATUS</h4>
-                        <h4 className='table__header-item table__header-item--driver'>DRIVER</h4>
-                        <h4 className='table__header-item table__header-item--actions'>ACTIONS</h4>
+                { this.props.trips.map(trip => (
+                    <div key={ trip.id } className='trip'>
+                        <div className='trip-details'>
+                            <div className='trip-details__row'>
+                                <div className='trip-details__label'>
+                                    <Icon path={ mdiHomeAccount } title='Origin' size={1} color='SlateGray'/>
+                                </div>
+                                <div className='trip-details__content'>{ trip.origin }</div>
+                            </div>
+                            <div className='trip-details__row'>
+                                <div className='trip-details__label'>
+                                        <Icon path={ mdiMapMarkerRadius } title='Destination' size={1} color='SlateGray'/>
+                                </div>
+                                <div className='trip-details__content'>{ trip.destination }</div>
+                            </div>
+                            <div className='trip-details__row'>
+                                <div className='trip-details__label'>
+                                    <Icon path={ mdiCalendarClock } title='Date' size={1} color='SlateGray'/>
+                                </div>
+                                <div className='trip-details__content'>{ trip.job_date }</div>
+                            </div>
+                            <div className='trip-details__row'>
+                                <div className='trip-details__label'>
+                                    <Icon path={ mdiCurrencyUsd } title='Pay' size={1} color='SlateGray'/>
+                                </div>
+                                <div className='trip-details__content'>${ trip.payment_amount } (paid by { trip.payment_type })</div>
+                            </div>
+                            
+                            <div className='trip-details__row trip-details__row--driver'>
+                                <div className='trip-details__label'>
+                                    <Icon path={ mdiCarHatchback } title='Driver' size={1} color='SlateGray'/>
+                                </div>
+                                <div className='trip-details__content'>
+                                    {!this.state.tripsWithCandidates ? <p>CHECKING...</p> : 
+                                    this.state.tripsWithCandidates.indexOf(trip.id) > -1 ? 
+                                        <button className='trip-details__status trip-details__status--select-driver' onClick={ () => this.loadCandidates(trip) }>Driver found - Click to accept</button> : 
+                                        <div className='trip-details__status-container'>
+                                            { trip.driver_id ? 
+                                            <div>
+                                                <div className='trip-details__status-text'>Being delivered by #{trip.driver_id}</div>
+                                                <div><button className='trip-details__status trip-details__status--mark-complete' onClick={ () => { this.completeTrip(trip.id)}}>Mark as complete</button></div>
+                                            </div> : 
+                                            <div><button className='trip-details__status trip-details__status--pending'>Driver Pending</button></div>
+                                            }
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div className='trip-buttons__group'>
+                            <button className='trip-buttons trip-buttons--edit' onClick={ () => this.showModal(trip, 'edit')}>EDIT</button>
+                            <button className='trip-buttons trip-buttons--delete' onClick={ () => this.showModal(trip, 'delete')}>DELETE</button>
+                        </div>
                     </div>
-
-                    {/* table area -  each row of the table */}
-                    { this.props.trips.map(trip => (
-                        <div key={ trip.id } className='table__row'>
-                            {/* origin */}
-                            <div className='table__cell table__cell--origin'>
-                                <div className='table__label'>ORIGIN</div>
-                                <div>{ trip.origin }</div>
-                            </div>
-                            {/* destination */}
-                            <div className='table__cell table__cell--destination'>
-                                <div className='table__label'>DESTINATION</div>
-                                <div>{ trip.destination }</div>
-                            </div>
-                            {/* job date */}
-                            <div className='table__cell table__cell--job-date'>
-                                <div className='table__label'>JOB DATE</div>
-                                <div>{ trip.job_date.toString() }</div>
-                            </div>
-                            {/* payment type */}
-                            <div className='table__cell table__cell--payment-type'>
-                                <div className='table__label'>PAYMENT TYPE</div>
-                                <div>{ trip.payment_type }</div>
-                            </div>
-                            {/* pay */}
-                            <div className='table__cell table__cell--pay'>
-                                <div className='table__label'>PAY</div>
-                                <div>${ trip.payment_amount }</div>
-                            </div>
-                            {/* status */}
-                            <div className='table__cell table__cell--status'>
-                                <div className='table__label'>STATUS</div>
-                                <div>{ trip.status }</div>
-                            </div>
-                            {/* driver */}
-                            <div className='table__cell table__cell--driver'>
-                                <div className='table__label'>DRIVER</div>
-                                {!this.state.tripsWithCandidates ? <p>CHECKING...</p> : 
-                                this.state.tripsWithCandidates.indexOf(trip.id) > -1 ? <button onClick={ () => this.loadCandidates(trip) }>CLICK TO ACCEPT</button> : 
-                                <div>
-                                    <div>{ trip.driver_id ? trip.driver_id : 'PENDING'}</div>
-                                    <div><button onClick={ () => { this.completeTrip(trip.id)}}>Mark as complete</button></div>
-                                </div>}
-                            </div>
-                            {/* action */}
-                            <div className='table__action-wrapper'>
-                                <img src={ iconDelete } alt='delete' onClick={ () => this.showModal(trip, 'delete') } />
-                                <img src={ iconEdit } alt='edit' onClick={ () => this.showModal(trip, 'addtrip')} />
-                            </div>
-                        </div> // <div className='table__row'>
-                    ))}
-                </div> {/* <div className='table'> */}
+                ))}
             </div>)
         )
     }

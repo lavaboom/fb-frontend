@@ -71,11 +71,12 @@
             }
         }
         &--delete {
+            background-color: variables.$color-primary-2;
+            border: 1px solid variables.$color-primary-2;
             color: white;
-            background-color: #c94515;
-
             &:hover {
-                background-color: variables.$color-background-1;
+                background-color: variables.$color-secondary-1;
+                border: 1px solid variables.$color-secondary-1;
             }
         }
     }
