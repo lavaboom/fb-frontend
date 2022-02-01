@@ -72,11 +72,16 @@
     
     // ratings
     &__rating-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         text-align: center;
         margin-bottom: 0.5rem;
+        flex-wrap: wrap;
     }
     &__rating-star {
-
+        margin-left: 0.5rem;
         &--filled {
             filter: invert(60%) sepia(73%) saturate(4429%) hue-rotate(161deg) brightness(94%) contrast(101%);
         }
@@ -116,7 +121,6 @@
             color: white;
             background-color: #5cb85c;
             border: 1px solid #5cb85c;
-            margin-right: 1rem;
             width: 80%;
             box-shadow: 0px 2px 5px rgba(19, 24, 44, 0.1);
 

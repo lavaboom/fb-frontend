@@ -59,11 +59,8 @@ export default class ModalCandidates extends Component {
                             <img className='modal-candidates__profile-pic' src={ profilePic } alt='candidate' />
                         </div>
                         <div className='modal-candidates__rating-container'>
-                            <img className='modal-candidates__rating-star modal-candidates__rating-star--filled' src={ iconStar } alt='rating' />
-                            <img className='modal-candidates__rating-star' src={ iconStar } alt='rating' />
-                            <img className='modal-candidates__rating-star' src={ iconStar } alt='rating' />
-                            <img className='modal-candidates__rating-star' src={ iconStar } alt='rating' />
-                            <img className='modal-candidates__rating-star' src={ iconStar } alt='rating' />
+                            <div>Registration number: { this.props.candidates[this.state.curCandidateIndex].candidate_id }</div>
+                            <div>Rating: { this.props.candidates[this.state.curCandidateIndex].rating } / 5 ★</div>
                         </div>
                         <p className='modal-candidates__offer'>I can do this for ${ 
                         this.props.candidates[this.state.curCandidateIndex].offer }</p>
