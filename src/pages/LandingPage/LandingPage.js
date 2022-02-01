@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 // app styles & assets
 import './LandingPage.scss'
 import riderPhoto from '../../assets/Icons/rider.svg'
+import driverPhoto from '../../assets/Icons/driver.svg'
 // other sub components
 import LandingPageNav from '../../components/LandingPageNav/LandingPageNav'
 import SignUpButton from '../../components/SignUpButton/SignUpButton'
@@ -56,8 +57,12 @@ export default class LandingPage extends Component {
                         </div>
                     </div>
                     <div className='landing-driver'>
-                        <div>Drive with us</div>
-                        <SignUpButton/>
+                        <div className='landing-driver__title'>Drivers Wanted</div>
+                        <img src={ driverPhoto } className='landing-driver__img' alt='Rider image'/>
+                        <div className='landing-driver__content'>
+                            <div className='landing-driver__content-text'>Drive with us and help your <span className='landing-driver__content--highlight'>local community</span></div>
+                            <SignUpButton/>
+                        </div>
                     </div>
                     <div className='landing-footer'>
                         <div className='landing-footer__title'>Support</div>

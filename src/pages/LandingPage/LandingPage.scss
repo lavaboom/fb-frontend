@@ -32,6 +32,7 @@ landing page
 
         &__title {
             font-size: 1.5rem;
+            color: variables.$color-primary-1;
 
             @include tablet {
                 font-size: 2.5rem;
@@ -73,7 +74,63 @@ landing page
     }
 
     &-driver {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 1rem;
+        margin-bottom: 1rem;
 
+        @include tablet {
+            padding: 2rem;
+        }
+
+        &__title {
+            width: 100%;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            color: variables.$color-primary-1;
+            margin-bottom: 1rem;
+
+            @include tablet {
+                font-size: 2rem;
+            }
+        }
+        &__img {
+            width: 100%;
+            padding: 2rem;
+            @include tablet {
+                width: 55%;
+            }
+        }
+        &__content {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            justify-content: center;
+
+            @include tablet {
+                width: 25%;
+                align-items: flex-start;
+                text-align: left;
+                padding-left: 2rem;
+            }
+
+            &--highlight {
+                color: variables.$color-primary-1;
+            }
+        }
+        
+        &__content-text {
+            margin: 2rem 0;
+            font-size: 1.5rem;
+
+            @include tablet {
+                font-size: 2rem;
+            }
+        }
     }
     &-footer {
         display: flex;
@@ -86,6 +143,7 @@ landing page
         &__title {
             color: variables.$color-primary-1;
             font-weight: bold;
+            font-size: 1.5rem;
         }
 
         &__email {
