@@ -136,58 +136,58 @@ export default class AddTripPage extends Component {
                     </div>
                     <h1 className='container-header'>Delivery details</h1>
                     <form className='form__input-form' onSubmit={ this.handleSubmit }>
-                    <div className='form__input-group'>
-                        <label className='form__invisible-label' htmlFor='origin'>Origin</label>
-                        <input 
-                            className='form__input-field form__input-field--no-border' 
-                            type='text' name='origin' id='origin' placeholder='Origin' />
-                    </div>
-                    <div className='form__input-group'>
-                        <label className='form__invisible-label' htmlFor='destination'>Destination</label>
-                        <input 
-                            className='form__input-field form__input-field--no-border' 
-                            type='text' name='destination' id='destination' placeholder='Destination' />
-                    </div>
-                    <div className='form__input-group'>
-                        <label className='form__invisible-label' htmlFor='note'>Note for driver</label>
-                        <input className='form__input-field form__input-field--no-border' 
-                        type='text' name='note' id='note' placeholder='Note for driver' />
-                    </div>
-                    
-                    {/* date & time group */}
-                    <div className='form__datetime'>
-                        <div className='form__input-group form__datetime-item'>
-                            <label className='form__visible-label' htmlFor='jobDate'>Job Date</label>
-                            <input className='form__input-field form__input-field--no-border' type='date' name='jobDate' id='jobDate' />
+                        <div className='form__input-group'>
+                            <label className='form__invisible-label' htmlFor='origin'>Origin</label>
+                            <input 
+                                className='form__input-field form__input-field--no-border' 
+                                type='text' name='origin' id='origin' placeholder='Origin' />
                         </div>
-                        <div className='form__input-group form__datetime-item'>
-                            <label className='form__visible-label' htmlFor='jobTime'>Time</label>
-                            <input className='form__input-field form__input-field--no-border' type='time' name='jobTime' id='jobTime' />
+                        <div className='form__input-group'>
+                            <label className='form__invisible-label' htmlFor='destination'>Destination</label>
+                            <input 
+                                className='form__input-field form__input-field--no-border' 
+                                type='text' name='destination' id='destination' placeholder='Destination' />
                         </div>
-                    </div>
-                    
-                    <div className='form__input-group'>
-                        <p className='form__subheader'>Paid by</p>
-                        <div className='wrapper'>
-                            <input type='radio' name='paymentType' id='option-1' value={ 'Sender' } 
-                                defaultChecked />
-                            <input type='radio' name='paymentType' id='option-2' value={ 'Recipient' } />
-                            <label htmlFor='option-1' className='option option-1'>
-                                <span>Sender</span>
-                            </label>
-                            <label htmlFor='option-2' className='option option-2'>
-                                <span>Recipient</span>
-                            </label>
+                        <div className='form__input-group'>
+                            <label className='form__invisible-label' htmlFor='note'>Note for driver</label>
+                            <input className='form__input-field form__input-field--no-border' 
+                            type='text' name='note' id='note' placeholder='Note for driver' />
                         </div>
-                    </div>
-                    <div className='form__input-group'>
-                        <label className='form__visible-label' htmlFor='pay'>How much will you pay delivery driver?</label>
-                        <input className='form__input-field form__input-field--dollar form__input-field--no-border' type='number' name='pay' id='pay' />
-                    </div>
-                    <button className='form__button form__button--add'  type='submit'>
-                        ADD
-                    </button>
-                </form>
+                        
+                        {/* date & time group */}
+                        <div className='form__datetime'>
+                            <div className='form__input-group form__datetime-item'>
+                                <label className='form__visible-label' htmlFor='jobDate'>Job Date</label>
+                                <input className='form__input-field form__input-field--no-border' type='date' name='jobDate' id='jobDate' />
+                            </div>
+                            <div className='form__input-group form__datetime-item'>
+                                <label className='form__visible-label' htmlFor='jobTime'>Time</label>
+                                <input className='form__input-field form__input-field--no-border' type='time' name='jobTime' id='jobTime' />
+                            </div>
+                        </div>
+                        
+                        <div className='form__input-group'>
+                            <p className='form__subheader'>Paid by</p>
+                            <div className='wrapper'>
+                                <input type='radio' name='paymentType' id='option-1' value={ 'Sender' } 
+                                    defaultChecked />
+                                <input type='radio' name='paymentType' id='option-2' value={ 'Recipient' } />
+                                <label htmlFor='option-1' className='option option-1'>
+                                    <span>Sender</span>
+                                </label>
+                                <label htmlFor='option-2' className='option option-2'>
+                                    <span>Recipient</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div className='form__input-group'>
+                            <label className='form__visible-label' htmlFor='pay'>How much will you pay delivery driver?</label>
+                            <input className='form__input-field form__input-field--dollar form__input-field--no-border' type='number' name='pay' id='pay' />
+                        </div>
+                        <button className='form__button form__button--add'  type='submit'>
+                            ADD
+                        </button>
+                    </form>
                 </div>
             </div>
         );

@@ -22,9 +22,16 @@ container
     }
 
     &-header {
-        font-size: 1.2rem;
+        font-size: 1.8rem;
         margin-bottom: 0.2rem;
         color: variables.$color-secondary-1;
+        align-self: center;
+    }
+
+    &-subheader {
+        font-size: 1rem;
+        align-self: center;
+        margin: 0.5rem 0;
     }
 
     &-menu {
@@ -48,31 +55,46 @@ container
 /* -----------------------------------------------------------------------------
 form style
 ----------------------------------------------------------------------------- */ 
-.form {
+.review {
 
-    &__subheader {
-        margin-bottom: 0.3rem;
-        color: variables.$color-secondary-1;
-    }
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
 
-    // form
-    &__input-form {
+    &__driver-rating {
         display: flex;
         flex-direction: column;
-        margin-bottom: 1rem;
+        align-items: center;
     }
-    
+
+    &__driver-photo-containers {
+        text-align: center;
+        margin: 1rem 0;
+    }
+
+    &__driver-photo {
+        width: 3.5rem;
+        border-radius: 50%;
+    }
+
+    &__stars-containers {
+        text-align: center;
+        margin-bottom: 0.5rem;
+    }
+
+    &__star {
+
+        &--filled {
+            filter: invert(60%) sepia(73%) saturate(4429%) hue-rotate(161deg) brightness(94%) contrast(101%);
+        }
+    }
+
+    &__stars-description {
+        margin: 1rem 0;
+    }
+
     &__invisible-label {
         display: none;
-    }
-
-    &__visible-label {
-        font-size: 0.9rem;
-        color: variables.$color-secondary-1;
-
-        @include tablet {
-            font-size: 1rem;
-        }
     }
 
     &__input-group {
@@ -87,37 +109,13 @@ form style
         font-size: 0.8rem;
         padding: 0.3rem 0;
         color: variables.$color-secondary-1;
-        border-bottom: 1px solid variables.$color-secondary-2;
+        border: 1px solid variables.$color-secondary-2;
+        border-radius: 5px;
+        resize: none;
+        box-shadow: 0px 2px 5px rgba(19, 24, 44, 0.1);
 
         @include tablet {
             font-size: 1.1rem;
-        }
-    }
-
-    &__input-field--dollar {
-        background-image: url('../../assets/Icons/currency-usd.svg');
-        background-repeat: no-repeat;
-        background-position: 1% 50%;
-        text-indent: 10%;
-
-        @include tablet {
-            text-indent: 5%;
-        }
-    }
-
-    &__input-field--no-border {
-        border-top: none;
-        border-left: none;
-        border-right: none;
-    }
-    &__radio-group {
-        width: 100%;
-    }
-    &__datetime {
-        display: flex;
-        justify-content: space-between;
-        &-item {
-            width: 49%;
         }
     }
 
@@ -147,53 +145,4 @@ form style
             }
         }
     }    
-}
-
-/* -----------------------------------------------------------------------------
-radio button style
------------------------------------------------------------------------------ */ 
-.wrapper {
-    display: inline-flex;
-    width: 100%;
-    align-items: center;
-    justify-content: space-evenly;
-    border-radius: 5px;
- }
- .wrapper .option {
-    background: #fff;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    // margin: 0 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    padding: 0.4rem;
-    border: 1px solid variables.$color-secondary-1;
-    transition: all 0.3s ease;
- }
- 
- input[type="radio"] {
-    display: none;
- }
- #option-1:checked:checked ~ .option-1,
- #option-2:checked:checked ~ .option-2 {
-    border-color: variables.$color-primary-2;
-    background: variables.$color-primary-2;
- }
- .wrapper .option span {
-    // font-size: 20px;
-    color: variables.$color-secondary-1;
-    
- }
- #option-1:checked:checked ~ .option-1 span,
- #option-2:checked:checked ~ .option-2 span {
-    color: #fff;
- }
- 
-.checked {
-    border-color: variables.$color-primary-2;
-    background: variables.$color-primary-2;
-    color: #fff;
 }

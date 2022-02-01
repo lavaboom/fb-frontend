@@ -10,6 +10,7 @@ import LoginPage from './pages/LoginPage/LoginPage';
 import SignupPage from './pages/SignupPage/SignupPage';
 import DriverPage from './pages/DriverPage/DriverPage'
 import AddTripPage from './pages/AddTripPage/AddTripPage';
+import ReviewPage from './pages/ReviewPage/ReviewPage';
 
 export default class App extends Component {
 
@@ -29,6 +30,8 @@ export default class App extends Component {
               <Route path='/addtrip' component={ AddTripPage } />
               {/* driver functionality */}
               <Route path='/driver' component={ DriverPage } />
+              {/* review functionality */}
+              <Route path='/:tripID/:driverID/review' component={ ReviewPage } />
             </Switch>
           </div>
         </BrowserRouter>
