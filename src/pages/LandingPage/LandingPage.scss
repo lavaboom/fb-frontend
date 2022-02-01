@@ -7,12 +7,51 @@ landing page
 ----------------------------------------------------------------------------- */ 
 .landing {
     &-hero {
+        color: variables.$color-secondary-1;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        justify-content: center;
 
+        @include tablet {
+            flex-direction: row;
+            align-items: center;
+            text-align: left;
+        }
+
+        &__content {
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+
+            @include tablet {
+                padding: 2rem;
+            }
+        }
+
+        &__title {
+            font-size: 1.5rem;
+
+            @include tablet {
+                font-size: 2.5rem;
+            }
+        }
+
+        &__text {
+            margin: 1rem 0;
+        }
+
+        &__img {
+            padding: 2rem;
+        }
     }
+    
     &-features {
-
+        background-color: variables.$color-secondary-2;
     }
-    &-social {
+
+    &-driver {
 
     }
     &-footer {

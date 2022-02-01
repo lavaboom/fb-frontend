@@ -1,0 +1,8 @@
+@use '../../styles/partials/variables';
+
+.fixed-navbar__button--signup {
+    background-color: variables.$color-primary-1;
+    border: 1px solid variables.$color-primary-1;
+    padding: 0.5rem 1rem;
+    font-size: 1.2rem;
+}

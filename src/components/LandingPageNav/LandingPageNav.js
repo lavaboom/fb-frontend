@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 // app styles & assets
 import './LandingPageNav.scss'
-
+// other sub components
+import SignUpButton from '../SignUpButton/SignUpButton';
 
 export default class LandingPageNav extends Component {
     state = {
@@ -26,9 +27,7 @@ export default class LandingPageNav extends Component {
                     <Link className='fixed-navbar__link' to={'/#'}>Features</Link>
                 </li>
                 <li className='fixed-navbar__item'>
-                    <button className='fixed-navbar__button fixed-navbar__button--signup'>
-                        Sign up
-                    </button>
+                    <SignUpButton/>
                 </li>
                 <li className='fixed-navbar__item'>
                     <button className='fixed-navbar__button fixed-navbar__button--login'>
