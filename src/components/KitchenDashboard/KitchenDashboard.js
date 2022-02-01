@@ -2,8 +2,6 @@
 import React, { Component } from 'react'
 // app styles & assets
 import './KitchenDashboard.scss'
-import iconDelete from '../../assets/Icons/delete_outline-24px.svg'
-import iconEdit from '../../assets/Icons/edit-24px.svg'
 // other sub components
 import ModalDelete from '../ModalDelete/ModalDelete'
 import ModalEditTrip from '../ModalEditTrip/ModalEditTrip'

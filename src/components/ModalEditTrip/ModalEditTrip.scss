@@ -44,6 +44,7 @@ form style
         flex-direction: column;
         justify-content: space-between;
         border-radius: 10px;
+        max-height: 40rem;
 
         @include tablet {
             width: 80%;
@@ -130,7 +131,6 @@ form style
 
             &:hover {
                 border: 1px solid variables.$color-secondary-1;
-                
             }
         }
         &--add {

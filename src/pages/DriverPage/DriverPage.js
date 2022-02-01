@@ -1,8 +1,6 @@
 // React modules
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
-// app styles & assets
-import './DriverPage.scss';
+import { Redirect } from 'react-router-dom';
 // other sub components
 import Header from '../../components/Header/Header'
 import DriverDashboard from '../../components/DriverDashboard/DriverDashboard';

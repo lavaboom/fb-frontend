@@ -19,8 +19,11 @@ export default function ModalBid({ handleClose, show, modalTrip, bidFunction }) 
                 <div className='modal-bid__close-icon'>
                     <img src={ iconClose } alt='close' onClick={ handleClose } />
                 </div>
-                <h1 className='modal-bid__title'>Sender offered { modalTrip ? modalTrip.payment_amount: '' }. Bid?</h1>
-                <input type='number' name='bid' defaultValue={ modalTrip ? modalTrip.payment_amount : '' } />
+                <h1 className='modal-bid__title'>Submit a bid</h1>
+                <p>Sender has offered ${ modalTrip ? modalTrip.payment_amount: '' } for this delivery task. If you would like to counter offer, enter the amount below</p>
+                <div className='modal-bid__input-container'>
+                    <input className='modal-bid__input' type='number' name='bid' defaultValue={ modalTrip ? modalTrip.payment_amount : '' } />
+                </div>
             </div>
             <div className='modal-bid__buttons-group'>
                 <button className='modal-bid__button modal-bid__button--cancel' type='button' onClick={ handleClose }>Cancel</button>

@@ -2,12 +2,13 @@
 import React, { Component } from 'react'
 // app styles & assets
 import './DriverDashboard.scss'
-import iconDelete from '../../assets/Icons/delete_outline-24px.svg'
-import iconEdit from '../../assets/Icons/edit-24px.svg'
 // other sub components
 import ModalBid from '../ModalBid/ModalBid'
 // 3rd party libraries
 import axios from 'axios'
+import Icon from '@mdi/react'
+import { mdiMapMarkerRadius, mdiHomeAccount, 
+    mdiCalendarClock, mdiCurrencyUsd, mdiListStatus } from '@mdi/js'
 
 export default class DriverDashboard extends Component {
 
@@ -62,7 +63,7 @@ export default class DriverDashboard extends Component {
     }
 
     // funtions to control modal
-    showModal = (trip) => {
+    showModalBid = (trip) => {
         this.setState({
             modalTrip: trip,
             showModalBid: true
@@ -102,15 +103,44 @@ export default class DriverDashboard extends Component {
                     handleClose={ () => this.hideModal() } 
                     modalTrip={ this.state.modalTrip } 
                     bidFunction={ this.bidTrip } />
-                {this.state.trips.map(trip => (
-                    <div className='row' key={trip.id}>
-                        <div>{trip.origin}</div>
-                        <div>{trip.destination}</div>
-                        <div>
-                            <div>{trip.payment_amount}</div>
-                            <button onClick={ () => this.showModal(trip) }>BID</button>
+                { this.state.trips.map(trip => (
+                    <div key={ trip.id } className='trip'>
+                        <div className='trip-details'>
+                            <div className='trip-details__row'>
+                                <div className='trip-details__label'>
+                                    <Icon path={ mdiHomeAccount } title='Origin' size={1} color='SlateGray'/>
+                                </div>
+                                <div className='trip-details__content'>{ trip.origin }</div>
+                            </div>
+                            <div className='trip-details__row'>
+                                <div className='trip-details__label'>
+                                        <Icon path={ mdiMapMarkerRadius } title='Destination' size={1} color='SlateGray'/>
+                                </div>
+                                <div className='trip-details__content'>{ trip.destination }</div>
+                            </div>
+                            <div className='trip-details__row'>
+                                <div className='trip-details__label'>
+                                    <Icon path={ mdiCalendarClock } title='Date' size={1} color='SlateGray'/>
+                                </div>
+                                <div className='trip-details__content'>{ trip.job_date }</div>
+                            </div>
+                            <div className='trip-details__row'>
+                                <div className='trip-details__label'>
+                                    <Icon path={ mdiCurrencyUsd } title='Pay' size={1} color='SlateGray'/>
+                                </div>
+                                <div className='trip-details__content'>${ trip.payment_amount } (paid by { trip.payment_type })</div>
+                            </div>
+                            
+                            <div className='trip-details__row'>
+                                <div className='trip-details__label'>
+                                    <Icon path={ mdiListStatus } title='Driver' size={1} color='SlateGray'/>
+                                </div>
+                                <div className='trip-details__content'>{ trip.status }</div>
+                            </div>
                         </div>
-                        <div></div>
+                        <div className='trip-buttons__group'>
+                            <button className='trip-buttons trip-buttons--bid' onClick={ () => this.showModalBid(trip)}>BID</button>
+                        </div>
                     </div>
                 ))}
             </div>)
