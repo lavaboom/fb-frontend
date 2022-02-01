@@ -30,9 +30,11 @@ export default class LandingPageNav extends Component {
                     <SignUpButton/>
                 </li>
                 <li className='fixed-navbar__item'>
-                    <button className='fixed-navbar__button fixed-navbar__button--login'>
-                        Log in
-                    </button>
+                    <Link to={'/login'}>
+                        <button className='fixed-navbar__button fixed-navbar__button--login'>
+                            Log in
+                        </button>
+                    </Link>
                 </li>
             </ul>
             <div className={`hamburger ${ this.state.mobileMenu ? 'hamburger--active' : '' }`} onClick={ this.toggleMobileMenu }> 
