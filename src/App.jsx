@@ -10,10 +10,6 @@ import LoginPage from './pages/LoginPage/LoginPage';
 import SignupPage from './pages/SignupPage/SignupPage';
 import DriverPage from './pages/DriverPage/DriverPage'
 import AddTripPage from './pages/AddTripPage/AddTripPage';
-// other sub components
-import Header from './components/Header/Header'
-import Footer from './components/Footer/Footer'
-
 
 export default class App extends Component {
 
@@ -33,18 +29,8 @@ export default class App extends Component {
               <Route path='/addtrip' component={ AddTripPage } />
               {/* driver functionality */}
               <Route path='/driver' component={ DriverPage } />
-              {/* <Route path='/login'><LoginPage /></Route>
-              <Route path='/signup'><SignupPage /></Route> */}
-
-              {/* routes for user profile Kitchen */}
-              {/* <Route path='/kitchen'><KitchenPage /></Route> */}
-              {/* <Route path='/kitchen/add-job' exact render={(props) => <JobAddPage {...props} user = { this.state.user } />} /> */}
-              
-              {/* routes for user profile Driver */}
-              {/* <Route path='/driver' exact render={(props) => <DriverPage {...props} user = { this.state.user } />} /> */}
             </Switch>
           </div>
-          <Footer />
         </BrowserRouter>
       </div>
     );

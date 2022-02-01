@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 // other sub components
 import Header from '../../components/Header/Header'
+import Footer from '../../components/Footer/Footer'
 import KitchenDashboard from '../../components/KitchenDashboard/KitchenDashboard';
 import AddTripButton from '../../components/AddTripButton/AddTripButton';
 // 3rd parties libraries
@@ -136,6 +137,7 @@ export default class KitchenPage extends Component {
                     fetchTrips={ this.fetchTrips }
                     deleteTripFromDB = { this.deleteTripFromDB }
                     retrieveToken={ this.retrieveToken } />
+                <Footer />
             </div>
         );
     }

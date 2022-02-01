@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 // other sub components
 import Header from '../../components/Header/Header'
+import Footer from '../../components/Footer/Footer'
 import DriverDashboard from '../../components/DriverDashboard/DriverDashboard';
 // 3rd parties libraries
 import axios from 'axios';
@@ -123,6 +124,7 @@ export default class DriverPage extends Component {
                 <DriverDashboard 
                     user={ this.state.user } 
                     retrieveToken={ this.retrieveToken} />
+                <Footer />
             </div>
         );
     }

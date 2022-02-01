@@ -1,0 +1,41 @@
+@use '../../styles/partials/fonts' as *;
+@use '../../styles/partials/mixins' as *;
+@use '../../styles/partials/variables';
+
+/* -----------------------------------------------------------------------------
+landing page
+----------------------------------------------------------------------------- */ 
+.landing {
+    &-hero {
+
+    }
+    &-features {
+
+    }
+    &-social {
+
+    }
+    &-footer {
+        display: flex;
+        flex-direction: column;
+        color: variables.$color-secondary-1;
+        background-color: variables.$color-background-1;
+        align-items: center;
+        padding: 1.5rem 0;
+
+        &__title {
+            color: variables.$color-primary-1;
+            font-weight: bold;
+        }
+
+        &__email {
+            display: flex;
+            align-items: center;
+            margin: 1rem 0;
+
+            &-icon {
+                margin-right: 0.5rem;
+            }
+        }
+    }
+}
