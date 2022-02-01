@@ -196,7 +196,7 @@ export default class ReviewPage extends Component {
                                 className='review__input-field' 
                                 rows='3' name='reviewText' id='reviewText' placeholder='Optional detailed review...' />
                         </div>
-                        <button className='review__button review__button--add'  type='submit'>
+                        <button className={`review__button review__button--add ${this.state.rating === 0 ? 'review__button--not-ready' : '' }`}  type='submit'>
                             SUBMIT
                         </button>
                     </form>

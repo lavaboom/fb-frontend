@@ -145,5 +145,12 @@ form style
                 border: 1px solid variables.$color-secondary-1;
             }
         }
+
+        &--not-ready {
+            background-color: variables.$color-secondary-2;
+            border: 1px solid variables.$color-secondary-2;
+            cursor: none;
+            pointer-events: none;
+        }
     }    
 }
