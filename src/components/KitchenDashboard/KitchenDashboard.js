@@ -162,8 +162,8 @@ export default class KitchenDashboard extends Component {
         return (
             this.props.trips.length === 0 ? 
                 // UI for when there's no trip to display
-                <div>
-                    <p>No trips yet</p>
+                <div className='no-trips'>
+                    <p className='no-trips__content'>You don't have any active trips. Click the button above to create one</p>
                 </div>
                  : 
             (<div>
