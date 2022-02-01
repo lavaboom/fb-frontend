@@ -2,6 +2,7 @@
 import React, { Component } from 'react'
 // app styles & assets
 import './DriverDashboard.scss'
+import waitPhoto from '../../assets/Icons/wait.svg'
 // other sub components
 import ModalBid from '../ModalBid/ModalBid'
 // 3rd party libraries
@@ -93,9 +94,10 @@ export default class DriverDashboard extends Component {
         return (
             !this.state.trips ? 
             // UI for when there's no trip to display
-            <div>
-                <p>No trips yet</p>
-            </div>
+            <div className='no-trips'>
+                    <img className='no-trips__img' src={ waitPhoto } alt='Wait for trips' />
+                    <p className='no-trips__content'>There are no active trips currently. Please check back later</p>
+                </div>
             : 
             (<div>
                 <ModalBid 

@@ -6,6 +6,31 @@
 $col-1: 10%;
 $col-2: 85%;
 
+.no-trips {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 2rem 5%;
+    
+    @include tablet {
+        max-width: 40rem;
+        margin: 2rem auto;
+    }
+
+    &__img {
+        width: 40%;
+        height: 40%;
+        margin-bottom: 2rem;
+    }
+
+    &__content {
+        border: 3px dashed variables.$color-secondary-2;
+        border-radius: 10px;
+        padding: 2rem;
+        text-align: center;
+    }
+}
+
 .trip {
     display: flex;
     flex-direction: column;
