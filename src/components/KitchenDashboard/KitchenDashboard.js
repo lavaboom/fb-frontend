@@ -56,6 +56,7 @@ export default class KitchenDashboard extends Component {
         const token = this.props.retrieveToken();
         axios.put(`http://localhost:8080/api/trips/${this.state.modalTrip.id}`, {
             driver_id: driverID,
+            status: 'IN PROGRESS'
         }, {
             headers: {
                 Authorization: 'Bearer ' + token
@@ -208,7 +209,7 @@ export default class KitchenDashboard extends Component {
                                 <div className='trip-details__label'>
                                     <Icon path={ mdiCalendarClock } title='Date' size={1} color='SlateGray'/>
                                 </div>
-                                <div className='trip-details__content'>{ trip.job_date }</div>
+                                <div className='trip-details__content'>{ trip.formatted_date }</div>
                             </div>
                             <div className='trip-details__row'>
                                 <div className='trip-details__label'>
@@ -228,7 +229,8 @@ export default class KitchenDashboard extends Component {
                                         <div className='trip-details__status-container'>
                                             { trip.driver_id ? 
                                             <div>
-                                                <div className='trip-details__status-text'>Being delivered by #{trip.driver_id}</div>
+                                                <div className='trip-details__status-text'>Being delivered by driver <span className='trip-details__bold'
+                                                >No. {trip.driver_id}</span></div>
                                                 <div><button className='trip-details__status trip-details__status--mark-complete' onClick={ () => { this.completeTrip(trip.id)}}>Mark completed</button></div>
                                             </div> : 
                                             <div><button className='trip-details__status trip-details__status--pending'>Driver Pending</button></div>

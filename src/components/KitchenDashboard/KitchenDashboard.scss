@@ -59,6 +59,10 @@ $col-2: 85%;
             }
         }
 
+        &__bold {
+            font-weight: bold;
+        }
+
         &__label {
             width: $col-1;
         }

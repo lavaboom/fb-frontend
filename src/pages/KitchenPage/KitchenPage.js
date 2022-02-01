@@ -72,8 +72,13 @@ export default class KitchenPage extends Component {
                 Authorization: 'Bearer ' + token
             }
         }).then((response) => {
+            let result = response.data;
+            result.forEach(item => {
+                let tempDate = new Date(item['job_date']);
+                item['formatted_date'] = tempDate.toString();
+            })
             this.setState({
-                trips: response.data
+                trips: result
             });
         }).catch(() => {
             console.log('Unable to fetch trips for this user')
