@@ -2,6 +2,7 @@
 import React, { Component } from 'react'
 // app styles & assets
 import './KitchenDashboard.scss'
+import addRecord from '../../assets/Icons/add_item.svg'
 // other sub components
 import ModalDelete from '../ModalDelete/ModalDelete'
 import ModalEditTrip from '../ModalEditTrip/ModalEditTrip'
@@ -163,6 +164,7 @@ export default class KitchenDashboard extends Component {
             this.props.trips.length === 0 ? 
                 // UI for when there's no trip to display
                 <div className='no-trips'>
+                    <img className='no-trips__img' src={ addRecord } alt='Add record' />
                     <p className='no-trips__content'>You don't have any active trips. Click the button above to create one</p>
                 </div>
                  : 
