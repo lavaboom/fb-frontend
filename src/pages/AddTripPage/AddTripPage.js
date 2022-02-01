@@ -92,7 +92,7 @@ export default class AddTripPage extends Component {
             });
             this.fetchTrips();
         }).catch(() => {
-            this.setState({ failedAuth: true })
+            console.log('Error retrieving user')
         });
     }    
 

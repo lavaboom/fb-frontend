@@ -62,7 +62,7 @@ export default class ThankYouPage extends Component {
             });
             this.fetchTrips();
         }).catch(() => {
-            this.setState({ failedAuth: true })
+            console.log('Error retrieving user')
         });
     }    
 
