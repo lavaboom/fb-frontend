@@ -43,6 +43,10 @@
         margin: 0;
     }
 
+    &__text {
+        margin: 2rem 0;
+    }
+
     &__buttons-group {
         display: flex;
         justify-content: space-between;
@@ -67,7 +71,7 @@
             margin-right: 1rem;
 
             &:hover {
-                border: 1px solid variables.$color-primary-2;
+                border: 1px solid variables.$color-secondary-2;
             }
         }
         &--delete {

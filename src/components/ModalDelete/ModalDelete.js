@@ -15,7 +15,7 @@ export default function Modal({ handleClose, show, data, deleteFunction }) {
                     <img src={ iconClose } alt='close' onClick={ handleClose } />
                 </div>
                 <h1 className='modal-delete__title'>Delete trip #{ data.id }?</h1>
-                <p>Please confirm that you would like to delete this trip. You will not be able to undo this action.</p>
+                <p className='modal-delete__text'>Please confirm that you would like to delete this trip. You will not be able to undo this action.</p>
             </div>
             <div className='modal-delete__buttons-group'>
                 <button className='modal-delete__button modal-delete__button--cancel' type='button' onClick={ handleClose }>Cancel</button>
