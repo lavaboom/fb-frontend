@@ -20,7 +20,7 @@ export default class Header extends Component {
         return (
             <header className='header'>
                 <nav className='navbar'>
-                    <a href='#' className='navbar__logo'>Food Bunnies</a>
+                    <Link to={'./'} className='navbar__logo'>Food Bunnies</Link>
                     <ul className={`navbar__menu ${ this.state.mobileMenu ? 'navbar__menu--active' : '' }`}> 
                         <li className='navbar__item'>
                             <Link className='navbar__link' to={`${ isKitchenView ? '/driver' : '/kitchen'}`}>Switch to {`${ isKitchenView ? 'Driver' : 'Kitchen'}`} view</Link>

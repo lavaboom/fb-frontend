@@ -12,7 +12,7 @@ header block
 /* -----------------------------------------------------------------------------
 navigation bar block
 ----------------------------------------------------------------------------- */
-.navbar {
+.fixed-navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -42,18 +42,16 @@ navigation bar block
             width: 100%;
             border-radius: 10px;
             text-align: center;
-            transition: 0.3s;
-            // box-shadow:
-            //     0 10px 27px rgba(0, 0, 0, 0.05);
+            transition: 0.3s;            
         }
     }
 
     &__item {
-        margin-left: 5rem;
+        margin-left: 3rem;
         list-style: none;
 
         @media (max-width: variables.$tablet-breakpoint) {
-            margin: 2.5rem 0;
+            margin: 1.5rem 0;
         }
     }
 
@@ -62,10 +60,6 @@ navigation bar block
         color: variables.$color-secondary-1;
         text-decoration: none;
         padding-right: 1rem;
-
-        @include tablet {
-            border-right: 1px solid variables.$color-secondary-1;
-        }
     }
     
     &__link:hover {
@@ -80,8 +74,27 @@ navigation bar block
         padding: 0.5rem;
         border-radius: 5px;
         border: 1px solid variables.$color-primary-1;
+        
         &:hover {
+            color: variables.$color-primary-2;
+        }
+
+        &--signup {
+            background-color: variables.$color-primary-1;
+            border: 1px solid variables.$color-primary-1;
+            padding: 0.5rem 1rem;
+            font-size: 1.2rem;
+        }
+
+        &--login {
+            background-color: variables.$color-background-1;
+            border: 1px solid variables.$color-background-1;
             color: variables.$color-secondary-1;
+            font-size: 1.2rem;
+
+            // &:hover {
+            //     color: white;
+            // }
         }
     }
 }
@@ -114,7 +127,7 @@ animation for the burger button
 ----------------------------------------------------------------------------- */
 @media (max-width: variables.$tablet-breakpoint) {
 
-    .navbar__menu--active {
+    .fixed-navbar__menu--active {
         left: 0;
     }
 
