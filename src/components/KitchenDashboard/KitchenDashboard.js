@@ -1,5 +1,6 @@
 // React modules
 import React, { Component } from 'react'
+import equal from 'fast-deep-equal'
 // app styles & assets
 import './KitchenDashboard.scss'
 import addRecord from '../../assets/Icons/add_item.svg'
@@ -76,12 +77,13 @@ export default class KitchenDashboard extends Component {
         })
         .then((response) => {
             console.log(`editted ${response.data} row when updating candidates`);
+            // re-fetch trips
+            this.props.fetchTrips();
+            this.fetchTripsWithCandidates();
         })
         .catch((error) => {
             console.log(error)
         });
-        // re-fetch trips
-        this.props.fetchTrips();
         // close the modal
         this.hideModal();
     };
@@ -150,7 +152,7 @@ export default class KitchenDashboard extends Component {
     ------------------------------------------------------------------------- */
     componentDidMount = () => {
         this.fetchTripsWithCandidates();
-    }    
+    }
 
     /* -------------------------------------------------------------------------
     render
@@ -227,7 +229,7 @@ export default class KitchenDashboard extends Component {
                                             { trip.driver_id ? 
                                             <div>
                                                 <div className='trip-details__status-text'>Being delivered by #{trip.driver_id}</div>
-                                                <div><button className='trip-details__status trip-details__status--mark-complete' onClick={ () => { this.completeTrip(trip.id)}}>Mark as complete</button></div>
+                                                <div><button className='trip-details__status trip-details__status--mark-complete' onClick={ () => { this.completeTrip(trip.id)}}>Mark completed</button></div>
                                             </div> : 
                                             <div><button className='trip-details__status trip-details__status--pending'>Driver Pending</button></div>
                                             }

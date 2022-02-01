@@ -65,6 +65,7 @@ export default class KitchenPage extends Component {
 
     // fetch all trips of this user from DB
     fetchTrips = () => {
+        console.log('fetching all trips for user ' + this.state.user.name)
         const token = this.retrieveToken();
         axios.get(`${this.api_url}/users/${this.state.user.id}/trips`, {
             headers: {
