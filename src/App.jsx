@@ -11,6 +11,7 @@ import SignupPage from './pages/SignupPage/SignupPage';
 import DriverPage from './pages/DriverPage/DriverPage'
 import AddTripPage from './pages/AddTripPage/AddTripPage';
 import ReviewPage from './pages/ReviewPage/ReviewPage';
+import ThankYouPage from './pages/ThankYouPage/ThankYouPage';
 
 export default class App extends Component {
 
@@ -20,8 +21,9 @@ export default class App extends Component {
         <BrowserRouter>
           <div className='app-wrapper'>
             <Switch>
-              {/* landing page */}
+              {/* general pages */}
               <Route path='/' exact component={ LandingPage } />
+              <Route path='/thank-you' exact component={ ThankYouPage } />
               {/* authentication */}
               <Route path='/login' component={ LoginPage } />
               <Route path='/signup' component={ SignupPage } />
