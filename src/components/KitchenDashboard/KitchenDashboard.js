@@ -40,15 +40,13 @@ export default class KitchenDashboard extends Component {
             headers: {
                 Authorization: 'Bearer ' + token
             }
-        }).then((response) => {
-            console.log('response from completeTrip: ' + response)
+        }).then(() => {
+            console.log('trip completed successfully');
+            // fetch trip again
+            this.props.fetchTrips();
         }).catch(() => {
             console.log('Unable to update trips for this user')
-        });
-        // fetch trip again
-        this.props.fetchTrips();
-        // close all modal
-        this.hideModal();
+        });        
     }
 
     updateAcceptedDriver = (driverID) => {
@@ -82,12 +80,11 @@ export default class KitchenDashboard extends Component {
         .catch((error) => {
             console.log(error)
         });
-        // re-fetch trips with candidates
-        this.fetchTripsWithCandidates();
+        // re-fetch trips
+        this.props.fetchTrips();
         // close the modal
         this.hideModal();
     };
-
 
     loadCandidates = (trip) => {
         const token = this.props.retrieveToken();

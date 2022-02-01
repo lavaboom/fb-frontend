@@ -69,7 +69,7 @@ export default class ModalCandidates extends Component {
                         this.props.candidates[this.state.curCandidateIndex].offer }</p>
                     </div>
                     <div className='modal-candidates__buttons-group'>
-                        <button className='modal-candidates__button modal-candidates__button--accept' type='button' onClick={ () => this.props.updateAcceptedDriver(this.props.candidates[this.state.curCandidateIndex].id) }>Accept</button>
+                        <button className='modal-candidates__button modal-candidates__button--accept' type='button' onClick={ () => this.props.updateAcceptedDriver(this.props.candidates[this.state.curCandidateIndex].candidate_id) }>Accept</button>
                     </div>
                     <div className='modal-candidates__cancel' onClick={ this.props.handleClose }>
                         <p>CANCEL - DECIDE LATER</p>
