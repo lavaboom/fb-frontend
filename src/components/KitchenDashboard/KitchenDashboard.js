@@ -104,29 +104,9 @@ export default class KitchenDashboard extends Component {
         });
     }
 
-    // funtions to control modal
-    showModal = (trip, modal) => {
-        this.setState({
-            modalTrip: trip,
-            // toggle the appropriate modal
-            showModalDelete: modal === 'delete' ? true : false,
-            showModalCandidates: modal === 'candidates' ? true : false,
-            showModalEditTrip: modal === 'edit' ? true : false,
-        })
-    }
-
-    hideModal = () => {
-        
-        this.setState({
-            showModalDelete: false,
-            showModalCandidates: false,
-            showModalEditTrip: false,
-        })
-    };
-
     fetchTripsWithCandidates = () => {
         // fetch trips with active candidates
-        const token = sessionStorage.getItem('token');
+        const token = this.props.retrieveToken();
         axios.get(`${this.api_url}/users/${this.props.user.id}/trips-with-candidates`, {
             headers: {
                 Authorization: 'Bearer ' + token
@@ -146,6 +126,27 @@ export default class KitchenDashboard extends Component {
         // close the modal
         this.setState({ showModalDelete: false });
     }
+
+    /* -------------------------------------------------------------------------
+    modals
+    ------------------------------------------------------------------------- */
+    showModal = (trip, modal) => {
+        this.setState({
+            modalTrip: trip,
+            // toggle the appropriate modal
+            showModalDelete: modal === 'delete' ? true : false,
+            showModalCandidates: modal === 'candidates' ? true : false,
+            showModalEditTrip: modal === 'edit' ? true : false,
+        })
+    }
+
+    hideModal = () => {
+        this.setState({
+            showModalDelete: false,
+            showModalCandidates: false,
+            showModalEditTrip: false,
+        })
+    };
 
     /* -------------------------------------------------------------------------
     lifecycle methods

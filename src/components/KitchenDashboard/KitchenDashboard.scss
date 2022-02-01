@@ -65,6 +65,11 @@ $col-2: 85%;
         &__content {
             width: $col-2;
             color: variables.$color-secondary-1;
+            font-size: 0.8rem;
+
+            @include tablet {
+                font-size: 1rem;
+            }
         }
 
         &__status-container {

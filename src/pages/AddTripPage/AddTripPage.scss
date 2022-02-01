@@ -61,24 +61,50 @@ form style
         flex-direction: column;
         margin-bottom: 1rem;
     }
+    
     &__invisible-label {
         display: none;
     }
+
     &__visible-label {
-        font-size: 1rem;
+        font-size: 0.9rem;
         color: variables.$color-secondary-1;
+
+        @include tablet {
+            font-size: 1rem;
+        }
     }
+
     &__input-group {
         display: flex;
         flex-direction: column;
         margin: 0.5rem 0;
     }
+
     &__input-field {
         width: 100%;
         margin: 0.2rem 0;
-        font-size: 1.1rem;
+        font-size: 0.8rem;
+        padding: 0.3rem 0;
+        color: variables.$color-secondary-1;
         border-bottom: 1px solid variables.$color-secondary-2;
+
+        @include tablet {
+            font-size: 1.1rem;
+        }
     }
+
+    &__input-field--dollar {
+        background-image: url('../../assets/Icons/currency-usd.svg');
+        background-repeat: no-repeat;
+        background-position: 1% 50%;
+        text-indent: 10%;
+
+        @include tablet {
+            text-indent: 5%;
+        }
+    }
+
     &__input-field--no-border {
         border-top: none;
         border-left: none;

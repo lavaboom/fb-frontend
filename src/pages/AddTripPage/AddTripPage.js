@@ -182,7 +182,7 @@ export default class AddTripPage extends Component {
                     </div>
                     <div className='form__input-group'>
                         <label className='form__visible-label' htmlFor='pay'>How much will you pay delivery driver?</label>
-                        <input className='form__input-field form__input-field--no-border' type='number' name='pay' id='pay' />
+                        <input className='form__input-field form__input-field--dollar form__input-field--no-border' type='number' name='pay' id='pay' />
                     </div>
                     <button className='form__button form__button--add'  type='submit'>
                         ADD
