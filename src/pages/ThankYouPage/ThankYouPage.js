@@ -17,9 +17,9 @@ export default class ThankYouPage extends Component {
     state = {
         user: null,
         failedAuth: false,
-        backHome: false,
         rating: 0,
         ratingDesc: '',
+        logout: false
     }
 
     /* -------------------------------------------------------------------------
@@ -41,7 +41,8 @@ export default class ThankYouPage extends Component {
         sessionStorage.removeItem('token');
         this.setState({
             user: null,
-            failedAuth: true
+            failedAuth: true,
+            logout: true
         })
     };
 
@@ -72,12 +73,17 @@ export default class ThankYouPage extends Component {
     render() {
 
         // go back home after info submitted
-        if (this.state.backHome) {
+        if (this.state.logout) {
             return (
-                <Redirect to='/kitchen' />
+                <Redirect to='/logout' />
             )
         }
 
+        // if user not logged in
+        if (this.state.failedAuth) {
+            return <Redirect to='/login' />
+        }
+        
         // if user not yet loaded
         if (!this.state.user) {
             return (

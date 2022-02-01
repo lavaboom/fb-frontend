@@ -16,6 +16,7 @@ export default class DriverPage extends Component {
         user: null,
         failedAuth: false,
         trips: [],
+        logout: false        
     }
 
     /* -------------------------------------------------------------------------
@@ -37,7 +38,8 @@ export default class DriverPage extends Component {
         sessionStorage.removeItem('token');
         this.setState({
             user: null,
-            failedAuth: true
+            failedAuth: true,
+            logout: true
         })
     };
 
@@ -100,6 +102,13 @@ export default class DriverPage extends Component {
     render
     ------------------------------------------------------------------------- */
     render() {
+
+        // go back home after logout
+        if (this.state.logout) {
+            return (
+                <Redirect to='/logout' />
+            )
+        }
 
         // if user not logged in
         if (this.state.failedAuth) {

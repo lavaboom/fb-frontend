@@ -21,6 +21,7 @@ export default class ReviewPage extends Component {
         user: null,
         failedAuth: false,
         backHome: false,
+        logout: false,
         rating: 0,
         ratingDesc: '',
     }
@@ -44,7 +45,8 @@ export default class ReviewPage extends Component {
         sessionStorage.removeItem('token');
         this.setState({
             user: null,
-            failedAuth: true
+            failedAuth: true,
+            logout: true
         })
     };
 
@@ -113,11 +115,23 @@ export default class ReviewPage extends Component {
 
     render() {
 
+        // go back home after logout
+        if (this.state.logout) {
+            return (
+                <Redirect to='/logout' />
+            )
+        }
+        
         // go back home after info submitted
         if (this.state.backHome) {
             return (
                 <Redirect to='/kitchen' />
             )
+        }
+
+        // if user not logged in
+        if (this.state.failedAuth) {
+            return <Redirect to='/login' />
         }
 
         // if user not yet loaded

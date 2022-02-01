@@ -18,7 +18,8 @@ export default class AddTripPage extends Component {
     state = {
         user: null,
         failedAuth: false,
-        backHome: false
+        backHome: false,
+        logout: false
     }
 
     /* -------------------------------------------------------------------------
@@ -40,7 +41,8 @@ export default class AddTripPage extends Component {
         sessionStorage.removeItem('token');
         this.setState({
             user: null,
-            failedAuth: true
+            failedAuth: true,
+            logout: true
         })
     };
 
@@ -100,10 +102,12 @@ export default class AddTripPage extends Component {
 
     render() {
 
-        // if user not logged in
-        // if (this.state.failedAuth) {
-        //     return <Redirect to='/login' />
-        // }
+        // go back home after logout
+        if (this.state.logout) {
+            return (
+                <Redirect to='/logout' />
+            )
+        }
 
         // go back home after info submitted
         if (this.state.backHome) {
@@ -112,6 +116,11 @@ export default class AddTripPage extends Component {
             )
         }
 
+        // if user not logged in
+        if (this.state.failedAuth) {
+            return <Redirect to='/login' />
+        }
+        
         // if user not yet loaded
         if (!this.state.user) {
             return (
