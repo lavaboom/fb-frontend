@@ -142,5 +142,12 @@ $col-2: 85%;
                 border: 1px solid variables.$color-secondary-1;
             }
         }
+
+        &--no-click {
+            pointer-events: none;
+            background-color: variables.$color-secondary-2;
+            border: 1px solid variables.$color-secondary-2;
+
+        }
     }
 }

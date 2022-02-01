@@ -20,7 +20,8 @@ export default class DriverDashboard extends Component {
     state = {
         trips: null,
         modalTrip: null,
-        showModalBid: false
+        showModalBid: false,
+        tripsWithBids: null
     }
 
     /* -------------------------------------------------------------------------
@@ -55,15 +56,31 @@ export default class DriverDashboard extends Component {
         })
         .then((response) => {
             console.log(response);
+            // fetch bid status again
+            this.fetchBidTrips();
         })
         .catch((error) => {
             console.log(error)
         });
         this.hideModal();
-        
     }
 
-    // funtions to control modal
+    fetchBidTrips = () => {
+        const token = this.props.retrieveToken();
+        axios.get(`${this.api_url}/users/${this.props.user.id}/trips-i-bid-on`, {
+            headers: { Authorization: 'Bearer ' + token }
+        }).then((response) => {
+            this.setState({ 
+                tripsWithBids: response.data,
+            });
+        }).catch(() => {
+            console.log(`unable to fetch new trips`)
+        });
+    }
+
+    /* -------------------------------------------------------------------------
+    modal
+    ------------------------------------------------------------------------- */
     showModalBid = (trip) => {
         this.setState({
             modalTrip: trip,
@@ -83,6 +100,7 @@ export default class DriverDashboard extends Component {
     ------------------------------------------------------------------------- */
     componentDidMount = () => {
         this.fetchNewTrip();
+        this.fetchBidTrips();
     }    
 
     /* -------------------------------------------------------------------------
@@ -90,7 +108,7 @@ export default class DriverDashboard extends Component {
     ------------------------------------------------------------------------- */
 
     render() {
-
+        console.log(this.state.tripsWithBids);
         return (
             !this.state.trips ? 
             // UI for when there's no trip to display
@@ -137,11 +155,17 @@ export default class DriverDashboard extends Component {
                                 <div className='trip-details__label'>
                                     <Icon path={ mdiListStatus } title='Driver' size={1} color='SlateGray'/>
                                 </div>
-                                <div className='trip-details__content'>{ trip.status }</div>
+                                <div className='trip-details__content'>
+                                    { 
+                                        this.state.tripsWithBids && (this.state.tripsWithBids.indexOf(trip.id) > -1) ? 
+                                        <div>Bid submitted	✔</div> : 
+                                        <div>{trip.status}</div> 
+                                    }
+                                </div>
                             </div>
                         </div>
                         <div className='trip-buttons__group'>
-                            <button className='trip-buttons trip-buttons--bid' onClick={ () => this.showModalBid(trip)}>BID</button>
+                            <button className={`trip-buttons trip-buttons--bid ${this.state.tripsWithBids && (this.state.tripsWithBids.indexOf(trip.id) > -1) ? 'trip-buttons--no-click' : ''}`} onClick={ () => this.showModalBid(trip)}>BID</button>
                         </div>
                     </div>
                 ))}
