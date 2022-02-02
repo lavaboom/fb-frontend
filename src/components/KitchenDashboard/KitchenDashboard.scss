@@ -70,6 +70,7 @@ $col-2: 85%;
             width: $col-2;
             color: variables.$color-secondary-1;
             font-size: 0.8rem;
+            line-height: 1.4rem;
 
             @include tablet {
                 font-size: 1rem;

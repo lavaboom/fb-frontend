@@ -24,6 +24,7 @@ export default class ModalCandidates extends Component {
     }
 
     fetchRatingsForCandidate = (candidateID) => {
+        console.log(`fetching rating for ${candidateID}`)
         const token = this.props.retrieveToken();
         let sumScore = 0;
         let totalNumbers = 0;
@@ -51,7 +52,7 @@ export default class ModalCandidates extends Component {
             console.log('Unable to fetch candidates for this user')
         });
         // fetch cur Candidate score here
-    }
+    }    
 
     componentDidMount = () => {
         if (this.props.candidates) {
@@ -99,11 +100,11 @@ export default class ModalCandidates extends Component {
                         <div className='modal-candidates__rating-container'>
                             <div className='modal-candidates__driver-number'>Registration number: { this.props.candidates[this.state.curCandidateIndex].candidate_id }</div>
                             
-                            {/* {this.state.candidatesRatings[this.props.candidates[this.state.curCandidateIndex].candidate_id] === 'N.A.' ? 
+                            { 
+                            this.state.candidatesRatings.length === 0 ? <div>.</div> : this.state.candidatesRatings[this.props.candidates[this.state.curCandidateIndex].candidate_id] === 'No ratings' ? 
                             <div className='modal-candidates__rating-score'>No ratings yet</div> : 
                             <div className='modal-candidates__rating-score'>{ this.state.candidatesRatings[this.props.candidates[this.state.curCandidateIndex].candidate_id] } out of 5 ★</div>
-                            } */}
-                            <div className='modal-candidates__rating-score'>{ this.state.candidatesRatings[this.props.candidates[this.state.curCandidateIndex].candidate_id] } out of 5 ★</div>
+                            }                
                         </div>
                         <p className='modal-candidates__offer'>I can do this for ${ 
                         this.props.candidates[this.state.curCandidateIndex].offer }</p>

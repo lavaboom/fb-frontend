@@ -183,6 +183,7 @@ export default class KitchenDashboard extends Component {
             (<div>
                 {/* Modals */}
                 <ModalCandidates 
+                    key={ Math.floor(Math.random()* 999 + 1) }
                     show={ this.state.showModalCandidates } 
                     handleClose={ () => this.hideModal() } 
                     candidates={this.state.modalCandidates }
