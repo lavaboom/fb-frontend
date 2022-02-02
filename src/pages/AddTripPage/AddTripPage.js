@@ -19,7 +19,8 @@ export default class AddTripPage extends Component {
         user: null,
         failedAuth: false,
         backHome: false,
-        logout: false
+        logout: false,
+        pastDate: false
     }
 
     /* -------------------------------------------------------------------------
@@ -49,8 +50,25 @@ export default class AddTripPage extends Component {
     /* -------------------------------------------------------------------------
     application logic
     ------------------------------------------------------------------------- */
+    
+    checkDate = (event) => {
+        let today = new Date();
+        let targetDate = new Date(event.target.value);
+        targetDate.setDate(targetDate.getDate() + 1);
+        if (targetDate < today) {
+            this.setState({pastDate: true});
+            return;
+        } else {
+            this.setState({pastDate: false});
+        }
+    }
+
     handleSubmit = (event) => {
         event.preventDefault();
+        // terminate early if date not valid
+        if (this.state.pastDate) {
+            return;
+        };
         const token = this.retrieveToken();
         let datetime = event.target.jobDate.value + ' ' + event.target.jobTime.value;
         axios.post('http://localhost:8080/api/trips/add', {
@@ -129,6 +147,10 @@ export default class AddTripPage extends Component {
             )
         }
 
+        let today = new Date();
+        today.setDate(today.getDate() + 1);
+        let stringDate = today.toLocaleDateString('en-CA');
+
         // fully functional view
         return (
             <div>
@@ -148,13 +170,13 @@ export default class AddTripPage extends Component {
                             <label className='form__invisible-label' htmlFor='origin'>Origin</label>
                             <input 
                                 className='form__input-field form__input-field--no-border' 
-                                type='text' name='origin' id='origin' placeholder='Origin' />
+                                type='text' name='origin' id='origin' placeholder='Origin' required />
                         </div>
                         <div className='form__input-group'>
                             <label className='form__invisible-label' htmlFor='destination'>Destination</label>
                             <input 
                                 className='form__input-field form__input-field--no-border' 
-                                type='text' name='destination' id='destination' placeholder='Destination' />
+                                type='text' name='destination' id='destination' placeholder='Destination' required />
                         </div>
                         <div className='form__input-group'>
                             <label className='form__invisible-label' htmlFor='note'>Note for driver</label>
@@ -165,12 +187,12 @@ export default class AddTripPage extends Component {
                         {/* date & time group */}
                         <div className='form__datetime'>
                             <div className='form__input-group form__datetime-item'>
-                                <label className='form__visible-label' htmlFor='jobDate'>Job Date</label>
-                                <input className='form__input-field form__input-field--no-border' type='date' name='jobDate' id='jobDate' />
+                                <label className='form__visible-label' htmlFor='jobDate'>Job Date (dd-mm-yyyy)</label>
+                                <input className={`form__input-field form__input-field--no-border ${this.state.pastDate ? 'form__input-field--invalid' : ''}`} type='date' name='jobDate' id='jobDate' required defaultValue={stringDate} onChange={this.checkDate} />
                             </div>
                             <div className='form__input-group form__datetime-item'>
                                 <label className='form__visible-label' htmlFor='jobTime'>Time</label>
-                                <input className='form__input-field form__input-field--no-border' type='time' name='jobTime' id='jobTime' />
+                                <input className='form__input-field form__input-field--no-border' type='time' name='jobTime' id='jobTime' required />
                             </div>
                         </div>
                         
@@ -190,11 +212,12 @@ export default class AddTripPage extends Component {
                         </div>
                         <div className='form__input-group'>
                             <label className='form__visible-label' htmlFor='pay'>How much will you pay delivery driver?</label>
-                            <input className='form__input-field form__input-field--dollar form__input-field--no-border' type='number' name='pay' id='pay' />
+                            <input className='form__input-field form__input-field--dollar form__input-field--no-border' type='number' name='pay' id='pay' required />
                         </div>
                         <button className='form__button form__button--add'  type='submit'>
                             ADD
                         </button>
+                        <div className={`form__error-message ${this.state.pastDate ? 'form__error-message--visible' : ''}`}>Must be a future date</div>
                     </form>
                 </div>
             </div>

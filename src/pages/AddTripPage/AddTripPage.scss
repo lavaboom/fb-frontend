@@ -55,6 +55,19 @@ form style
         color: variables.$color-secondary-1;
     }
 
+    &__error-message {
+        margin-top: 1rem;
+        color: red;
+        text-align: center;
+        visibility: hidden;
+
+        &--visible {
+            visibility: visible;
+        }
+    }
+
+    
+
     // form
     &__input-form {
         display: flex;
@@ -110,6 +123,11 @@ form style
         border-left: none;
         border-right: none;
     }
+    
+    &__input-field--invalid {
+        background-color: pink;
+    }
+
     &__radio-group {
         width: 100%;
     }
