@@ -8,11 +8,13 @@ import axios from 'axios'
 
 export default class ModalEditTrip extends Component {
 
+    API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080/api';
+
     handleEdit = (event) => {
         event.preventDefault();
         const token = this.props.retrieveToken();
         let datetime = event.target.jobDate.value + ' ' + event.target.jobTime.value;
-        axios.put(`http://localhost:8080/api/trips/${this.props.modalTrip.id}`, {
+        axios.put(`${this.API_URL}/trips/${this.props.modalTrip.id}`, {
             origin: event.target.origin.value,
             destination: event.target.destination.value,
             job_date: datetime,
@@ -40,7 +42,7 @@ export default class ModalEditTrip extends Component {
         event.preventDefault();
         const token = this.props.retrieveToken();
         let datetime = event.target.jobDate.value + ' ' + event.target.jobTime.value;
-        axios.post('http://localhost:8080/api/trips/add', {
+        axios.post(`${this.API_URL}/trips/add`, {
             sender_id: this.props.user.id,
             origin: event.target.origin.value,
             destination: event.target.destination.value,
@@ -67,7 +69,6 @@ export default class ModalEditTrip extends Component {
     };
 
     render() {
-        // console.log(this.props.modalTrip)
         let showHideClassName = this.props.show ? 'modal-add modal-add--display-block' : 'modal-add modal-add--display-none';
 
         let jobDate = null;

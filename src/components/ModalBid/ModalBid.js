@@ -5,6 +5,7 @@ import './ModalBid.scss'
 import iconClose from '../../assets/Icons/close-24px.svg'
 
 export default function ModalBid({ handleClose, show, modalTrip, bidFunction }) {
+    
     const showHideClassName = show ? 'modal-bid modal-bid--display-block' : 'modal-bid modal-bid--display-none';
 
     const handleSubmit = (event) => {

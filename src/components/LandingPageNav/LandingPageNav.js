@@ -6,6 +6,7 @@ import './LandingPageNav.scss'
 import SignUpButton from '../SignUpButton/SignUpButton';
 
 export default class LandingPageNav extends Component {
+    
     state = {
         mobileMenu: false,
     }

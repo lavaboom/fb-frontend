@@ -14,6 +14,7 @@ import { mdiEmail, mdiLockCheck, mdiFlash, mdiAccountGroup,
     mdiCogs, mdiSchool, mdiEmoticonCool } from '@mdi/js'
 
 export default class LandingPage extends Component {
+
     render() {
         return (
             <div>
@@ -25,7 +26,7 @@ export default class LandingPage extends Component {
                             <div className='landing-hero__text'>Can cook, can't deliver? We'll find you a driver</div>
                             <SignUpButton/>
                         </div>
-                        <img src={ riderPhoto } className='landing-hero__img' alt='Rider image'/>
+                        <img src={ riderPhoto } className='landing-hero__img' alt='Rider'/>
                     </div>
                     <div className='landing-features'>
                         <div className='landing-features__title'>Features</div>
@@ -58,7 +59,7 @@ export default class LandingPage extends Component {
                     </div>
                     <div className='landing-driver'>
                         <div className='landing-driver__title'>Drivers Wanted</div>
-                        <img src={ driverPhoto } className='landing-driver__img' alt='Rider image'/>
+                        <img src={ driverPhoto } className='landing-driver__img' alt='Driver'/>
                         <div className='landing-driver__content'>
                             <div className='landing-driver__content-text'>Drive with us and help your <span className='landing-driver__content--highlight'>local community</span></div>
                             <SignUpButton/>

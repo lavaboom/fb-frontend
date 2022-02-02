@@ -17,8 +17,7 @@ import { mdiMapMarkerRadius, mdiHomeAccount,
 export default class KitchenDashboard extends Component {
 
     // static variables 
-    // apiURL = process.env.REACT_APP_API_URL
-    api_url = 'http://localhost:8080/api'
+    API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080/api'
 
     state = {
         showModalEditTrip: false,
@@ -38,7 +37,7 @@ export default class KitchenDashboard extends Component {
     completeTrip = (trip) => {
         this.setState({driverToReview: trip.driver_id});
         const token = this.props.retrieveToken();
-        axios.put(`${this.api_url}/trips/${trip.id}`, {
+        axios.put(`${this.API_URL}/trips/${trip.id}`, {
             status: 'COMPLETED',
         }, {
             headers: {
@@ -58,7 +57,7 @@ export default class KitchenDashboard extends Component {
         console.log('driver ' + driverID + ' was accepted')
         // update trip with this driver ID
         const token = this.props.retrieveToken();
-        axios.put(`http://localhost:8080/api/trips/${this.state.modalTrip.id}`, {
+        axios.put(`${this.API_URL}/trips/${this.state.modalTrip.id}`, {
             driver_id: driverID,
             status: 'IN PROGRESS'
         }, {
@@ -73,7 +72,7 @@ export default class KitchenDashboard extends Component {
             console.log(error)
         });
         // hit candidate DB and change status of accepted driver
-        axios.put(`http://localhost:8080/api/trips/${this.state.modalTrip.id}/candidates`, {
+        axios.put(`${this.API_URL}/trips/${this.state.modalTrip.id}/candidates`, {
             candidate_id: driverID,
         }, {
             headers: {
@@ -95,7 +94,7 @@ export default class KitchenDashboard extends Component {
 
     loadCandidates = (trip) => {
         const token = this.props.retrieveToken();
-        axios.get(`${this.api_url}/trips/${trip.id}/candidates`, {
+        axios.get(`${this.API_URL}/trips/${trip.id}/candidates`, {
             headers: { Authorization: 'Bearer ' + token }
         }).then((response) => {
             this.setState({ 
@@ -111,7 +110,7 @@ export default class KitchenDashboard extends Component {
     fetchTripsWithCandidates = () => {
         // fetch trips with active candidates
         const token = this.props.retrieveToken();
-        axios.get(`${this.api_url}/users/${this.props.user.id}/trips-with-candidates`, {
+        axios.get(`${this.API_URL}/users/${this.props.user.id}/trips-with-candidates`, {
             headers: {
                 Authorization: 'Bearer ' + token
             }

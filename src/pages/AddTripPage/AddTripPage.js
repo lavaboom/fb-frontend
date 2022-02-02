@@ -13,7 +13,7 @@ import { mdiArrowLeftCircle } from '@mdi/js'
 
 export default class AddTripPage extends Component {
 
-    api_url = 'http://localhost:8080/api'
+    API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080/api'
 
     state = {
         user: null,
@@ -71,7 +71,7 @@ export default class AddTripPage extends Component {
         };
         const token = this.retrieveToken();
         let datetime = event.target.jobDate.value + ' ' + event.target.jobTime.value;
-        axios.post('http://localhost:8080/api/trips/add', {
+        axios.post(`${this.API_URL}/trips/add`, {
             sender_id: this.state.user.id,
             origin: event.target.origin.value,
             destination: event.target.destination.value,
@@ -101,7 +101,7 @@ export default class AddTripPage extends Component {
     componentDidMount() {
         const token = this.retrieveToken();
         // Get user data from the API
-        axios.get(`${this.api_url}/users/current`, {
+        axios.get(`${this.API_URL}/users/current`, {
             headers: { Authorization: 'Bearer ' + token }
         }).then((response) => {
             this.setState({ 

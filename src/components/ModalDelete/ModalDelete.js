@@ -5,6 +5,7 @@ import './ModalDelete.scss'
 import iconClose from '../../assets/Icons/close-24px.svg'
 
 export default function Modal({ handleClose, show, data, deleteFunction }) {
+
     const showHideClassName = show ? 'modal-delete modal-delete--display-block' : 'modal-delete modal-delete--display-none';
 
     return (

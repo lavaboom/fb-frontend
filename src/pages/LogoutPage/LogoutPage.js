@@ -6,8 +6,6 @@ import './LogoutPage.scss'
 import happyPhoto from '../../assets/Icons/happy.svg'
 // other sub components
 import LandingPageNav from '../../components/LandingPageNav/LandingPageNav';
-// 3rd parties libraries
-import axios from 'axios';
 
 
 export default class LogoutPage extends Component {
@@ -21,7 +19,7 @@ export default class LogoutPage extends Component {
             <div>
                 <LandingPageNav />
                 <div className='thanks-note'>
-                    <img src={ happyPhoto } className='thanks-note__img' alt='Rider image'/>
+                    <img src={ happyPhoto } className='thanks-note__img' alt='Rider'/>
                     <div className='thanks-note__message'>See you again soon!</div>
                     <Link to={'/'}>
                         <button className='thanks-note__button'>HOME</button>

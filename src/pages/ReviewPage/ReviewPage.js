@@ -15,7 +15,7 @@ import { mdiArrowLeftCircle } from '@mdi/js'
 
 export default class ReviewPage extends Component {
 
-    api_url = 'http://localhost:8080/api'
+    API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080/api'
 
     state = {
         user: null,
@@ -67,7 +67,7 @@ export default class ReviewPage extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
         const token = this.retrieveToken();
-        axios.post(`${this.api_url}/reviews/${this.props.match.params.tripID}/${this.props.match.params.driverID}`, {
+        axios.post(`${this.API_URL}/reviews/${this.props.match.params.tripID}/${this.props.match.params.driverID}`, {
             authorID: this.state.user.id,
             score: this.state.rating,
             text: event.target.reviewText.value,
@@ -88,7 +88,7 @@ export default class ReviewPage extends Component {
         console.log('fetching driver ' + this.props.match.params.driverID);
         const token = this.retrieveToken();
         // Get user data from the API
-        axios.get(`${this.api_url}/users/${this.props.match.params.driverID}/details`, {
+        axios.get(`${this.API_URL}/users/${this.props.match.params.driverID}/details`, {
             headers: { Authorization: 'Bearer ' + token }
         }).then((response) => {
             this.setState({ 
@@ -106,7 +106,7 @@ export default class ReviewPage extends Component {
     componentDidMount() {
         const token = this.retrieveToken();
         // Get user data from the API
-        axios.get(`${this.api_url}/users/current`, {
+        axios.get(`${this.API_URL}/users/current`, {
             headers: { Authorization: 'Bearer ' + token }
         }).then((response) => {
             this.setState({ 

@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import Logo from '../../assets/logos/logo_transparent.png'
 import './Header.scss'
 
 
 export default class Header extends Component {
+
     state = {
         mobileMenu: false,
     }

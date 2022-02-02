@@ -9,6 +9,9 @@ import Input from '../../components/Input/Input';
 import axios from 'axios';
 
 export default class SignupPage extends Component {
+
+    API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080/api'
+
     state = {
         error: '',
         success: false,
@@ -18,7 +21,7 @@ export default class SignupPage extends Component {
         event.preventDefault();
 
         axios
-            .post('http://localhost:8080/api/users/register', {
+            .post(`${this.API_URL}/users/register`, {
                 email: event.target.email.value,
                 password: event.target.password.value,
                 name: event.target.name.value,
@@ -26,7 +29,7 @@ export default class SignupPage extends Component {
             })
             .then(() => {
                 // log user in after login
-                axios.post('http://localhost:8080/api/users/login', {
+                axios.post(`${this.API_URL}/users/login`, {
                 email: event.target.email.value,
                 password: event.target.password.value
                 })

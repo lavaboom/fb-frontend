@@ -8,6 +8,7 @@ import Icon from '@mdi/react'
 import { mdiPlus } from '@mdi/js'
 
 export default function AddTripButton() {
+  
   return (
     <Link to='/addtrip' className='link'>
         <button className='link-button'>

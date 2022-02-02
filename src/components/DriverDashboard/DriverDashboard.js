@@ -13,9 +13,8 @@ import { mdiMapMarkerRadius, mdiHomeAccount,
 
 export default class DriverDashboard extends Component {
 
-    // static variables 
-    // apiURL = process.env.REACT_APP_API_URL
-    api_url = 'http://localhost:8080/api'
+    // static variables     
+    API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080/api'
 
     state = {
         trips: null,
@@ -29,7 +28,7 @@ export default class DriverDashboard extends Component {
     ------------------------------------------------------------------------- */
     fetchNewTrip = () => {
         const token = this.props.retrieveToken();
-        axios.get(`${this.api_url}/trips/new`, {
+        axios.get(`${this.API_URL}/trips/new`, {
             headers: { Authorization: 'Bearer ' + token }
         }).then((response) => {
             this.setState({ 
@@ -44,7 +43,7 @@ export default class DriverDashboard extends Component {
         console.log('bidding on trip ' + this.state.modalTrip.id);
         // hit candidate DB to record this bid
         const token = this.props.retrieveToken();
-        axios.post(`${this.api_url}/trips/${this.state.modalTrip.id}/candidates`, {
+        axios.post(`${this.API_URL}/trips/${this.state.modalTrip.id}/candidates`, {
             trip_id: this.state.modalTrip.id,
             candidate_id: this.props.user.id,
             offer: bidAmount,
@@ -67,7 +66,7 @@ export default class DriverDashboard extends Component {
 
     fetchBidTrips = () => {
         const token = this.props.retrieveToken();
-        axios.get(`${this.api_url}/users/${this.props.user.id}/trips-i-bid-on`, {
+        axios.get(`${this.API_URL}/users/${this.props.user.id}/trips-i-bid-on`, {
             headers: { Authorization: 'Bearer ' + token }
         }).then((response) => {
             this.setState({ 

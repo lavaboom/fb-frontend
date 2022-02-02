@@ -12,7 +12,7 @@ import axios from 'axios';
 
 export default class ThankYouPage extends Component {
 
-    api_url = 'http://localhost:8080/api'
+    API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080/api'
 
     state = {
         user: null,
@@ -53,7 +53,7 @@ export default class ThankYouPage extends Component {
     componentDidMount() {
         const token = this.retrieveToken();
         // Get user data from the API
-        axios.get(`${this.api_url}/users/current`, {
+        axios.get(`${this.API_URL}/users/current`, {
             headers: { Authorization: 'Bearer ' + token }
         }).then((response) => {
             this.setState({ 
@@ -98,7 +98,7 @@ export default class ThankYouPage extends Component {
                 <Header 
                     user={ this.state.user } handleLogout={ this.handleLogout } />
                 <div className='thanks-note'>
-                    <img src={ thanksPhoto } className='thanks-note__img' alt='Rider image'/>
+                    <img src={ thanksPhoto } className='thanks-note__img' alt='Rider'/>
                     <div className='thanks-note__message'>Thanks for using Food Bunnies!</div>
                     <Link to={'/kitchen'}>
                         <button className='thanks-note__button'>CLOSE</button>

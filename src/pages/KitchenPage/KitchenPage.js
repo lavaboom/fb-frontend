@@ -11,7 +11,7 @@ import axios from 'axios';
 
 export default class KitchenPage extends Component {
 
-    api_url = 'http://localhost:8080/api'
+    API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080/api'
 
     state = {
         user: null,
@@ -55,7 +55,7 @@ export default class KitchenPage extends Component {
     deleteTripFromDB = (tripID) => {
         const token = this.retrieveToken();
         // request server to delete this trip
-        axios.delete(this.api_url + '/trips/' + tripID, {
+        axios.delete(this.API_URL + '/trips/' + tripID, {
             headers: { 
                 Authorization: 'Bearer ' + token 
             }
@@ -70,7 +70,7 @@ export default class KitchenPage extends Component {
     fetchTrips = () => {
         console.log('fetching all trips for user ' + this.state.user.name)
         const token = this.retrieveToken();
-        axios.get(`${this.api_url}/users/${this.state.user.id}/trips`, {
+        axios.get(`${this.API_URL}/users/${this.state.user.id}/trips`, {
             headers: {
                 Authorization: 'Bearer ' + token
             }
@@ -95,7 +95,7 @@ export default class KitchenPage extends Component {
     componentDidMount() {
         const token = this.retrieveToken();
         // Get user data from the API
-        axios.get(`${this.api_url}/users/current`, {
+        axios.get(`${this.API_URL}/users/current`, {
             headers: { Authorization: 'Bearer ' + token }
         }).then((response) => {
             this.setState({ 

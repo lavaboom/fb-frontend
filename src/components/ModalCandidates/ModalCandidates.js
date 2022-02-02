@@ -11,8 +11,7 @@ import axios from 'axios'
 
 export default class ModalCandidates extends Component {
 
-    // apiURL = process.env.REACT_APP_API_URL
-    api_url = 'http://localhost:8080/api'
+    API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080/api'
 
     state = {
         curCandidateIndex: 0,
@@ -28,7 +27,7 @@ export default class ModalCandidates extends Component {
         const token = this.props.retrieveToken();
         let sumScore = 0;
         let totalNumbers = 0;
-        axios.get(`${this.api_url}/reviews/${candidateID}/all-reviews`, {
+        axios.get(`${this.API_URL}/reviews/${candidateID}/all-reviews`, {
             headers: {
                 Authorization: 'Bearer ' + token
             }
