@@ -48,6 +48,10 @@
         }
     }
 
+    &__driver-number {
+        font-size: 0.8rem;
+    }
+
     // top header (e.g. back and next arrows)
     &__header {
         display: flex;
@@ -80,6 +84,10 @@
         margin-bottom: 0.5rem;
         flex-wrap: wrap;
     }
+    &__rating-score {
+        color: variables.$color-primary-1;
+    }
+
     &__rating-star {
         margin-left: 0.5rem;
         &--filled {

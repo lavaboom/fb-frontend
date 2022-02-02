@@ -185,8 +185,9 @@ export default class KitchenDashboard extends Component {
                 <ModalCandidates 
                     show={ this.state.showModalCandidates } 
                     handleClose={ () => this.hideModal() } 
-                    candidates= {this.state.modalCandidates } 
-                    updateAcceptedDriver = { this.updateAcceptedDriver } />
+                    candidates={this.state.modalCandidates }
+                    retrieveToken={ this.props.retrieveToken } 
+                    updateAcceptedDriver={ this.updateAcceptedDriver } />
                 <ModalDelete 
                     show={ this.state.showModalDelete } 
                     handleClose={ () => this.hideModal() } 

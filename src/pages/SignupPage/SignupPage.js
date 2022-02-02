@@ -62,7 +62,7 @@ export default class SignupPage extends Component {
                     </div> */}
                     <button className='signup__button'>Sign up</button>
 
-                    {this.state.success && <Redirect to='/driver' />}
+                    {this.state.success && <Redirect to='/kitchen' />}
                     {this.state.error && <div className='signup__message'>{ this.state.error }</div>}
                 </form>
                 <p>
