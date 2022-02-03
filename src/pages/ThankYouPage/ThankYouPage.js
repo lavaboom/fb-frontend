@@ -5,6 +5,7 @@ import { Redirect, Link } from 'react-router-dom';
 import './ThankYouPage.scss'
 import thanksPhoto from '../../assets/Icons/thanks.svg'
 // other sub components
+import Loading from '../../components/Loading/Loading';
 import Header from '../../components/Header/Header'
 // 3rd parties libraries
 import axios from 'axios';
@@ -86,9 +87,7 @@ export default class ThankYouPage extends Component {
         // if user not yet loaded
         if (!this.state.user) {
             return (
-            <main>
-                <p>Loading...</p>
-            </main>
+                <Loading/>
             )
         }
 

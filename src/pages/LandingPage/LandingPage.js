@@ -28,7 +28,7 @@ export default class LandingPage extends Component {
                         </div>
                         <img src={ riderPhoto } className='landing-hero__img' alt='Rider'/>
                     </div>
-                    <div className='landing-features'>
+                    <div className='landing-features' id='features'>
                         <div className='landing-features__title'>Features</div>
                         <div className='landing-features__cards-container'>
                             <FeatureCard
@@ -71,7 +71,7 @@ export default class LandingPage extends Component {
                             <Icon className='landing-footer__email-icon' path={ mdiEmail } title='Email' size={1}/>
                             <div>hello@FoodBunnies.com</div>
                         </div>
-                        <div>Made with &#9829; in Mississauga</div>
+                        <div id='about'>Made with &#9829; in Mississauga</div>
                     </div>
                 </div>
             </div>

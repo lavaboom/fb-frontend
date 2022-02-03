@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 // other sub components
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
+import Loading from '../../components/Loading/Loading';
 import KitchenDashboard from '../../components/KitchenDashboard/KitchenDashboard';
 import AddTripButton from '../../components/AddTripButton/AddTripButton';
 // 3rd parties libraries
@@ -128,9 +129,7 @@ export default class KitchenPage extends Component {
         // if user not yet loaded
         if (!this.state.user) {
             return (
-            <main>
-                <p>Loading...</p>
-            </main>
+                <Loading/>
             )
         }
 

@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 // other sub components
+import Loading from '../../components/Loading/Loading';
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
 import DriverDashboard from '../../components/DriverDashboard/DriverDashboard';
@@ -118,9 +119,7 @@ export default class DriverPage extends Component {
         // if user not yet loaded
         if (!this.state.user) {
             return (
-            <main className='dashboard'>
-            <p>Loading...</p>
-            </main>
+                <Loading/>
             )
         }
 

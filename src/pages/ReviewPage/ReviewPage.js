@@ -6,6 +6,7 @@ import './ReviewPage.scss'
 import profilePic from '../../assets/images/rabbids.png'
 import iconStar from '../../assets/Icons/star.svg'
 // other sub components
+import Loading from '../../components/Loading/Loading';
 import Header from '../../components/Header/Header'
 // 3rd parties libraries
 import axios from 'axios';
@@ -155,9 +156,7 @@ export default class ReviewPage extends Component {
         // if user not yet loaded
         if (!this.state.user || !this.state.driver) {
             return (
-            <main>
-                <p>Loading...</p>
-            </main>
+                <Loading/>
             )
         }
 

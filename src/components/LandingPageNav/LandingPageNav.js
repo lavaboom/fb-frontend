@@ -6,7 +6,7 @@ import './LandingPageNav.scss'
 import SignUpButton from '../SignUpButton/SignUpButton';
 
 export default class LandingPageNav extends Component {
-    
+
     state = {
         mobileMenu: false,
     }
@@ -22,10 +22,10 @@ export default class LandingPageNav extends Component {
             <Link to={'./'} className='fixed-navbar__logo'>Food Bunnies</Link>
             <ul className={`fixed-navbar__menu ${ this.state.mobileMenu ? 'fixed-navbar__menu--active' : '' }`}> 
                 <li className='fixed-navbar__item'>
-                    <Link className='fixed-navbar__link' to={'/#'}>About</Link>
+                    <a className='fixed-navbar__link' href='/#about'>About</a>
                 </li>
                 <li className='fixed-navbar__item'>
-                    <Link className='fixed-navbar__link' to={'/#'}>Features</Link>
+                    <a className='fixed-navbar__link' href='/#features'>Features</a>
                 </li>
                 <li className='fixed-navbar__item'>
                     <SignUpButton/>
