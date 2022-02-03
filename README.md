@@ -5,14 +5,19 @@ This is the frontend code for www.FoodBunnies.com - a platform that helps ghost 
 ![Screenshot](https://github.com/lavaboom/fb-frontend/blob/main/screenshot.png?raw=true)
 
 Language: JavaScript
+
 Framework: React
+
 Preprocessor: Sass
 
 ## Setting up the test environment
 
 Please first have the backend [service](https://github.com/lavaboom/fb-backend) set up and running.
+
 Run `npm install` to install all dependencies.
+
 Rename `.env.example` to `.env`.
+
 Finally, run `npm start` to start the app in development mode (will run on port 3000 by default).
 
 ## Testing use cases
@@ -23,14 +28,17 @@ Both user profiles have the same authentication mechanism.
 
 ### Authentication
 New users can sign up via the link http://localhost:3000/signup.
+
 Returning users can log in at http://localhost:3000/login.
 
 ### For Kitchen - add a new trip
 Users can add a new delivery trip at http://localhost:3000/addtrip or by clicking on the "Add a new trip" button from the dashboard (http://localhost:3000/kitchen).
+
 Form validation is in place to ensure job date is not in the past.
 
 ### For Driver - bid on a trip
 Register as a new driver, then click on "Switch to Driver view" in the navbar to switch to driver view (http://localhost:3000/driver).
+
 Bid on a trip by click on the bid button and submit.
 
 ### For Kitchen - select a driver for the trip
