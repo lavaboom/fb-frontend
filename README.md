@@ -44,6 +44,8 @@ Bid on a trip by click on the bid button and submit.
 ### For Kitchen - select a driver for the trip
 Once a trip has received at least 1 bid, upon refreshing the page the Kitchen user will be able to choose a driver for the delivery trip. Driver's rating will be shown if available.
 
+Log out and register a new driver user or use one of the existing seed drivers (e.g. Niko@hotmail.ca - password "123") to simulate scenarios where multiple drivers submit bids on the same delivery job.
+
 Aggregate rating for a driver is calculated at the frontend (backend only provides the raw individual reviews data; the math is done by the frontend).
 
 ### For Kitchen - review the driver
