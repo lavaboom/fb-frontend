@@ -41,7 +41,6 @@ const LoginPage = () => {
                 {error && <div className='login__message'>{error}</div>}
                 {isLoggedIn && <Redirect to='/kitchen' />}
 
-                {/* {this.state.userType === 'Kitchen' ? <Redirect to='/kitchen' /> : <Redirect to='/driver' />} */}
             </form>
             <p>
                 Need an account? <Link to='/signup'>Sign up</Link>

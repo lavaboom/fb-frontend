@@ -10,7 +10,8 @@ const slice = createSlice({
     initialState: {
         isLoggedIn: false,
         loading: false,
-        error: ''
+        error: '',
+        user: null,
     },
     reducers: {
         authRequested: (auth) => {
@@ -22,12 +23,15 @@ const slice = createSlice({
         },
         authReceived: (auth, action) => {
             sessionStorage.setItem('token', action.payload.token);
+            sessionStorage.setItem('user', JSON.stringify(action.payload.user));
             auth.loading = false;
             auth.isLoggedIn = true;
+            auth.user = action.payload.user;
         },
         authRemoved: (auth) => {
             sessionStorage.removeItem('token');
             auth.isLoggedIn = false;
+            auth.user = null;
         }
     }
 })

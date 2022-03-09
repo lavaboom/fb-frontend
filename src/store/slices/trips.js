@@ -14,16 +14,24 @@ const slice = createSlice({
         lastFetch: null
     },
     reducers: {
-        tripsRequested: (trips, action) => {
+        apiCallSent: (trips) => {
             trips.loading = true;
         },
-        tripsRequestFailed: (trips, action) => {
+        apiCallFailed: (trips) => {
             trips.loading = false;
         },
-        tripsReceived: (trips, action) => {
+        tripsFetched: (trips, action) => {
             trips.list = action.payload;
             trips.loading = false;
             trips.lastFetch = Date.now();
+        },
+        tripDeleted: (trips, actions) => {
+            // upon successful delete on server, delete locally
+            if (actions.payload.tripID) {
+                trips.list = trips.list.filter(
+                    trip => trip.id !== actions.payload.tripID
+                )
+            };
         }
     }
 })
@@ -31,7 +39,6 @@ const slice = createSlice({
 /* -----------------------------------------------------------------------------
 action creators
 ----------------------------------------------------------------------------- */ 
-const url = '/trips/new';
 
 /*
 this action creator is able to return a function instead of an object thanks 
@@ -39,14 +46,27 @@ to the thunk middleware. the function can optionally receive 2 params: dispatch
 and getState (which redux-thunk passes automatically if a function (instead of 
 an obj) is being dispatched)
 */
-export const loadTrips = () => (dispatch, getState) => {
+export const loadTripsByUser = (userID) => (dispatch, getState) => {
 
     dispatch(
         apiCallBegan({
-            url,
-            onStart: slice.actions.tripsRequested.type,
-            onSuccess: slice.actions.tripsReceived.type,
-            onError: slice.actions.tripsRequestFailed.type
+            url: `users/${userID}/trips`,
+            onStart: slice.actions.apiCallSent.type,
+            onSuccess: slice.actions.tripsFetched.type,
+            onError: slice.actions.apiCallFailed.type
+        })
+    )
+}
+
+export const deleteTrip = tripID => (dispatch) => {
+
+    dispatch(
+        apiCallBegan({
+            url: `/trips/${tripID}`,
+            method: 'delete',
+            onStart: slice.actions.apiCallSent.type,
+            onSuccess: slice.actions.tripDeleted.type,
+            onError: slice.actions.apiCallFailed.type
         })
     )
 }
@@ -57,9 +77,9 @@ export reducer and actions
 // export the actions to be called individually. note what are being exported, 
 // they are built-in properties of the slice
 export const { 
-    tripsRequested,
-    tripsRequestFailed,
-    tripsReceived, 
+    apiCallSent,
+    apiCallFailed,
+    tripsFetched, 
 } = slice.actions;
 
 // export default the reducer

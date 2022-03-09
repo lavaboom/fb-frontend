@@ -14,13 +14,13 @@ import { mdiEmail, mdiLockCheck, mdiFlash, mdiAccountGroup,
     mdiCogs, mdiSchool, mdiEmoticonCool } from '@mdi/js'
 
 import { connect } from 'react-redux';
-import { loadTrips } from '../../store/slices/trips';
+import { loadTripsByUser } from '../../store/slices/trips';
 
 class LandingPage extends Component {
 
     /*
     componentDidMount = () => {
-        this.props.loadTrips();
+        this.props.loadTripsByUser(1);
     }
     */
     
@@ -94,7 +94,7 @@ const mapStateToProps = state => ({
   })
   
   const mapDispatchToProps = dispatch => ({
-    loadTrips: () => dispatch(loadTrips()),
+    loadTripsByUser: (userID) => dispatch(loadTripsByUser(userID)),
   })
   
   /*
