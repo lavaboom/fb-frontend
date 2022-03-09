@@ -11,6 +11,9 @@ import AddTripButton from '../../components/AddTripButton/AddTripButton';
 import { useSelector, useDispatch } from 'react-redux';
 import { loadTripsByUser, deleteTrip } from '../../store/slices/trips';
 
+/*
+TODO: if token not found in session storage, redirect to login
+*/
 const KitchenPage = () => {
 
     /* -------------------------------------------------------------------------
@@ -51,6 +54,7 @@ const KitchenPage = () => {
 
     return (
         <div>
+            <Header/>
             {/* <Header 
                 user={ this.state.user } handleLogout={ this.handleLogout } />
             <AddTripButton user={ this.state.user } /> */}
