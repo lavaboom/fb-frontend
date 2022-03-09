@@ -9,14 +9,16 @@ const slice = createSlice({
     name: 'auth',
     initialState: {
         isLoggedIn: false,
-        loading: false
+        loading: false,
+        error: ''
     },
     reducers: {
         authRequested: (auth) => {
             auth.loading = true;
         },
-        authRequestFailed: (auth) => {
+        authRequestFailed: (auth, action) => {
             auth.loading = false;
+            auth.error = action.payload;
         },
         authReceived: (auth, action) => {
             sessionStorage.setItem('token', action.payload.token);

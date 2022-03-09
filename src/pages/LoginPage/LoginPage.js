@@ -5,21 +5,11 @@ import { Redirect, Link } from 'react-router-dom';
 import './LoginPage.scss'
 // other sub components
 import Input from '../../components/Input/Input';
-// 3rd party libraries
-import axios from 'axios';
 // redux
 import { connect } from 'react-redux';
 import { login } from '../../store/authReducer';
 
 class LoginPage extends Component {
-
-    API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080/api'
-
-    // state = {
-    //     error: '',
-    //     success: false,
-    //     userType: null
-    // }
 
     handleSubmit = (event) => {
         event.preventDefault();
@@ -29,25 +19,6 @@ class LoginPage extends Component {
         }
         this.props.login(data);
     }
-
-    // handleSubmit = (event) => {
-    //     event.preventDefault();
-
-    //     axios.post(`${this.API_URL}/users/login`, {
-    //             email: event.target.email.value,
-    //             password: event.target.password.value
-    //         })
-    //         .then((response) => {
-    //             sessionStorage.setItem('token', response.data.token);
-    //             this.setState({ 
-    //                 success: true,
-    //                 userType: response.data.user_type
-    //             });
-    //         })
-    //         .catch((error) => {
-    //             this.setState({ error: error.response.data });
-    //         });
-    // };
 
     render() {
         return (
@@ -60,10 +31,7 @@ class LoginPage extends Component {
                 
                     <button className='login__button'>Log in</button>
 
-                    {/* old way */}
-                    {/* {this.state.error && <div className='login__message'>{this.state.error}</div>}
-                    {this.state.success && <Redirect to='/kitchen' />} */}
-
+                    {this.props.error && <div className='login__message'>{this.props.error}</div>}
                     {this.props.isLoggedIn && <Redirect to='/kitchen' />}
 
                     {/* {this.state.userType === 'Kitchen' ? <Redirect to='/kitchen' /> : <Redirect to='/driver' />} */}
@@ -76,22 +44,15 @@ class LoginPage extends Component {
     }
 }
 
+// subscribe to the auth slice of the store
 const mapStateToProps = state => ({
-    isLoggedIn: state.auth.isLoggedIn
-    // bugs: getUnresolvedBugs(state)
-  })
-  
-  const mapDispatchToProps = dispatch => ({
+    isLoggedIn: state.auth.isLoggedIn,
+    error: state.auth.error
+})
+
+// dispatch function to modify the store
+const mapDispatchToProps = dispatch => ({
     login: (data) => dispatch(login(data)),
-  })
-  
-  /*
-  1st arg: which part of store this component is interested in
-  2nd arg: dispatch function
-  
-  this connect() function will give the presentation component Bug the <bugs> and 
-  <loadBugs> properties as props
-  
-  connect has access to the state and dispatch method
-  */
-  export default connect(mapStateToProps, mapDispatchToProps)(LoginPage)
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage)
