@@ -13,12 +13,17 @@ import AddTripPage from './pages/AddTripPage/AddTripPage';
 import ReviewPage from './pages/ReviewPage/ReviewPage';
 import ThankYouPage from './pages/ThankYouPage/ThankYouPage';
 import LogoutPage from './pages/LogoutPage/LogoutPage';
+// Redux store
+import configureStore from './store/configureStore';
+import { Provider } from 'react-redux';
+
+const store = configureStore();
 
 export default class App extends Component {
 
   render() {
     return (
-      <div>
+      <Provider store={store}>
         <BrowserRouter>
           <div className='app-wrapper'>
             <Switch>
@@ -39,7 +44,7 @@ export default class App extends Component {
             </Switch>
           </div>
         </BrowserRouter>
-      </div>
+      </Provider>
     );
   }
 }
