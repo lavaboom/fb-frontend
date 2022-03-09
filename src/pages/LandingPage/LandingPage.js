@@ -13,8 +13,17 @@ import Icon from '@mdi/react'
 import { mdiEmail, mdiLockCheck, mdiFlash, mdiAccountGroup, 
     mdiCogs, mdiSchool, mdiEmoticonCool } from '@mdi/js'
 
-export default class LandingPage extends Component {
+import { connect } from 'react-redux';
+import { loadTrips } from '../../store/slices/trips';
 
+class LandingPage extends Component {
+
+    /*
+    componentDidMount = () => {
+        this.props.loadTrips();
+    }
+    */
+    
     render() {
         return (
             <div>
@@ -78,3 +87,23 @@ export default class LandingPage extends Component {
         )
     }
 }
+
+const mapStateToProps = state => ({
+    trips: state.entities.trips.list
+    // bugs: getUnresolvedBugs(state)
+  })
+  
+  const mapDispatchToProps = dispatch => ({
+    loadTrips: () => dispatch(loadTrips()),
+  })
+  
+  /*
+  1st arg: which part of store this component is interested in
+  2nd arg: dispatch function
+  
+  this connect() function will give the presentation component Bug the <bugs> and 
+  <loadBugs> properties as props
+  
+  connect has access to the state and dispatch method
+  */
+  export default connect(mapStateToProps, mapDispatchToProps)(LandingPage)
