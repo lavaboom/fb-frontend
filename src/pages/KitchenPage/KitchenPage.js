@@ -33,18 +33,6 @@ const KitchenPage = () => {
         dispatch(loadTripsByUser(currentUser.id));
     }, [])
 
-    // fetch trips by user on page load
-    // useEffect(() => {
-    //     dispatch(loadTripsByUser(currentUser.id));
-    // }, [trips])
-
-    // event handlers
-    const handleLogout = () => {
-        sessionStorage.removeItem('token');
-        sessionStorage.removeItem('user');
-        dispatch({ type: 'authRemoved'});
-    };
-
     /* -------------------------------------------------------------------------
     API related
     ------------------------------------------------------------------------- */
@@ -55,9 +43,7 @@ const KitchenPage = () => {
     return (
         <div>
             <Header/>
-            {/* <Header 
-                user={ this.state.user } handleLogout={ this.handleLogout } />
-            <AddTripButton user={ this.state.user } /> */}
+            {/* <AddTripButton user={ this.state.user } /> */}
             {/* <KitchenDashboard 
                 user={ this.state.user } 
                 trips={ this.state.trips }
