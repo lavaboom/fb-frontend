@@ -12,7 +12,8 @@ const slice = createSlice({
         list: [],
         listWithCandidates: [],
         loading: false,
-        lastFetch: null
+        lastFetch: null,
+        lastEdit: null
     },
     reducers: {
         apiCallSent: (trips) => {
@@ -40,9 +41,10 @@ const slice = createSlice({
                 trip => trip.id.toString() !== actions.payload.toString()
             )
         },
-        tripEditted: (trips, actions) => {
+        tripEdited: (trips, actions) => {
             // number of rows affected is returned from server
-            console.log(`Editted ${actions.payload} trips`)
+            console.log(`Edited ${actions.payload} trips`)
+            trips.lastEdit = Date.now();
         }
     }
 })
@@ -89,7 +91,7 @@ export const editTrip = (tripID, data) => (dispatch) => {
             method: 'PUT',
             data,
             onStart: slice.actions.apiCallSent.type,
-            onSuccess: slice.actions.tripEditted.type,
+            onSuccess: slice.actions.tripEdited.type,
             onError: slice.actions.apiCallFailed.type
         })
     )
@@ -118,7 +120,7 @@ export const {
     apiCallFailed,
     tripsFetched,
     tripDeleted,
-    tripEditted 
+    tripEdited 
 } = slice.actions;
 
 // export default the reducer

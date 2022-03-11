@@ -35,6 +35,7 @@ const KitchenDashboard = () => {
     let user = JSON.parse(sessionStorage.getItem('user'));
     let trips = useSelector(state => state.entities.trips.list);
     let tripsWithCandidates = useSelector(state => state.entities.trips.listWithCandidates);
+    let lastEdit = useSelector(state => state.entities.trips.lastEdit);
 
     // local states
     const [modalTrip, setModalTrip] = useState({});
@@ -46,7 +47,7 @@ const KitchenDashboard = () => {
     useEffect(() => {
         dispatch(loadTripsByUser(user.id));
         dispatch(loadTripsWithCandidates(user.id));
-    }, [])
+    }, [lastEdit])
 
     /* -------------------------------------------------------------------------
     modals control
@@ -97,13 +98,13 @@ const KitchenDashboard = () => {
                 handleClose={ hideModal } 
                 data={ modalTrip } 
                 deleteFunction={ handleDeleteTrip } />
-            {/* <ModalEditTrip 
+            <ModalEditTrip 
                 // user={ this.props.user }
                 // retrieveToken={ this.props.retrieveToken }
-                show={ this.state.showModalEditTrip } 
-                handleClose={ () => this.hideModal() }
+                show={ showModalEditTrip } 
+                handleClose={ hideModal }
                 // fetchTrips={ this.props.fetchTrips }
-                modalTrip={ this.state.modalTrip } /> */}
+                modalTrip={ modalTrip } />
             
             {/* table area - header */}
             { trips.map(trip => (
@@ -157,7 +158,7 @@ const KitchenDashboard = () => {
                         </div>
                     </div>
                     <div className='trip-buttons__group'>
-                        {/* <button className='trip-buttons trip-buttons--edit' onClick={ () => this.showModal(trip, 'edit')}>EDIT</button> */}
+                        <button className='trip-buttons trip-buttons--edit' onClick={ () => showModal(trip, 'edit')}>EDIT</button>
                         <button className='trip-buttons trip-buttons--delete' onClick={ () => showModal(trip, 'delete')}>DELETE</button>
                     </div>
                 </div>
