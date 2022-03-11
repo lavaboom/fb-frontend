@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom'
 import './Header.scss'
@@ -12,10 +12,10 @@ export default function Header() {
 
     const [mobileMenu, setMobileMenu] = useState(false);
 
-    const user = JSON.parse(sessionStorage.getItem('user'));
+    let user = JSON.parse(sessionStorage.getItem('user'));
     let currentURL = window.location.href;
     let isKitchenView = currentURL.indexOf('kitchen') > -1 ? true : false;
-    
+
     /* -------------------------------------------------------------------------
     event handlers
     ------------------------------------------------------------------------- */

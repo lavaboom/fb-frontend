@@ -38,39 +38,6 @@ const api = ({ dispatch }) => next => action => {
         dispatch(actions.apiCallFailed(error.message));
         if (onError) dispatch({ type: onError, payload: error.message});
     });
-
-
-    // axios.get(`${baseURL}${url}`, {
-    //     headers: {
-    //         Authorization: 'Bearer ' + token
-    //     }
-    // }).then((response) => {
-    //     dispatch(actions.apiCallSuccess(response.data));
-    //     if (onSuccess) dispatch({ type: onSuccess, payload: response.data});
-    // }).catch((error) => {
-    //     dispatch(actions.apiCallFailed(error.message));
-    //     if (onError) dispatch({ type: onError, payload: error.message});
-    // });
-    
-    // wrap await in a try-catch block
-    // try {
-    //     const token = sessionStorage.getItem('token');
-    //     const response = await axios.request({
-    //         baseURL,
-    //         url,
-    //         method,
-    //         data,
-    //     });
-    //     // general
-    //     dispatch(actions.apiCallSuccess(response.data))
-    //     // specific
-    //     if (onSuccess) dispatch({ type: onSuccess, payload: response.data})
-    // } catch(error) {
-    //     // general error handling
-    //     dispatch(actions.apiCallFailed(error.message));
-    //     // specific error
-    //     if (onError) dispatch({ type: onError, payload: error.message});
-    // }
 };
 
 export default api;

@@ -10,6 +10,7 @@ const slice = createSlice({
     name: 'trips',
     initialState: {
         list: [],
+        listWithCandidates: [],
         loading: false,
         lastFetch: null
     },
@@ -22,16 +23,26 @@ const slice = createSlice({
         },
         tripsFetched: (trips, action) => {
             trips.list = action.payload;
+            // add formatted date to each trip
+            trips.list.forEach(item => {
+                let tempDate = new Date(item['job_date']);
+                item['formatted_date'] = tempDate.toString();
+            })
             trips.loading = false;
             trips.lastFetch = Date.now();
         },
+        tripsWithCandidatesFetched: (trips, action) => {
+            trips.listWithCandidates = action.payload;
+        },
         tripDeleted: (trips, actions) => {
-            // upon successful delete on server, delete locally
-            if (actions.payload.tripID) {
-                trips.list = trips.list.filter(
-                    trip => trip.id !== actions.payload.tripID
-                )
-            };
+            // id of the deleted trip will be return. use it to delete locally
+            trips.list = trips.list.filter(
+                trip => trip.id.toString() !== actions.payload.toString()
+            )
+        },
+        tripEditted: (trips, actions) => {
+            // number of rows affected is returned from server
+            console.log(`Editted ${actions.payload} trips`)
         }
     }
 })
@@ -58,12 +69,38 @@ export const loadTripsByUser = (userID) => (dispatch, getState) => {
     )
 }
 
+export const loadTripsWithCandidates = (userID) => (dispatch, getState) => {
+
+    dispatch(
+        apiCallBegan({
+            url: `users/${userID}/trips-with-candidates`,
+            onStart: slice.actions.apiCallSent.type,
+            onSuccess: slice.actions.tripsWithCandidatesFetched.type,
+            onError: slice.actions.apiCallFailed.type
+        })
+    )
+}
+
+export const editTrip = (tripID, data) => (dispatch) => {
+
+    dispatch(
+        apiCallBegan({
+            url: `/trips/${tripID}`,
+            method: 'PUT',
+            data,
+            onStart: slice.actions.apiCallSent.type,
+            onSuccess: slice.actions.tripEditted.type,
+            onError: slice.actions.apiCallFailed.type
+        })
+    )
+}
+
 export const deleteTrip = tripID => (dispatch) => {
 
     dispatch(
         apiCallBegan({
             url: `/trips/${tripID}`,
-            method: 'delete',
+            method: 'DELETE',
             onStart: slice.actions.apiCallSent.type,
             onSuccess: slice.actions.tripDeleted.type,
             onError: slice.actions.apiCallFailed.type
@@ -79,7 +116,9 @@ export reducer and actions
 export const { 
     apiCallSent,
     apiCallFailed,
-    tripsFetched, 
+    tripsFetched,
+    tripDeleted,
+    tripEditted 
 } = slice.actions;
 
 // export default the reducer
