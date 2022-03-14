@@ -1,10 +1,11 @@
 // React modules
-import React from 'react';
+import React, { useState } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 // app styles & assets
 import './LoginPage.scss'
 // other sub components
 import Input from '../../components/Input/Input';
+import AnimatedLoading from '../../components/AnimatedLoading/AnimatedLoading';
 // redux
 import { useSelector, useDispatch } from 'react-redux';
 import { login } from '../../store/authReducer';
@@ -16,6 +17,7 @@ const LoginPage = () => {
 
     // subscribe to slices of the store we're interested in
     let isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+    let isLoading = useSelector(state => state.auth.loading);
     let error = useSelector(state => state.auth.error);
 
     // event handlers
@@ -29,6 +31,7 @@ const LoginPage = () => {
     }
 
     return (
+        (isLoading) ? <AnimatedLoading /> : 
         <main className='login-page'>
             <form className='login' onSubmit={ handleSubmit }>
                 <h1 className='login__title'>Log in</h1>
