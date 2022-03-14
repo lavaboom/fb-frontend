@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { act } from '@testing-library/react';
 import { createSelector } from 'reselect';
 import { apiCallBegan } from '../apiActions';
 
@@ -108,6 +107,16 @@ export const acceptDriver = (driverID, tripID) => dispatch => {
         })
     );
 }
+
+/* -----------------------------------------------------------------------------
+memoization selectors
+----------------------------------------------------------------------------- */ 
+export const getCandidatesRatings = createSelector(
+    // slices selector
+    state => state.entities.candidates,
+    // resolve functions - output will be cached
+    (candidates) => candidates.candidatesRatings
+)
 
 /* -----------------------------------------------------------------------------
 export reducer and actions

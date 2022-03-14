@@ -1,16 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom'
+// React modules
+import React, { useState } from 'react';
+import { Link, Redirect } from 'react-router-dom'
+// app styles & assets
 import './Header.scss'
+// other sub components
+import LogoutButton from '../LogoutButton/LogoutButton';
+
 
 export default function Header() {
 
     /* -------------------------------------------------------------------------
     redux setup and local variables
     ------------------------------------------------------------------------- */
-    const dispatch = useDispatch();
 
     const [mobileMenu, setMobileMenu] = useState(false);
+    const [isLoggedOut, setIsLoggedOut] = useState(false);
 
     let user = JSON.parse(sessionStorage.getItem('user'));
     let currentURL = window.location.href;
@@ -25,15 +29,14 @@ export default function Header() {
     }
 
     const handleLogout = () => {
-        sessionStorage.removeItem('token');
-        sessionStorage.removeItem('user');
-        dispatch({ type: 'authRemoved'});
+        setIsLoggedOut(true);
     };
 
     /* -------------------------------------------------------------------------
     rendering
     ------------------------------------------------------------------------- */
     return (
+        (isLoggedOut) ? <Redirect to='/' /> :
         <header className='header'>
             <nav className='navbar'>
                 <Link to={'./'} className='navbar__logo'>Food Bunnies</Link>
@@ -45,9 +48,7 @@ export default function Header() {
                         <p>Welcome, { user.name }</p>
                     </li>
                     <li className='navbar__item'>
-                    <button className='navbar__button' onClick={ handleLogout }>
-                        Log out
-                    </button>
+                        <LogoutButton handleLogout = { handleLogout } />
                     </li>
                 </ul>
                 <div className={`hamburger ${ mobileMenu ? 'hamburger--active' : '' }`} onClick={ toggleMobileMenu }> 

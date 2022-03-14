@@ -47,6 +47,9 @@ const ModalEditTrip = (props) => {
         props.handleClose();
     };
 
+    /* -------------------------------------------------------------------------
+    rendering
+    ------------------------------------------------------------------------- */
     return (
         <div className={ showHideClassName }>
         <section className='modal-add__main'>
