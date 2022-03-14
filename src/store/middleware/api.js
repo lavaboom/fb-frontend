@@ -11,7 +11,7 @@ const api = ({ dispatch }) => next => action => {
     if (action.type !== actions.apiCallBegan.type) return next(action);
 
     // action type is apiCallBegan
-    const { url, data, method, onSuccess, onStart, onError } = action.payload;
+    const { url, data, method, onSuccess, onStart, onError, urlParams } = action.payload;
 
     // TODO - loading indicator
     if (onStart) dispatch({ type: onStart });
@@ -32,10 +32,14 @@ const api = ({ dispatch }) => next => action => {
             Authorization: 'Bearer ' + token
         },
     }).then(response => {
-        dispatch(actions.apiCallSuccess(response.data));
-        if (onSuccess) dispatch({ type: onSuccess, payload: response.data});
+        dispatch(actions.apiCallSuccess(url));
+        if (onSuccess) dispatch({ 
+            type: onSuccess, 
+            payload: response.data,
+            urlParams
+        });
     }).catch(error => {
-        dispatch(actions.apiCallFailed(error.message));
+        dispatch(actions.apiCallFailed(url));
         if (onError) dispatch({ type: onError, payload: error.message});
     });
 };

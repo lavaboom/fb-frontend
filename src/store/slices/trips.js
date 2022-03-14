@@ -110,6 +110,19 @@ export const deleteTrip = tripID => (dispatch) => {
     )
 }
 
+export const finishTrip = tripID => dispatch => {
+
+    dispatch(
+        apiCallBegan({
+            url: `/trips/${tripID}`,
+            method: 'PUT',
+            data: {
+                status: 'COMPLETED',
+            }
+        })
+    )
+}
+        
 /* -----------------------------------------------------------------------------
 export reducer and actions
 ----------------------------------------------------------------------------- */
