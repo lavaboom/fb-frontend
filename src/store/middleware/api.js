@@ -13,7 +13,6 @@ const api = ({ dispatch }) => next => action => {
     // action type is apiCallBegan
     const { url, data, method, onSuccess, onStart, onError, urlParams } = action.payload;
 
-    // TODO - loading indicator
     if (onStart) dispatch({ type: onStart });
 
     // dispatch apiCallBegan itself before dispatching additional actions

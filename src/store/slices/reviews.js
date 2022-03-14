@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createSelector } from 'reselect';
 import { apiCallBegan } from '../apiActions';
 
 /* -----------------------------------------------------------------------------
@@ -59,7 +58,6 @@ export const fetchUserData = (driverID) => (dispatch) => {
     )
 }
 
-// `${this.API_URL}/reviews/${this.props.match.params.tripID}/${this.props.match.params.driverID}`
 export const postReview = (driverID, tripID, data) => dispatch => {
 
     dispatch(

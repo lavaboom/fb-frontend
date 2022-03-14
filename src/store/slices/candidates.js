@@ -82,6 +82,7 @@ export const fetchCandidatesForTrip = (tripID) => (dispatch) => {
 
 export const acceptDriver = (driverID, tripID) => dispatch => {
 
+    // first, update the trip to record accepted driver
     dispatch(
         apiCallBegan({
             url: `/trips/${tripID}`,

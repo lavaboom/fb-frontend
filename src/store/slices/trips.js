@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createSelector } from 'reselect';
 import { apiCallBegan } from '../apiActions';
 
 /* -----------------------------------------------------------------------------
@@ -126,8 +125,7 @@ export const finishTrip = tripID => dispatch => {
 /* -----------------------------------------------------------------------------
 export reducer and actions
 ----------------------------------------------------------------------------- */
-// export the actions to be called individually. note what are being exported, 
-// they are built-in properties of the slice
+// export the actions to be called individually
 export const { 
     apiCallSent,
     apiCallFailed,

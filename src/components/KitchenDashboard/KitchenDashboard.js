@@ -8,10 +8,9 @@ import addRecord from '../../assets/Icons/add_item.svg'
 import ModalDelete from '../ModalDelete/ModalDelete'
 import ModalEditTrip from '../ModalEditTrip/ModalEditTrip'
 import ModalCandidates from '../ModalCandidates/ModalCandidates'
-import Loading from '../Loading/Loading';
 // 3rd party libraries
 import Icon from '@mdi/react'
-import { mdiMapMarkerRadius, mdiHomeAccount, 
+import { mdiMapMarkerRadius, mdiHomeAccount, mdiClipboardText,
     mdiCalendarClock, mdiCurrencyUsd, mdiCarHatchback } from '@mdi/js'
 // redux
 import { useSelector, useDispatch } from 'react-redux';
@@ -138,31 +137,42 @@ const KitchenDashboard = () => {
             { trips.map(trip => (
                 <div key={ trip.id } className='trip'>
                     <div className='trip-details'>
+                        {/* Origin */}
                         <div className='trip-details__row'>
                             <div className='trip-details__label'>
                                 <Icon path={ mdiHomeAccount } title='Origin' size={1} color='SlateGray'/>
                             </div>
                             <div className='trip-details__content'>{ trip.origin }</div>
                         </div>
+                        {/* destination */}
                         <div className='trip-details__row'>
                             <div className='trip-details__label'>
                                     <Icon path={ mdiMapMarkerRadius } title='Destination' size={1} color='SlateGray'/>
                             </div>
                             <div className='trip-details__content'>{ trip.destination }</div>
                         </div>
+                        {/* delivery date */}
                         <div className='trip-details__row'>
                             <div className='trip-details__label'>
                                 <Icon path={ mdiCalendarClock } title='Date' size={1} color='SlateGray'/>
                             </div>
                             <div className='trip-details__content'>{ trip.formatted_date }</div>
                         </div>
+                        {/* payment amount */}
                         <div className='trip-details__row'>
                             <div className='trip-details__label'>
                                 <Icon path={ mdiCurrencyUsd } title='Pay' size={1} color='SlateGray'/>
                             </div>
                             <div className='trip-details__content'>${ trip.payment_amount } (paid by { trip.payment_type })</div>
                         </div>
-                        
+                        {/* note for driver */}
+                        <div className='trip-details__row'>
+                            <div className='trip-details__label'>
+                                <Icon path={ mdiClipboardText } title='Date' size={1} color='SlateGray'/>
+                            </div>
+                            <div className='trip-details__content'>{ trip.note }</div>
+                        </div>
+                        {/* potential drivers */}
                         <div className='trip-details__row trip-details__row--driver'>
                             <div className='trip-details__label'>
                                 <Icon path={ mdiCarHatchback } title='Driver' size={1} color='SlateGray'/>
@@ -185,6 +195,7 @@ const KitchenDashboard = () => {
                             </div>
                         </div>
                     </div>
+                    {/* card action buttons */}
                     <div className='trip-buttons__group'>
                         <button className='trip-buttons trip-buttons--edit' onClick={ () => showModal(trip, 'edit')}>EDIT</button>
                         <button className='trip-buttons trip-buttons--delete' onClick={ () => showModal(trip, 'delete')}>DELETE</button>

@@ -9,10 +9,10 @@ export const apiCallFailed = createAction('api/callFailed');
 const apiReducer = createReducer({}, (builder) => {
     builder
         .addCase(apiCallSuccess, (_state, action) => {
-        console.log(`Sucess call: ${action.payload}`)
+            // console.log(`Sucess call: ${action.payload}`)
         })
         .addCase(apiCallFailed, (_state, action) => {
-        console.log(`Failed call: ${action.payload}`)
+            console.log(`Failed call: ${action.payload}`)
         })
 })
 

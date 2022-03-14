@@ -30,15 +30,16 @@ const ReviewPge = (props) => {
     const recipient = useSelector(state => state.entities.reviews.recipient);
 
     useEffect(() => {
+        // fetch reviewer and recipient on page load
         dispatch(fetchUserData(props.match.params.driverID));
-        console.log('dispatched fetchUserData with driver ID ' + props.match.params.driverID);
     }, [])
 
     /* -------------------------------------------------------------------------
     application logic
     ------------------------------------------------------------------------- */
     const applyRating = (score) => {
-        let desc = ['', 'Disappointing', 'Could be better', 'OK', 'Very good', 'Exceptional']
+        let desc = ['', 'Disappointing', 'Could be better', 
+            'OK', 'Very good', 'Exceptional']
         setRating(score);
         setRatingDesc(desc[score]);
     }

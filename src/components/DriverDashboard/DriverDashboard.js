@@ -8,7 +8,7 @@ import ModalBid from '../ModalBid/ModalBid'
 // 3rd party libraries
 import axios from 'axios'
 import Icon from '@mdi/react'
-import { mdiMapMarkerRadius, mdiHomeAccount, 
+import { mdiMapMarkerRadius, mdiHomeAccount, mdiClipboardText,
     mdiCalendarClock, mdiCurrencyUsd, mdiListStatus } from '@mdi/js'
 
 export default class DriverDashboard extends Component {
@@ -125,31 +125,42 @@ export default class DriverDashboard extends Component {
                 { this.state.trips.map(trip => (
                     <div key={ trip.id } className='trip'>
                         <div className='trip-details'>
+                            {/* origin */}
                             <div className='trip-details__row'>
                                 <div className='trip-details__label'>
                                     <Icon path={ mdiHomeAccount } title='Origin' size={1} color='SlateGray'/>
                                 </div>
                                 <div className='trip-details__content'>{ trip.origin }</div>
                             </div>
+                            {/* destination */}
                             <div className='trip-details__row'>
                                 <div className='trip-details__label'>
                                         <Icon path={ mdiMapMarkerRadius } title='Destination' size={1} color='SlateGray'/>
                                 </div>
                                 <div className='trip-details__content'>{ trip.destination }</div>
                             </div>
+                            {/* delivery date */}
                             <div className='trip-details__row'>
                                 <div className='trip-details__label'>
                                     <Icon path={ mdiCalendarClock } title='Date' size={1} color='SlateGray'/>
                                 </div>
                                 <div className='trip-details__content'>{ trip.job_date }</div>
                             </div>
+                            {/* payment amount */}
                             <div className='trip-details__row'>
                                 <div className='trip-details__label'>
                                     <Icon path={ mdiCurrencyUsd } title='Pay' size={1} color='SlateGray'/>
                                 </div>
                                 <div className='trip-details__content'>${ trip.payment_amount } (paid by { trip.payment_type })</div>
                             </div>
-                            
+                            {/* note for driver */}
+                            <div className='trip-details__row'>
+                                <div className='trip-details__label'>
+                                    <Icon path={ mdiClipboardText } title='Date' size={1} color='SlateGray'/>
+                                </div>
+                                <div className='trip-details__content'>{ trip.note }</div>
+                            </div>
+                            {/* bid info */}
                             <div className='trip-details__row'>
                                 <div className='trip-details__label'>
                                     <Icon path={ mdiListStatus } title='Driver' size={1} color='SlateGray'/>

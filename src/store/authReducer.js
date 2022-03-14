@@ -39,19 +39,25 @@ const slice = createSlice({
 /* -----------------------------------------------------------------------------
 action creators
 ----------------------------------------------------------------------------- */ 
-const url = '/users/login';
-
-/*
-this action creator is able to return a function instead of an object thanks 
-to the thunk middleware. the function can optionally receive 2 params: dispatch 
-and getState (which redux-thunk passes automatically if a function (instead of 
-an obj) is being dispatched)
-*/
 export const login = data => (dispatch) => {
 
     dispatch(
         apiCallBegan({
-            url,
+            url: '/users/login',
+            data,
+            method: 'post',
+            onStart: slice.actions.authRequested.type,
+            onSuccess: slice.actions.authReceived.type,
+            onError: slice.actions.authRequestFailed.type
+        })
+    )
+}
+
+export const signup = data => (dispatch) => {
+
+    dispatch(
+        apiCallBegan({
+            url: '/users/register',
             data,
             method: 'post',
             onStart: slice.actions.authRequested.type,
@@ -64,8 +70,7 @@ export const login = data => (dispatch) => {
 /* -----------------------------------------------------------------------------
 export reducer and actions
 ----------------------------------------------------------------------------- */
-// export the actions to be called individually. note what are being exported, 
-// they are built-in properties of the slice
+// export the actions to be called individually
 export const { 
     authRequested,
     authRequestFailed,
